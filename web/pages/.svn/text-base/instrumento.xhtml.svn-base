@@ -1,0 +1,216 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="../index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="../rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="../relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="../utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="../contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <a4j:keepAlive beanName="instrumentoBean"/>
+        <h:form id="instrumento">
+            <h4><h:outputText value="Rotina #{instrumentoBean.instrumento.codigo}" /></h4>
+
+            <a4j:region rendered="#{instrumentoBean.renderedMenuNavegacao}">
+                <div class="Sub">
+                    <h2>Selecione a questão desejada</h2>
+                    <center>
+                        <a4j:include viewId="../include/instrumento/navegacaoInstrumento.xhtml"/>
+                    </center>
+                </div>
+            </a4j:region>
+
+            <div class="portfolio">
+                <h2><h:outputText value="#{instrumentoBean.instrumento.nome}" /></h2>
+                <div class="text-home">
+                    <a4j:region status="aguarde" rendered="#{instrumentoBean.renderedInicioInstrumento}" >
+                        <a4j:include viewId="../include/instrumento/inicioInstrumento.xhtml"/>
+
+                    </a4j:region>
+
+                    <a4j:region  id="panelQuestao" rendered="#{instrumentoBean.renderedQuestao}" >
+                        <div class="inner">
+                            <h3><h:outputText value="#{instrumentoBean.tituloPanel}" /></h3>
+
+                            <rich:panel  id="orientacao-Questao" styleClass="orientacao-questao"
+                                         rendered="#{instrumentoBean.renderedOrientacaoQuestao}">
+                                <h:outputText value="#{instrumentoBean.controller.questaoAtual.titulo}" />
+                            </rich:panel>
+
+                            <a4j:include viewId="../include/instrumento/questao.xhtml" />
+
+                            <a4j:include viewId="../include/instrumento/resposta.xhtml"/>
+
+                            <a4j:commandButton styleClass="buttons" reRender="instrumento"
+                                               action="#{instrumentoBean.anterior}"     rendered="#{instrumentoBean.renderedBotaoAnterior}"
+                                               value="Anterior" status="aguarde"/>
+
+                            <a4j:commandButton styleClass="buttons" reRender="instrumento"
+                                               action="#{instrumentoBean.proxima}"    rendered="#{instrumentoBean.renderedBotaoProximo}"
+                                               value="Proxima" status="aguarde"/>
+                            <a4j:commandButton styleClass="buttons botao-iniciar" reRender="instrumento" action="#{instrumentoBean.gravarColeta}"
+                                               value="Finalizar Rotina" onclick="javascript:scroll(0,0);" status="aguarde"/>
+                        </div>
+
+
+
+                    </a4j:region>
+
+                    <a4j:include viewId="../include/instrumento/resumoRespostas.xhtml"/>
+                    <a4j:include viewId="../include/instrumento/comprovante.xhtml"/>
+
+                    <a4j:region  id="botoesComprovante" rendered="#{instrumentoBean.renderedComprovante}">
+                        <a4j:commandButton reRender="instrumento"
+                                           action="#{instrumentoBean.finalizar}"
+                                           value="Finalizar" styleClass="buttons botao-iniciar"/>
+
+                    </a4j:region>
+
+                    <a4j:region  id="botoesResumoRespostas" rendered="#{instrumentoBean.renderedResumoRespostas}">
+                        <div class="inner">
+                            <a4j:commandButton reRender="instrumento"
+                                               action="#{instrumentoBean.desfazerGravarColeta}"
+                                               value="Voltar" styleClass="buttons" />
+
+                            <a4j:commandButton reRender="instrumento"
+                                               action="#{instrumentoBean.confirmarGravarColeta}"
+                                               value="Confirmar" rendered="#{!instrumentoBean.renderedNaoPodeGravar}"
+                                               styleClass="buttons"/>
+                        </div>
+                    </a4j:region>
+
+
+                </div>
+            </div>
+            <a4j:include viewId="../include/status.xhtml"/>
+        </h:form>
+
+        <div class="clr"></div>
+    </ui:define>
+
+
+    <!--ui:define  name="content">
+        <a4j:keepAlive beanName="instrumentoBean"/>
+         <h:form id="instrumento">
+
+            <rich:panel  style="width:959px;" >
+                <ui:include src="../include/instrumento/headerInstrumento.xhtml"/>
+            </rich:panel >
+
+            <br/>
+            <a4j:include viewId="../include/instrumento/resumoRespostas.xhtml"/>
+            <a4j:include viewId="../include/instrumento/comprovante.xhtml"/>
+
+            <rich:panel  id="botoesComprovante" rendered="#{instrumentoBean.renderedComprovante}"
+            style="width:959px;display:table; float:left;margin-right:10px;">
+                        <a4j:commandButton reRender="instrumento"
+                        action="#{instrumentoBean.finalizar}"
+                        value="Finalizar" style="margin-left:20px"/>
+
+            </rich:panel>
+
+            <rich:panel  id="botoesResumoRespostas" rendered="#{instrumentoBean.renderedResumoRespostas}"
+            style="width:959px;display:table; float:left;margin-right:10px;">
+                <a4j:commandButton reRender="instrumento"
+                        action="#{instrumentoBean.desfazerGravarColeta}"
+                        value="Voltar" />
+                        <a4j:commandButton reRender="instrumento"
+                        action="#{instrumentoBean.confirmarGravarColeta}"
+                        value="Confirmar" style="margin-left:20px"
+                        rendered="#{!instrumentoBean.renderedNaoPodeGravar}"/>
+
+            </rich:panel>
+
+            ***************
+            *   <rich:panel   style="width:959px;display:table; float:left;margin-right:10px;"
+            *       rendered="#{instrumentoBean.renderedInicioInstrumento}" >
+            *       <f:facet name="header">
+            *          <h:outputText value="#{instrumentoBean.tituloPanel}" />
+            *       </f:facet>
+            *       <a4j:include viewId="../include/instrumento/inicioInstrumento.xhtml"/>
+            *   </rich:panel>
+            ****************
+
+            ****************
+            *<rich:panel  id="panelQuestao" style="width:775px;display:table; float:left;margin-right:10px;"
+            *    rendered="#{instrumentoBean.renderedQuestao}" >
+            *
+            *    <f:facet name="header">
+            *        <h:outputText value="#{instrumentoBean.tituloPanel}" />
+            *    </f:facet>
+            *
+            *     <rich:panel  id="orientacao-Questao" styleClass="orientacao-questao"
+            *        rendered="#{instrumentoBean.renderedOrientacaoQuestao}">
+            *        <h:outputText value="#{instrumentoBean.controller.questaoAtual.titulo}" />
+            *     </rich:panel>
+            *
+            *
+            *
+            *    <a4j:include viewId="../include/instrumento/questao.xhtml" />
+            *
+            *    <a4j:include viewId="../include/instrumento/resposta.xhtml"/>
+            *
+            *    <a4j:commandButton style="float:left" reRender="instrumento"
+            *    action="#{instrumentoBean.anterior}"     rendered="#{instrumentoBean.renderedBotaoAnterior}"
+            *    value="Anterior" status="aguarde"/>
+            *
+            *    <a4j:commandButton style="float:left;margin-left:10px;" reRender="instrumento"
+            *    action="#{instrumentoBean.proxima}"    rendered="#{instrumentoBean.renderedBotaoProximo}"
+            *    value="Proxima" status="aguarde"/>
+            *
+            *    <br/>
+            *    <br/>
+            *
+            * </rich:panel>
+            ****************
+
+            ****************
+            *<rich:panel style="width:170px;display:inline-table;" rendered="#{instrumentoBean.renderedMenuNavegacao}">
+            *    <f:facet name="header">
+            *        <h:outputText value="Questões" />
+            *    </f:facet>
+            *
+            *    <a4j:include viewId="../include/instrumento/navegacaoInstrumento.xhtml"/>
+            *
+            *    <rich:panel rendered="#{instrumentoBean.renderedBotaoFinalizar}"
+            *                    style="display:inline-table;float:left;text-align:center;border:none">
+            *         <a4j:commandButton reRender="instrumento" action="#{instrumentoBean.gravarColeta}"
+            *            value="Finalizar Rotina"/>
+            *     </rich:panel>
+            *</rich:panel>
+            *
+            *<a4j:include viewId="../include/status.xhtml"/>
+            ****************
+        </h:form>
+    </ui:define-->
+</ui:composition>

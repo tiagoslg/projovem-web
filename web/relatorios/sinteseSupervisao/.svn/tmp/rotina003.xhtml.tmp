@@ -1,0 +1,113 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina 3 - ROTINA DE VERIFICAÇÃO DOCUMENTAL</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <!--p><h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/></p-->
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagem003.listaRotina003}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <CENTER><h:outputText value="#{rotina.id}"/></CENTER>
+=======
+                    <center><h:outputText value="#{rotina.id}"/></center>
+>>>>>>> .r145
+                </rich:column><rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Formas de Armazenamento"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.formaArmazenamentoFichas}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data Observação"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <CENTER><h:outputText value="#{rotina.dataVisita}"/></CENTER>
+=======
+                    <center><h:outputText value="#{rotina.dataVisita}"/></center>
+>>>>>>> .r145
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaRotina003Size} pastas analisadas."/></p>
+        <p> <h:outputText value=" Número total de pastas analisadas = #{sinteseSupervisaoBean.listaRotina003Size}"/></p>
+        <p> <h:outputText value=" Número total de pastas com documentação completa = #{sinteseSupervisaoBean.contagem003.doccompleta}"/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem003.semcarteira}% dos locais observados havia pastas incompletas faltando carteira de Identidade."
+                         rendered="#{sinteseSupervisaoBean.contagem003.semcarteira gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem003.semcomprovante}% dos locais observados havia pastas incompletas faltando comprovante de Residência."
+                         rendered="#{sinteseSupervisaoBean.contagem003.semcomprovante gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem003.semregistroouteste}% dos locais observados havia pastas incompletas faltando registro Escolar ou Faltando Teste."
+                         rendered="#{sinteseSupervisaoBean.contagem003.semregistroouteste  gt 0}"/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem003.negativo eq 0}"/> </p>
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagem003.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+    </div>
+</ui:composition>

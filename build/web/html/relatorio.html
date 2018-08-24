@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Relatórios</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="logo">
+
+                </div>
+
+                <div class="clr"></div>
+                <div class="menu">
+                    <h:form>
+                        <ul>
+                            <li><a href="index.html">Home<br />
+                                    <span>página inicial</span></a></li>
+                            <li><a href="#" >Rotinas<br />
+                                    <span>lançar respostas</span></a></li>
+                            <li><a href="#" class="active">Relatórios<br />
+                                    <span>informações</span></a></li>
+                            <li><a href="#"  >Utilitários<br />
+                                    <span>meus dados</span></a></li>
+                            <li><a href="#">Contato<br />
+                                    <span>fale conosco</span></a></li>
+                            <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                                    <span>sair do sistema</span></h:commandLink></li>
+                        </ul>
+                    </h:form>
+                </div>
+                <div class="clr"></div>
+            </div>
+            <div class="clr"></div>
+            <div class="body">
+                <h4>Relatórios</h4>
+                <div class="portfolio">
+                    <h2>Selecione os municípios desejados</h2>
+                    <div class="image">
+                        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+                        <div class="clr"></div>
+                    </div>
+                    <div class="text">
+                        <p><strong>Minas Gerais</strong></p>
+                        <form class="municipios">
+                            <p><a href="#">Todos</a></p>
+                            <ul>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Estadual de Minas Gerais</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Municípal de Belo Horizonte</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Juiz de Fora</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Ipatinga</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Montes Claros</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Governador Valadares</input></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="image">
+                        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+                        <div class="clr"></div>
+                    </div>
+                    <div class="text">
+                        <p><strong>Espirito Santo</strong></p>
+                        <form class="municipios">
+                            <p><a href="#">Todos</a></p>
+                            <ul>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Estadual do Espirito Santo</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Municípal de Vitória</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Guarapari</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Piuma</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Vila Velha</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Itapemirim</input></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="image">
+                        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+
+                        <div class="clr"></div>
+                    </div>
+                    <div class="text">
+                        <p><strong>Rio de Janeiro</strong></p>
+                        <form class="municipios">
+                            <p><a href="#">Todos</a></p>
+                            <ul>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Estadual do Rio de Janeiro</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op1"> Cordenação Municípal de Cabo Frio</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Rio de Janeiro</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Belford Roxo</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Angra dos Reis</input></li>
+                                <li><input type="checkbox" name="minasgerais" value="op2"> Cordenação Municípal de Rio das Ostras</input></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="gerar">
+                        <p><a href="relatoriogerado.html">Gerar</a></p>
+                    </div>
+                </div>
+                <div class="Sub">
+                    <h2>Selecione o relatório desejado</h2>
+
+                    <ul>
+                        <li><input type="radio" name="relatorio">Relatório de Metas Globais</input></li>
+                        <li> <input type="radio" name="relatorio">Relatório de Pontos</input></li>
+                        <li> <input type="radio" name="relatorio">Relatório de Cordenações</input></li>
+                    </ul>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="clr"></div>
+        <div class="footer">  &copy; 2009 - Secretaria Nacional de Juventude | Coordenação Nacional do ProJovem Urbano <br />
+            Setor Policial Sul, Área 05, Qd. 03, Bloco J - Brasília/DF<br />
+            <div class="clr"></div>
+        </div>
+    </body>
+</html>

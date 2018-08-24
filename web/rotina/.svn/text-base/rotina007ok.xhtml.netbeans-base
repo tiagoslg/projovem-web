@@ -1,0 +1,703 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                 <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <div class="inner">
+            <span class="h1">
+                <center>
+                    <b style="float: left; margin-top: 30px; margin-left: 310px;">Comprovante de inserção dos Dados</b>
+                    <a style="float: left;" target="_self" HREF="javaScript:window.print()">
+                        <img alt="Imprimir" border="0" width="60px" height="40px" src="http://projovem.fae.ufmg.br/projovem/imagens/impressora.gif" />
+                    </a>
+                </center>
+            </span>
+            <h4>ROTINA DE FORMAÇÃO CONTINUADA</h4>
+            <br/>
+            <p style="display:inline-block;">
+            <h:outputText  value="O supervisor(a)  "/>
+            <h:outputText  value="#{currentUser.nome}"/>
+            <h:outputText  value=", CPF: "/>
+            <h:outputText  value="#{currentUser.cpf}"/>
+            <h:outputText  value=" realizou a inserção de dados para a rotina
+                           de formação inicial - Perfil de Formação continuada (Rotina 007) no dia "/>
+            <h:outputText  value="#{currentUser.dataAtual} às "/>
+            <h:outputText  value="#{currentUser.horaAtual}."/>
+            </p>
+            <br/>
+            <br/>
+
+            <p><strong>Nº de Identificação: <h:outputText value=" #{rotina007Bean.rotina.id}" /></strong></p>
+            <p>UF: <h:outputText value=" #{rotina007Bean.rotina.identificaEntradaUf}" /></p>
+            <p>Coordenação: <h:outputText value=" #{rotina007Bean.rotina.identificaEntradaCoordenacao}" /></p>
+            <p>Município: <h:outputText value=" #{rotina007Bean.rotina.identificaEntradaMunicipio}" /></p>
+            <p>Entrada: <h:outputText value=" #{rotina007Bean.rotina.identificaEntradaEntrada}" /></p>
+            <br/>
+            <br/>
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td colspan="3">
+                        <p>Nome:
+                <h:message for="nome" style="color:#c70000; font-size:18px;"/><br/>
+                <h:inputText id="nome"
+                             value="#{rotina007Bean.rotina.nome}"
+                             size="95"
+                             maxlength="100"
+                             disabled  ="true"/>
+                </p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td width="150" colspan="3">
+                        <p>Observação: <h:outputText value=" #{rotina007Bean.rotina.identificaEntradaObservacao}" />ª Observação</p>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Data: <br/>    (dd/mm/aaaa)
+                <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                <h:inputText id="dataVisita"
+                             value="#{rotina007Bean.rotina.dataAplicacao}"
+                             size="10"
+                             maxlength="10"
+                             disabled  ="true"/>
+                </p>
+                </td>
+
+
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <p>Componente Curricular:</p>
+
+
+                        <p><h:outputText value="Língua Portuguesa" rendered="#{rotina007Bean.rotina.componenteCurricularLinguaPortuguesa eq 'Sim'}"/></p>
+                <p><h:outputText value="Matemática" rendered="#{rotina007Bean.rotina.componenteCurricularMatematica eq 'Sim'}"/></p>
+                <p><h:outputText value="Ciências da Natureza" rendered="#{rotina007Bean.rotina.componenteCurricularCienciasNatureza eq 'Sim'}"/></p>
+                <p><h:outputText value="Qualificação Profissional" rendered="#{rotina007Bean.rotina.componenteCurricularQualificacaoProfissional eq 'Sim'}"/></p>
+                <p><h:outputText value="Língua Estrangeira" rendered="#{rotina007Bean.rotina.componenteCurricularLinguaEstrangeira eq 'Sim'}"/></p>
+                <p><h:outputText value="Ciências Humanas" rendered="#{rotina007Bean.rotina.componenteCurricularCienciasHumanas eq 'Sim'}"/></p>
+                <p><h:outputText value="Participação Cidadã" rendered="#{rotina007Bean.rotina.componenteCurricularParticipacaoCidada eq 'Sim'}"/></p>
+
+
+                </td>
+
+                </tr>
+
+            </table>
+
+
+
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td>
+                        <p>1 – Você participou da Formação Inicial oferecida pelo ProJovem Urbano?
+
+                <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q1"
+                                  value="#{rotina007Bean.rotina.q1}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                    <f:selectItem itemLabel="Parcialmente."  itemValue="parcialmente"/>
+                    <f:selectItem itemLabel="Não."  itemValue="nao"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>2 –  Das opções abaixo, assinale a que melhor descreve o seu nível máximo de escolaridade.
+
+                <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q2"
+                                  value="#{rotina007Bean.rotina.q2}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Ensino fundamental." itemValue="fundamental"/>
+                    <f:selectItem itemLabel="Ensino médio/técnico." itemValue="medio/tecnico"/>
+                    <f:selectItem itemLabel="Ensino médio/magistério" itemValue="medio/magisterio"/>
+                    <f:selectItem itemLabel="Ensino superior incompleto." itemValue="superiorIncompleto"/>
+                    <f:selectItem itemLabel="Ensino superior completo tecnológico." itemValue="superiorCompletoTecnologico"/>
+                    <f:selectItem itemLabel="Ensino superior completo licenciatura." itemValue="superiorCompletoLicenciatura"/>
+                    <f:selectItem itemLabel="Ensino superior completo bacharelado." itemValue="superiorCompletoBacharelado"/>
+                    <f:selectItem itemLabel="Especialização (lato sensu)." itemValue="latoSensu"/>
+                    <f:selectItem itemLabel="Mestrado." itemValue="Mestrado"/>
+                    <f:selectItem itemLabel="Doutorado ou posterior." itemValue="Doutorado"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>3 – Das opções abaixo, assinale a que melhor descreve a sua área de Graduação:
+                <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q3"
+                                  value="#{rotina007Bean.rotina.q3}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                    <f:selectItem itemLabel="Tecnólogo." itemValue="Tecnologo"/>
+                    <f:selectItem itemLabel="Educação (Pedagogia, Normal Superior ou similar)." itemValue="Educacao"/>
+                    <f:selectItem itemLabel="Letras ou similar." itemValue="Letras"/>
+                    <f:selectItem itemLabel="Ciências Humanas (História, Geografia ou similar)." itemValue="Humanas"/>
+                    <f:selectItem itemLabel="Ciências Exatas (Matemática, Física, Química ou similar)." itemValue="Exatas"/>
+                    <f:selectItem itemLabel="Ciências Biológicas (Ciências, Biologia ou similar)." itemValue="Biologicas"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>4 – Qual o seu vínculo empregatício com o ProJovem Urbano?
+                <h:message for="q4" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q4"
+                                  value="#{rotina007Bean.rotina.q4}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Contrato celetista."        itemValue="celetista"/>
+                    <f:selectItem itemLabel="Professor da rede pública." itemValue="Professor"/>
+                    <f:selectItem itemLabel="Autônomo. "                 itemValue="Autonomo"/>
+                    <f:selectItem itemLabel="Ainda não tenho vínculo. "  itemValue="naoTenhoVinculo"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>5 – Qual o seu regime de trabalho no ProJovem Urbano?
+                <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q5"
+                                  value="#{rotina007Bean.rotina.q5}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Autônomo"      itemValue="Autonomo"/>
+                    <f:selectItem itemLabel="CLT 20 Horas"  itemValue="CLT20Horas"/>
+                    <f:selectItem itemLabel="CLT 30 horas"  itemValue="CLT30Horas"/>
+                    <f:selectItem itemLabel="CLT 40 horas"  itemValue="CLT40Horas"/>
+                    <f:selectItem itemLabel="Complementação e/ou ampliação de carga horária"  itemValue="Complementacao"/>
+                    <f:selectItem itemLabel="Não sei"       itemValue="naoSei"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>6 - A partir da formação inicial que você está recebendo, que material, específico do ProJovem Urbano, você já conhece?  (Você pode marcar mais de uma alternativa)</p>
+                        <p><h:outputText value="Manual do Educador "                                   rendered="#{rotina007Bean.rotina.q6a eq 'Sim'}"/></p>
+                <p><h:outputText value="Agenda do Estudante "                                  rendered="#{rotina007Bean.rotina.q6b eq 'Sim'}"/></p>
+                <p><h:outputText value="Caderno do Projeto de Orientação Profissional (POP) "  rendered="#{rotina007Bean.rotina.q6c eq 'Sim'}"/></p>
+                <p><h:outputText value="Caderno do Plano de Ação Comunitária (PLA) "           rendered="#{rotina007Bean.rotina.q6d eq 'Sim'}"/></p>
+                <p><h:outputText value="Guia de Estudo da Unidade Formativa   "               rendered="#{rotina007Bean.rotina.q6e eq 'Sim'}"/></p>
+                <p><h:outputText value="Caderno de Registro e Avaliação  (CRA ) "            rendered="#{rotina007Bean.rotina.q6f eq 'Sim'}"/></p>
+                <p><h:outputText value="Plano Nacional de Formação de gestores, formadores e  educadores. "  rendered="#{rotina007Bean.rotina.q6g eq 'Sim'}"/></p>
+
+
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>7 - No quadro abaixo, marque as opções que melhor caracterizam o seu conhecimento em informática:
+                        </p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>Softwares de texto
+                            <h:message for="q7SoftwaresTexto" style="color:#c70000; font-size:18px;"/></p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q7SoftwaresTexto"
+                                  value="#{rotina007Bean.rotina.q7SoftwaresTexto}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                    <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                    <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                </h:selectOneRadio>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Confecção planilhas
+                <h:message for="q7ConfeccaoPlanilhas" style="color:#c70000; font-size:18px;"/></p>
+                </td>
+                <td>
+                <h:selectOneRadio id="q7ConfeccaoPlanilhas"
+                                  value="#{rotina007Bean.rotina.q7ConfeccaoPlanilhas}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                    <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                    <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                </h:selectOneRadio>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Internet
+                <h:message for="q7Internet" style="color:#c70000; font-size:18px;"/></p>
+                </td>
+                <td>
+                <h:selectOneRadio id="q7Internet"
+                                  value="#{rotina007Bean.rotina.q7Internet}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                    <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                    <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                </h:selectOneRadio>
+                </td>
+                </tr>
+            </table>
+
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>8 – Quantas  vezes  por  semana  você  usa  a  Internet para  se
+                        informar ou fazer pesquisas?
+
+            <h:message for="q8" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q8"
+                              value="#{rotina007Bean.rotina.q8}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Todos os dias." itemValue="TodosOsDias"/>
+                <f:selectItem itemLabel="6 dias por semana." itemValue="6diasPorSemana"/>
+                <f:selectItem itemLabel="5 dias por semana." itemValue="5diasPorSemana"/>
+                <f:selectItem itemLabel="4 dias por semana." itemValue="4diasPorSemana"/>
+                <f:selectItem itemLabel="3 dias por semana." itemValue="3diasPorSemana"/>
+                <f:selectItem itemLabel="2 dias por semana." itemValue="2diasPorSemana"/>
+                <f:selectItem itemLabel="1 dia por semana."  itemValue="1diaPorSemana"/>
+                <f:selectItem itemLabel="Raramente ou nunca." itemValue="raramenteNunca"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>9 –  São realizadas atividades coletivas (em grupos) com os
+                        educadores do ProJovem Urbano?
+
+            <h:message for="q9" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q9"
+                              value="#{rotina007Bean.rotina.q9}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim. 12h mensais ou mais de atividades. " itemValue="12mais"/>
+                <f:selectItem itemLabel="Sim. Menos de 12h mensais de atividades. " itemValue="12menos"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>10 –  Como  é  distribuída,  no  tempo,  a  realização  dessas atividades?
+
+            <h:message for="q10" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q10"
+                              value="#{rotina007Bean.rotina.q10}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Semanalmente. " itemValue="Semanalmente"/>
+                <f:selectItem itemLabel="Quinzenalmente. " itemValue="Quinzenalmente"/>
+                <f:selectItem itemLabel="Mensalmente. " itemValue="Mensalmente"/>
+                <f:selectItem itemLabel="Não são realizadas atividades com os educadores." itemValue="nao"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>11 –  Com que freqüência você participa dessas atividades?
+
+            <h:message for="q11" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q11"
+                              value="#{rotina007Bean.rotina.q11}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sempre." itemValue="sempre"/>
+                <f:selectItem itemLabel="Às vezes." itemValue="asVezes"/>
+                <f:selectItem itemLabel="Raramente ou nunca." itemValue="raramente"/>
+                <f:selectItem itemLabel="Não são realizadas atividades com os educadores." itemValue="nao"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>12 –  Participar dessas atividades  tem contribuído para o seu
+                        trabalho no ProJovem Urbano?
+
+            <h:message for="q12" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q12"
+                              value="#{rotina007Bean.rotina.q12}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+                <f:selectItem itemLabel="Não são realizadas atividades com os educadores. " itemValue="naoSaoRealizadas"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>13 –  Em que horário acontecem essas atividades?
+
+            <h:message for="q13" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q13"
+                              value="#{rotina007Bean.rotina.q13}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Antes do início das aulas.  " itemValue="antesAulas"/>
+                <f:selectItem itemLabel="Após o término das aulas. " itemValue="aposAulas"/>
+                <f:selectItem itemLabel="Aos sábados/domingos.  " itemValue="sabado/domingo"/>
+                <f:selectItem itemLabel="Em outro turno. " itemValue="outroTurno"/>
+                <f:selectItem itemLabel="Não são realizadas atividades com os educadores. " itemValue="naoSaoRealizadas"/>
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>14 –  O Guia do aluno é utilizado na formação continuada?
+
+            <h:message for="q14" style="color:#c70000; font-size:18px;"/> </p><br/>
+            <h:selectOneRadio id="q14"
+                              value="#{rotina007Bean.rotina.q14}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                <f:selectItem itemLabel="Não. " itemValue="nao"/>
+
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>15 –  O Manual do educador é utilizado na formação continuada?
+
+            <h:message for="q15" style="color:#c70000; font-size:18px;"/></p><br/>
+            <h:selectOneRadio id="q15"
+                              value="#{rotina007Bean.rotina.q15}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                <f:selectItem itemLabel="Não. " itemValue="nao"/>
+
+
+            </h:selectOneRadio>
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <p>Assinale a freqüência com que os temas relacionados abaixo são discutidos na Formação Continuada. </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="320px">
+                                <p>  16 -  Projeto de Orientação Profissional (POP)
+                        <h:message for="q16" style="color:#c70000; font-size:18px;"/></p>
+                </td>
+                <td>
+            <h:selectOneRadio id="q16"
+                              value="#{rotina007Bean.rotina.q16}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  17 -  Plano de Ação Comunitária (PLA)
+            <h:message for="q17" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q17"
+                              value="#{rotina007Bean.rotina.q17}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  18 -  Fichas de registro de avaliações (CRA)
+            <h:message for="q18" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q18"
+                              value="#{rotina007Bean.rotina.q18}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  19 -  Integração entre as três dimensões
+                        (educação/trabalho/participação cidadã)
+            <h:message for="q19" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q19"
+                              value="#{rotina007Bean.rotina.q19}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  20 -  Estudos complementares
+            <h:message for="q20" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q20"
+                              value="#{rotina007Bean.rotina.q20}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  21 -  Plantões
+            <h:message for="q21" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q21"
+                              value="#{rotina007Bean.rotina.q21}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  22 -  Evasão/desistência/frequência
+            <h:message for="q22" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q22"
+                              value="#{rotina007Bean.rotina.q22}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  23 -  Relacionamento com os alunos
+            <h:message for="q23" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q23"
+                              value="#{rotina007Bean.rotina.q23}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  24 -   Aprendizagem dos alunos
+            <h:message for="q24" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q24"
+                              value="#{rotina007Bean.rotina.q24}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  25 -  Acesso ao material didático
+            <h:message for="q25" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q25"
+                              value="#{rotina007Bean.rotina.q25}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  26 -  Condições de trabalho no núcleo
+            <h:message for="q26" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q26"
+                              value="#{rotina007Bean.rotina.q26}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>  27 -  Planejamento das Unidades Formativas
+            <h:message for="q27" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+            <h:selectOneRadio id="q27"
+                              value="#{rotina007Bean.rotina.q27}"
+                              layout="lineDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Frequentemente"   itemValue="Frequentemente"/>
+                <f:selectItem itemLabel="Raramente"    itemValue="Raramente"/>
+                <f:selectItem itemLabel="Nunca"  itemValue="Nunca"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+
+            </table>
+            </td>
+            </tr>
+
+
+            </table>
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td>
+                        <p>Itens a serem preenchidos exclusivamente pelo responsável pela aplicação. </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>2. Número de visitas necessárias para aplicação da rotina:
+                <h:message for="exclusivoResponsavelAplicacaoQ2" style="color:#c70000; font-size:18px;"/></p>
+                <h:selectOneRadio id="exclusivoResponsavelAplicacaoQ2"
+                                  value="#{rotina007Bean.rotina.exclusivoResponsavelAplicacaoQ2}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Uma"   itemValue="Uma"/>
+                    <f:selectItem itemLabel="Duas"  itemValue="Duas"/>
+                    <f:selectItem itemLabel="Três"  itemValue="Três"/>
+                </h:selectOneRadio>
+
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Caso este questionário não seja respondido, assinale o item abaixo. </p>
+                        <p>3. Por que o educador não respondeu ao questionário?</p>
+
+                <h:selectOneRadio id="exclusivoResponsavelAplicacaoQ3"
+                                  value="#{rotina007Bean.rotina.exclusivoResponsavelAplicacaoQ3}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="O educador estava ausente" itemValue="ausente"/>
+                    <f:selectItem itemLabel="O educador se negou a responder." itemValue="negou"/>
+                    <f:selectItem itemLabel="Outro motivo." itemValue="outro"/>
+                </h:selectOneRadio>
+
+                <a4j:region rendered="#{rotina007Bean.rotina.exclusivoResponsavelAplicacaoQ3 eq 'outro'}">
+                    <table id="exclusivoResponsavelAplicacaoQ3Complemento" >
+                        <tr>
+                            <td>
+                                <p>Registre o motivo no campo abaixo:<br/>
+                        <h:inputTextarea  id="exclusivoResponsavelAplicacaoQ3Complemento"
+                                          rows="4"
+                                          cols="70"
+                                          value="#{rotina007Bean.rotina.exclusivoResponsavelAplicacaoQ3Complemento}"
+                                          disabled  ="true"/>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+                </a4j:region>
+                </td>
+                </tr>
+            </table>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

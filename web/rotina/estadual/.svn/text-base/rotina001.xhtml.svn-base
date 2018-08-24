@@ -1,0 +1,1556 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>ROTINA GERAL DOS NÚCLEOS</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = CE 1"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="CeRotina001Bean"/>
+
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="1"/>
+
+                    <div id="erros" style="width:300px;display:inline-block;">
+                        <h:messages/>
+                    </div>
+
+                    <p>Selecione a coordenação em que se encontra o local observado.</p>
+
+                    <a4j:include viewId="/include/CeIdentificaNucleo.xhtml"/>
+
+                    <a4j:region  rendered="#{!nucleoBean.renderedIdentificaLocal}">
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td width="150" colspan="3">
+                                    <p>Observação: 
+                            <h:message for="identificaEntradaObservacao" style="color:#c70000; font-size:18px;"/>
+                            <h:selectOneMenu id="identificaEntradaObservacao" value="#{CeRotina001Bean.rotina.identificaEntradaObservacao}">
+                                <f:selectItem itemLabel="Selecione" itemValue="" />
+                                <f:selectItem itemValue="1" itemLabel ="1ª Observação" />
+                                <f:selectItem itemValue="2" itemLabel ="2ª Observação" />
+                            </h:selectOneMenu>
+
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td width="150">
+                                    <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText  id="dataVisita"
+                                          value="#{CeRotina001Bean.rotina.dataVisita}"
+                                          size="10" maxlength="10"
+                                          onkeyup="mascara_data(this,event)"
+                                          onblur="CheckDate(this)"
+                                          required="false"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de início da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaInicioVisita"
+                                         value="#{CeRotina001Bean.rotina.horaInicioVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de término da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaTerminoVisita"
+                                         value="#{CeRotina001Bean.rotina.horaTerminoVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>1 - Quantas vezes você dirigiu-se ao núcleo para essa rotina de supervisão?
+                            <h:message for="q1" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q1"
+                                              value="#{CeRotina001Bean.rotina.q1}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Uma vez." itemValue="umaVez"/>
+                                <f:selectItem itemLabel="Duas vezes. " itemValue="duasVezes"/>
+                                <f:selectItem itemLabel="Três vezes." itemValue="trezVezes"/>
+                                <f:selectItem itemLabel="Quatro vezes ou mais." itemValue="quatroMais"/>
+                            </h:selectOneRadio>
+
+
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>2 - O núcleo estava em funcionamento?
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q2"
+                                              value="#{CeRotina001Bean.rotina.q2}"
+                                              layout="pageDirection"
+                                              required="false"
+                                              onclick="desabilitarCampoComplementar(this,'q2Condicional','nao')">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não. (informe imediatamente a coordenação da sua IR) " itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+                        <div style="display:none;border:1px solid #DBDCD3;margin:10px;width:640px;" id="q2Condicional">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>3 - Qual foi o horário de funcionamento do núcleo no dia da sua observação? (Usar notação 24 horas.) </p>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <p>A - Horário de abertura: </p>
+                                                </td>
+                                                <td>
+                                            <h:inputText id="q3a"
+                                                         value="#{CeRotina001Bean.rotina.q3a}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="mascara_hora(this,event)"
+                                                         onblur="Verifica_Hora(this)"
+                                                         required="false"/>
+                                            <h:message for="q3a" style="color:#c70000; font-size:18px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>B - Horário de Fechamento: </p>
+                                    </td>
+                                    <td>
+                                <h:inputText id="q3b"
+                                             value="#{CeRotina001Bean.rotina.q3b}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="mascara_hora(this,event)"
+                                             onblur="Verifica_Hora(this)"
+                                             required="false"/>
+                                <h:message for="q3b" style="color:#c70000; font-size:18px;"/>
+                                </td>
+                                </tr>
+                            </table>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>4 -  O espaço (escola) onde funciona o núcleo dispõe de
+                                        quantos bebedouros (ou equipamento similar)?
+                            <h:message for="q4" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q4"
+                                              value="#{CeRotina001Bean.rotina.q4}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="0" itemValue="0"/>
+                                <f:selectItem itemLabel="1" itemValue="1"/>
+                                <f:selectItem itemLabel="2" itemValue="2"/>
+                                <f:selectItem itemLabel="3" itemValue="3"/>
+                                <f:selectItem itemLabel="4" itemValue="4"/>
+                                <f:selectItem itemLabel="5 ou mais" itemValue="5ouMais"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>5 - A biblioteca do espaço (escola) está disponível para os alunos do ProJovem?
+
+                            <h:message for="q5" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q5"
+                                              value="#{CeRotina001Bean.rotina.q5}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                <f:selectItem itemLabel="O núcleo não dispõe de biblioteca." itemValue="naoBiblioteca"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>6 - Os alunos do núcleo têm acesso à laboratório de informática?
+
+                            <h:message for="q6" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q6"
+                                              value="#{CeRotina001Bean.rotina.q6}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>7 - O espaço (escola ) onde está o núcleo dispõe de laboratório/sala de informática?
+
+
+                                        <br/>
+                            <h:selectOneRadio id="q7"
+                                              value="#{CeRotina001Bean.rotina.q7}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Sim, com acesso a internet" itemValue="simComInternet"/>
+                                <f:selectItem itemLabel="Sim, mas sem acesso a internet" itemValue="simSemInternet"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>8 - Existem alunos com necessidades especiais matriculados no núcleo?
+
+
+                            <h:message for="q8" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q8"
+                                              value="#{CeRotina001Bean.rotina.q8}"
+                                              layout="pageDirection"
+                                              onclick="habilitarCampoComplementar(this,'q8Complemento','sim')"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+
+                            <table id="q8Complemento" style="display:none">
+                                <tr>
+                                    <td>
+                                        <p>Em caso afirmativo, quais?<br/>
+                                <h:inputText value="#{CeRotina001Bean.rotina.q8Complemento}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>9 - O espaço (escola) onde está o núcleo possui rampas de acesso para portadores de necessidades especiais?
+
+
+                            <h:message for="q9" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q9"
+                                              value="#{CeRotina001Bean.rotina.q9}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                <f:selectItem itemLabel="Não, e há jovens com necessidades especiais de locomoção." itemValue="naoHaJovensComDificuldades"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>10 - O espaço (escola) onde funciona o núcleo dispõe de televisão para o desenvolvimento das atividades didáticas?
+
+                            <h:message for="q12" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q10"
+                                              value="#{CeRotina001Bean.rotina.q10}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>11 - O espaço (escola) onde funciona o núcleo dispõe de
+                                        DVD ou Vídeo Cassete para o desenvolvimento das atividades didáticas?
+
+                            <h:message for="q11" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q11"
+                                              value="#{CeRotina001Bean.rotina.q11}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>12 - Os educadores do ProJovem possuem uma sala para
+                                        encontros e reuniões?
+
+                            <h:message for="q12" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q12"
+                                              value="#{CeRotina001Bean.rotina.q12}"
+                                              layout="pageDirection"
+                                              required="false"
+                                              onclick="desabilitarCampoComplementar(this,'q12Condicional','nao')">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não (Vá para questão 14)" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+                            </table>
+                            <div style="display:none;border:1px solid #DBDCD3;margin:10px;width:640px;" id="q12Condicional">
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>13 - Essa sala possui cadeiras suficientes para todos os
+                                                educadores presentes no momento da observação?
+
+                                                <br/>
+                                    <h:selectOneRadio id="q13"
+                                                      value="#{CeRotina001Bean.rotina.q13}"
+                                                      layout="pageDirection">
+                                        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                        <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                    </h:selectOneRadio>
+
+                                    </p>
+                                    </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>14 - Os educadores do ProJovem dispõem de um
+                                            escaninho ou local para guardar o material didático?
+
+                                <h:message for="q14" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q14"
+                                                  value="#{CeRotina001Bean.rotina.q14}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>15 - Quantos banheiros o espaço (escola) onde está o
+                                            núcleo disponibiliza para os alunos do ProJovem?
+                                            (Somando banheiros masculinos e femininos).
+
+                                <h:message for="q15" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q15"
+                                                  value="#{CeRotina001Bean.rotina.q15}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="0" itemValue="0"/>
+                                    <f:selectItem itemLabel="1" itemValue="1"/>
+                                    <f:selectItem itemLabel="2" itemValue="2"/>
+                                    <f:selectItem itemLabel="3" itemValue="3"/>
+                                    <f:selectItem itemLabel="4" itemValue="4"/>
+                                    <f:selectItem itemLabel="5 ou mais" itemValue="5ouMais"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>16 - No dia da visita, foi servida a merenda aos alunos?
+                                <h:message for="q16" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q16"
+                                                  value="#{CeRotina001Bean.rotina.q16}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>17 - Há o controle de entrada e saída de pessoas do no núcleo?
+                                <h:message for="q17" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q17"
+                                                  value="#{CeRotina001Bean.rotina.q17}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>18 - No dia de sua observação, havia alunos utilizando material
+                                            didático?
+
+                                <h:message for="q18" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q18"
+                                                  value="#{CeRotina001Bean.rotina.q18}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>19 - Quantas turmas estão funcionando no núcleo?
+
+                                <h:message for="q19" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q19"
+                                                  value="#{CeRotina001Bean.rotina.q19}"
+                                                  layout="pageDirection"
+                                                  onclick="habilitarTurma(this,5,'turma');"
+                                                  required="false">
+                                    <f:selectItem itemLabel="0" itemValue="0"/>
+                                    <f:selectItem itemLabel="1" itemValue="1"/>
+                                    <f:selectItem itemLabel="2" itemValue="2"/>
+                                    <f:selectItem itemLabel="3" itemValue="3"/>
+                                    <f:selectItem itemLabel="4" itemValue="4"/>
+                                    <f:selectItem itemLabel="5" itemValue="5"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+
+                            </table>
+
+                            <table id="turma1" style="display:none">
+                                <tr>
+                                    <td>
+
+
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td>
+                                                    <p><b>Sobre a sala de aula 1, responda:</b></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>20 - Quantos alunos estavam presentes na sala
+                                                        no momento da sua observação?
+
+
+                                            <h:inputText id="q20"
+                                                         value="#{CeRotina001Bean.rotina.q20}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="somente_numero(this)"/>
+
+                                            </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>21 - Quantos alunos estavam sem carteira e/ou mesa?
+
+
+
+                                <h:inputText id="q21"
+                                             value="#{CeRotina001Bean.rotina.q21}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="somente_numero(this)"/>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>22 - As carteiras são de tamanho adequado para os alunos do
+                                            ProJovem?
+
+                                            <br/>
+                                <h:selectOneRadio id="q22"
+                                                  value="#{CeRotina001Bean.rotina.q22}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>23 - A sala possui cadeira para o educador?
+
+                                            <br/>
+                                <h:selectOneRadio id="q23"
+                                                  value="#{CeRotina001Bean.rotina.q23}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>24 - A sala possui mesa para o educador?
+                                            <br/>
+                                <h:selectOneRadio id="q24"
+                                                  value="#{CeRotina001Bean.rotina.q24}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>25 - A sala possui quadro para o ensino?
+                                            <br/>
+                                <h:selectOneRadio id="q25"
+                                                  value="#{CeRotina001Bean.rotina.q25}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim, em condições de uso." itemValue="simEmCondicoesDeUso"/>
+                                    <f:selectItem itemLabel="Sim, em condições precárias." itemValue="simEmCondicoesPrecarias"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>26 - O tamanho da sala é adequado?
+                                            <br/>
+                                <h:selectOneRadio id="q26"
+                                                  value="#{CeRotina001Bean.rotina.q26}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>27 - A sala de aula estava limpa?
+                                            <br/>
+                                <h:selectOneRadio id="q27"
+                                                  value="#{CeRotina001Bean.rotina.q27}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                            </table>
+                            </td>
+                            </tr>
+                            </table>
+
+                            <table id="turma2" style="display:none">
+                                <tr>
+                                    <td>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td>
+                                                    <p><b>Sobre a sala de aula 2, responda:</b></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>28 - Quantos alunos estavam presentes na sala
+                                                        no momento da sua observação?
+
+
+                                            <h:inputText id="q28"
+                                                         value="#{CeRotina001Bean.rotina.q28}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="somente_numero(this)"/>
+
+                                            </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>29 - Quantos alunos estavam sem carteira e/ou mesa?
+
+                                <h:inputText id="q29"
+                                             value="#{CeRotina001Bean.rotina.q29}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="somente_numero(this)"/>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>30 - As carteiras são de tamanho adequado para os alunos do
+                                            ProJovem?
+
+                                            <br/>
+                                <h:selectOneRadio id="q30"
+                                                  value="#{CeRotina001Bean.rotina.q30}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>31 - A sala possui cadeira para o educador?
+
+                                            <br/>
+                                <h:selectOneRadio id="q31"
+                                                  value="#{CeRotina001Bean.rotina.q31}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>32 - A sala possui mesa para o educador?
+                                            <br/>
+                                <h:selectOneRadio id="q32"
+                                                  value="#{CeRotina001Bean.rotina.q32}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>33 - A sala possui quadro para o ensino?
+                                            <br/>
+                                <h:selectOneRadio id="q33"
+                                                  value="#{CeRotina001Bean.rotina.q33}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim, em condições de uso." itemValue="simEmCondicoesDeUso"/>
+                                    <f:selectItem itemLabel="Sim, em condições precárias." itemValue="simEmCondicoesPrecarias"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>34 - O tamanho da sala é adequado?
+                                            <br/>
+                                <h:selectOneRadio id="q34"
+                                                  value="#{CeRotina001Bean.rotina.q34}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>35 - A sala de aula estava limpa?
+                                            <br/>
+                                <h:selectOneRadio id="q35"
+                                                  value="#{CeRotina001Bean.rotina.q35}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                            </table>
+                            </td>
+                            </tr>
+                            </table>
+
+                            <table id="turma3" style="display:none">
+                                <tr>
+                                    <td>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td>
+                                                    <p><b>Sobre a sala de aula 3, responda:</b></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>36 - Quantos alunos estavam presentes na sala
+                                                        no momento da sua observação?
+
+
+                                            <h:inputText id="q36"
+                                                         value="#{CeRotina001Bean.rotina.q36}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="somente_numero(this)"/>
+
+                                            </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>37 - Quantos alunos estavam sem carteira e/ou mesa?
+
+                                <h:inputText id="q37"
+                                             value="#{CeRotina001Bean.rotina.q37}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="somente_numero(this)"/>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>38 - As carteiras são de tamanho adequado para os alunos do
+                                            ProJovem?
+
+                                            <br/>
+                                <h:selectOneRadio id="q38"
+                                                  value="#{CeRotina001Bean.rotina.q38}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>39 - A sala possui cadeira para o educador?
+
+                                            <br/>
+                                <h:selectOneRadio id="q39"
+                                                  value="#{CeRotina001Bean.rotina.q39}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>40 - A sala possui mesa para o educador?
+                                            <br/>
+                                <h:selectOneRadio id="q40"
+                                                  value="#{CeRotina001Bean.rotina.q40}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>41 - A sala possui quadro para o ensino?
+                                            <br/>
+                                <h:selectOneRadio id="q41"
+                                                  value="#{CeRotina001Bean.rotina.q41}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim, em condições de uso." itemValue="simEmCondicoesDeUso"/>
+                                    <f:selectItem itemLabel="Sim, em condições precárias." itemValue="simEmCondicoesPrecarias"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>42 - O tamanho da sala é adequado?
+                                            <br/>
+                                <h:selectOneRadio id="q42"
+                                                  value="#{CeRotina001Bean.rotina.q42}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>43 - A sala de aula estava limpa?
+                                            <br/>
+                                <h:selectOneRadio id="q43"
+                                                  value="#{CeRotina001Bean.rotina.q43}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                            </table>
+                            </td>
+                            </tr>
+                            </table>
+
+                            <table id="turma4" style="display:none">
+                                <tr>
+                                    <td>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td>
+                                                    <p><b>Sobre a sala de aula 4, responda:</b></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>44 - Quantos alunos estavam presentes na sala
+                                                        no momento da sua observação?
+
+
+                                            <h:inputText id="q44"
+                                                         value="#{CeRotina001Bean.rotina.q44}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="somente_numero(this)"/>
+
+                                            </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>45 - Quantos alunos estavam sem carteira e/ou mesa?
+
+                                <h:inputText id="q45"
+                                             value="#{CeRotina001Bean.rotina.q45}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="somente_numero(this)"/>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>46 - As carteiras são de tamanho adequado para os alunos do
+                                            ProJovem?
+
+                                            <br/>
+                                <h:selectOneRadio id="q46"
+                                                  value="#{CeRotina001Bean.rotina.q46}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>47 - A sala possui cadeira para o educador?
+
+                                            <br/>
+                                <h:selectOneRadio id="q47"
+                                                  value="#{CeRotina001Bean.rotina.q47}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>48 - A sala possui mesa para o educador?
+                                            <br/>
+                                <h:selectOneRadio id="q48"
+                                                  value="#{CeRotina001Bean.rotina.q48}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>49 - A sala possui quadro para o ensino?
+                                            <br/>
+                                <h:selectOneRadio id="q49"
+                                                  value="#{CeRotina001Bean.rotina.q49}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim, em condições de uso." itemValue="simEmCondicoesDeUso"/>
+                                    <f:selectItem itemLabel="Sim, em condições precárias." itemValue="simEmCondicoesPrecarias"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>50 - O tamanho da sala é adequado?
+                                            <br/>
+                                <h:selectOneRadio id="q50"
+                                                  value="#{CeRotina001Bean.rotina.q50}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>51 - A sala de aula estava limpa?
+                                            <br/>
+                                <h:selectOneRadio id="q51"
+                                                  value="#{CeRotina001Bean.rotina.q51}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                            </table>
+                            </td>
+                            </tr>
+                            </table>
+
+                            <table id="turma5" style="display:none">
+                                <tr>
+                                    <td>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td>
+                                                    <p><b>Sobre a sala de aula 5, responda:</b></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>52 - Quantos alunos estavam presentes na sala
+                                                        no momento da sua observação?
+
+
+                                            <h:inputText id="q52"
+                                                         value="#{CeRotina001Bean.rotina.q52}"
+                                                         size="5"
+                                                         maxlength="5"
+                                                         onkeyup="somente_numero(this)"/>
+
+                                            </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>53 - Quantos alunos estavam sem carteira e/ou mesa?
+
+                                <h:inputText id="q53"
+                                             value="#{CeRotina001Bean.rotina.q53}"
+                                             size="5"
+                                             maxlength="5"
+                                             onkeyup="somente_numero(this)"/>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>54 - As carteiras são de tamanho adequado para os alunos do
+                                            ProJovem?
+
+                                            <br/>
+                                <h:selectOneRadio id="q54"
+                                                  value="#{CeRotina001Bean.rotina.q54}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>55 - A sala possui cadeira para o educador?
+
+                                            <br/>
+                                <h:selectOneRadio id="q55"
+                                                  value="#{CeRotina001Bean.rotina.q55}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>56 - A sala possui mesa para o educador?
+                                            <br/>
+                                <h:selectOneRadio id="q56"
+                                                  value="#{CeRotina001Bean.rotina.q56}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>57 - A sala possui quadro para o ensino?
+                                            <br/>
+                                <h:selectOneRadio id="q57"
+                                                  value="#{CeRotina001Bean.rotina.q57}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim, em condições de uso." itemValue="simEmCondicoesDeUso"/>
+                                    <f:selectItem itemLabel="Sim, em condições precárias." itemValue="simEmCondicoesPrecarias"/>
+                                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>58 - O tamanho da sala é adequado?
+                                            <br/>
+                                <h:selectOneRadio id="q58"
+                                                  value="#{CeRotina001Bean.rotina.q58}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>59 - A sala de aula estava limpa?
+                                            <br/>
+                                <h:selectOneRadio id="q59"
+                                                  value="#{CeRotina001Bean.rotina.q59}"
+                                                  layout="pageDirection">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                            </table>
+                            </td>
+                            </tr>
+                            </table>
+
+                            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                <tr>
+                                    <td>
+                                        <p><b>A seguir, serão apresentadas algumas questões sobre os educadores. Responda se os profissionais para as atividades
+                                                descritas abaixo estavam ou não presentes no momento da visita. Caso não estejam presentes informe-se se os educadores
+                                                já foram contratados.</b></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                <tr>
+                                    <td colspan="2">
+                                        <p>60 - Língua Portuguesa:
+                                <h:message for="q60" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q60"
+                                                  value="#{CeRotina001Bean.rotina.q60}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>61 - Língua Inglesa:
+                                <h:message for="q61" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q61"
+                                                  value="#{CeRotina001Bean.rotina.q61}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>62 - Ciências Humanas:
+                                <h:message for="q62" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q62"
+                                                  value="#{CeRotina001Bean.rotina.q62}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>63 - Matemática:
+                                <h:message for="q63" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q63"
+                                                  value="#{CeRotina001Bean.rotina.q63}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>64 - Ciências da Natureza:
+                                <h:message for="q64" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q64"
+                                                  value="#{CeRotina001Bean.rotina.q64}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>65 - Qualificação para o trabalho:
+                                <h:message for="q65" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q65"
+                                                  value="#{CeRotina001Bean.rotina.q65}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+                                </p>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>66 - Participação Social e Comunitária:
+                                <h:message for="q66" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q66"
+                                                  value="#{CeRotina001Bean.rotina.q66}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim, estava presente." itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não, mas nao havia aula programada." itemValue="naoMasNaoHaviaAula"/>
+                                    <f:selectItem itemLabel="Não, mas havia aula programada." itemValue="naoMasHaviaAula"/>
+                                    <f:selectItem itemLabel="Não. O educador ainda não foi contratado." itemValue="aindaNaoFoiContratado"/>
+                                </h:selectOneRadio>
+
+
+                                </p>
+                                </td>
+                                </tr>
+
+                            </table>
+
+                            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                <tr>
+                                    <td>
+                                        <p><b>A seguir, serão apresentados cinco (5) campos nos quais você poderá registrar o que percebeu sobre as condições de
+                                                funcionamento do núcleo. Observe as instruções acerca do tema a que o campo se refere e anote somente as informações
+                                                referentes ao que foi pedido.</b></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                <tr>
+                                    <td colspan="2">
+                                        <p>67 - Você tem informações complementares sobre os equipamentos disponíveis no espaço físico do núcleo?
+                                <h:message for="q67" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q67"
+                                                  value="#{CeRotina001Bean.rotina.q67}"
+                                                  layout="pageDirection"
+                                                  onclick="habilitarCampoComplementar(this,'q67Complemento','sim')"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                <table id="q67Complemento" style="display:none">
+                                    <tr>
+                                        <td>
+                                            <p>Caso sim, registre abaixo.<br/>
+                                    <h:inputTextarea  rows="4"
+                                                      cols="70"
+                                                      value="#{CeRotina001Bean.rotina.q67Complemento}"/></p>
+                                    </td>
+                                    </tr>
+                                </table>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>68 - Você tem observações sobre as condições de segurança do núcleo e nos arredores onde ele funciona?
+                                <h:message for="q68" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q68"
+                                                  value="#{CeRotina001Bean.rotina.q68}"
+                                                  layout="pageDirection"
+                                                  onclick="habilitarCampoComplementar(this,'q68Complemento','sim')"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                <table id="q68Complemento" style="display:none">
+                                    <tr>
+                                        <td>
+                                            <p>Caso sim, registre abaixo.<br/>
+                                    <h:inputTextarea  rows="4"
+                                                      cols="70"
+                                                      value="#{CeRotina001Bean.rotina.q68Complemento}"/></p>
+                                    </td>
+                                    </tr>
+                                </table>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>69 - Você tem observações gerais sobre as condições de limpeza e transporte público nos arredores do núcleo?
+                                <h:message for="q69" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q69"
+                                                  value="#{CeRotina001Bean.rotina.q69}"
+                                                  layout="pageDirection"
+                                                  onclick="habilitarCampoComplementar(this,'q69Complemento','sim')"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                <table id="q69Complemento" style="display:none">
+                                    <tr>
+                                        <td>
+                                            <p>Caso sim, registre abaixo.<br/>
+                                    <h:inputTextarea  rows="4"
+                                                      cols="70"
+                                                      value="#{CeRotina001Bean.rotina.q69Complemento}"/></p>
+                                    </td>
+                                    </tr>
+                                </table>
+
+                                </p>
+                                </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <p>70 - Você tem observações sobre as condições de funcionamento das salas de aula do núcleo (iluminação, ventilação,
+                                            espaço...)?
+                                <h:message for="q70" style="color:#c70000; font-size:18px;"/>
+                                <br/>
+                                <h:selectOneRadio id="q70"
+                                                  value="#{CeRotina001Bean.rotina.q70}"
+                                                  layout="pageDirection"
+                                                  onclick="habilitarCampoComplementar(this,'q70Complemento','sim')"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                                </h:selectOneRadio>
+
+
+                                <table id="q70Complemento" style="display:none">
+                                    <tr>
+                                        <td>
+                                            <p>Caso sim, registre abaixo.<br/>
+                                    <h:inputTextarea  rows="4"
+                                                      cols="70"
+                                                      value="#{CeRotina001Bean.rotina.q70Complemento}"/></p>
+                                    </td>
+                                    </tr>
+                                </table>
+
+                                </p>
+                                </td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                    <p>71 - Você tem observações gerais sobre o funcionamento do núcleo e sobre ocorrências no dia da visita (aspectos gerais,
+                                        uniformes dos alunos...)?
+                            <h:message for="q71" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q71"
+                                              value="#{CeRotina001Bean.rotina.q71}"
+                                              layout="pageDirection"
+                                              onclick="habilitarCampoComplementar(this,'q71Complemento','sim')"
+                                              required="false">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            </h:selectOneRadio>
+
+
+                            <table id="q71Complemento" style="display:none">
+                                <tr>
+                                    <td>
+                                        <p>Caso sim, registre abaixo.<br/>
+
+                                <h:inputTextarea  rows="4"
+                                                  cols="70"
+                                                  value="#{CeRotina001Bean.rotina.q71Complemento}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons"
+                                           action="#{CeRotina001Bean.salvarRotina}" status="aguarde"
+                                           reRender="form"
+                                           onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido}" target="#{CeRotina001Bean.rotina.nucleo}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.uf}" target="#{CeRotina001Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.coordenacao}" target="#{CeRotina001Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.municipio}" target="#{CeRotina001Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.entrada}" target="#{CeRotina001Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{CeRotina001Bean.rotina}" target="#{rotinasLancadasBean.cerotina001}" />
+                        </a4j:commandButton>
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

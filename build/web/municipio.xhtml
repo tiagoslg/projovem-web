@@ -1,0 +1,108 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/clean.xhtml">
+
+    <ui:define  name="body">
+           
+                <a4j:form id="minhasRotinas">
+                    <a4j:region rendered="#{!globalRotinaBean.renderedRespostas}">
+                        <br/><br/>
+                        <table class="tabela" style="border:none">
+                            <tr>
+                                <td>
+                                    <img src="images/projovem.jpg" style="float:left"/>
+                                </td>
+                                <td>
+                                    <h1>AVALIAÇÃO DA IMPLEMENTAÇÃO DO PROGRAMA</h1>
+                                    <h1>PROJOVEM URBANO</h1>
+                                    <h1>RELATÓRIO SÍNTESE DE SUPERVISÃO</h1>
+                                    <h1>OBSERVAÇÃO DA MATRÍCULA</h1>
+                                </td>
+                                <td>
+                                    <img src="images/brasil.jpg" style="float:right"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        
+<br/><br/>
+IR responsável pela avaliação da implementação do programa: <b>UFMG</b>
+<br/><br/>
+Dados referentes à Cordenação <h:outputText  value=" #{globalRotinaBean.cordenacao}"/>
+<br/><br/>
+<b>Locais/Núcleos observados:</b>
+<br/><br/>
+
+                        <div class="clr"></div>
+                        <h:dataTable value="#{globalRotinaBean.listaLocal}" var="local" cellspacing="0"
+                        styleClass="tabela" columnClasses="coluna">
+                            <h:column>
+                                <f:facet name="header">
+                                  <h:outputText value="LOCAL/NÚCLEO"/>
+                              </f:facet>
+                                <h:outputText styleClass="pergunta-resumo" value=" #{local.nome}"/>
+                            </h:column>
+                            <h:column>
+                                    <f:facet name="header">
+                                      <h:outputText value="ENDEREÇO"/>
+                                    </f:facet>
+                                <h:dataTable value="#{local.enderecos}" var="endereco" cellspacing="5" >
+                                    <h:column>
+                                          
+                                        <h:dataTable value="#{endereco.cep}" var="cep" cellspacing="5" >
+                                            <h:column>
+                                                <h:outputText styleClass="pergunta-resumo" value=" #{cep.logradouro}"/>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:column>
+                        </h:dataTable>
+                        <br/><br/>
+                        <b>
+                        <h:outputText styleClass="pergunta-resumo" 
+                        value=" Total: #{globalRotinaBean.listaLocalSize} "/></b>locais/núcleos observados
+                        <br/><br/><br/>
+                        
+                    <b>Aspectos observados que acrescentam às condicionalidades estabelecidas no programa:</b>
+                    <br/><br/>
+                    <h:dataTable value="#{globalRotinaBean.listaJaAdicionadaPositiva}" var="objeto"
+                    styleClass="tabela"  cellspacing="5" >
+                        <h:column>                          
+                            <h:outputText styleClass="pergunta-resumo" value="Em #{objeto.quantidade} #{objeto.texto}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <br/><br/><br/>
+                    <b>Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa:</b>
+                    <br/><br/>
+                    <h:dataTable value="#{globalRotinaBean.listaJaAdicionadaNegativa}" var="objeto"
+                    styleClass="tabela" cellspacing="5" >
+                        <h:column>
+                            <h:outputText styleClass="pergunta-resumo" value="Em #{objeto.quantidade} #{objeto.texto}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <br/><br/>
+                    <table class="tabela" style="border:none">
+                        <tr>
+                            <td><h:outputText style="float:right" value=" Brasília, #{globalRotinaBean.hoje}"/></td>
+                        </tr>
+                    </table>
+                    <br/><br/>
+                    <center>
+                        Acessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano
+                        <br/>
+                        avaliacao.supervisaoprojovem@planalto.gov.br
+                    </center>
+                        
+                    </a4j:region>
+                </a4j:form>
+
+    </ui:define >    
+    
+</ui:composition>

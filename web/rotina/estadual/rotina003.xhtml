@@ -1,0 +1,469 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>QUALIFICAÇÃO PROFISSIONAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value=""/>CÓDIGO DO INSTRUMENTO = CE 3</h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="CeRotina003Bean"/>
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="1"/>
+
+                    <a4j:include viewId="/include/CeIdentificaEntradaSemNucleo.xhtml"/>
+                    <a4j:region id="camposClassificacaoLocal" rendered="#{nucleoBean.renderedIdentificaLocalReferencia}">
+
+                        <a4j:include viewId="/include/identificaLocalReferencia.xhtml"
+                                     rendered="#{nucleoBean.renderedIdentificaLocalReferencia}"/>
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td colspan="3">
+                                    <p>Arco ocupacional observado:
+                            <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneMenu id="q1"
+                                             layout="pageDirection"
+                                             value="#{CeRotina003Bean.rotina.q1}">
+                                <f:selectItems value="#{CeRotina003Bean.listaArcos}"/>
+                                <a4j:support event="onchange" action="#{CeRotina003Bean.arcoDefinido}"
+                                             ajaxSingle="true" reRender="material" status="aguarde"/>
+                            </h:selectOneMenu>
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td width="150" colspan="3">
+                                    <p>Observação: 
+                            <h:message for="identificaEntradaObservacao" style="color:#c70000; font-size:18px;"/>
+                            <h:selectOneMenu id="identificaEntradaObservacao" value="#{CeRotina003Bean.rotina.identificaEntradaObservacao}">
+                                <f:selectItem itemLabel="Selecione" itemValue="" />
+                                <f:selectItem itemValue="1" itemLabel ="1ª Observação" />
+                                <f:selectItem itemValue="2" itemLabel ="2ª Observação" />
+                            </h:selectOneMenu>
+
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td width="150">
+                                    <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText  id="dataVisita"
+                                          value="#{CeRotina003Bean.rotina.dataVisita}"
+                                          size="10" maxlength="10"
+                                          onkeyup="mascara_data(this,event)"
+                                          onblur="CheckDate(this)"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de início da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaInicioVisita"
+                                         value="#{CeRotina003Bean.rotina.horaInicioVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de término da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaTerminoVisita"
+                                         value="#{CeRotina003Bean.rotina.horaTerminoVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"/>
+
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+
+
+
+                            <tr>
+                                <td>
+                                    <p>2 – Os alunos deste arco têm aulas de Qualificação Profissional?
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q2"
+                                              value="#{CeRotina003Bean.rotina.q2}"
+                                              layout="pageDirection"
+                                              onclick="desabilitarCampoComplementar(this,'q2Condicional','nao')">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="nao"/>
+
+                            </h:selectOneRadio>
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <table id="q2Condicional" style="">
+
+                                        <tr>
+                                            <td>
+                                                <p>3 – Este local é frequentado por alunos de quantos núcleos do PROJOVEM urbano?
+                                        <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                                        <h:selectOneRadio id="q3"
+                                                          value="#{CeRotina003Bean.rotina.q3}"
+                                                          layout="pageDirection">
+                                            <f:selectItem itemLabel="Um" itemValue="um"/>
+                                            <f:selectItem itemLabel="Dois" itemValue="dois"/>
+                                            <f:selectItem itemLabel="Três" itemValue="tres"/>
+                                            <f:selectItem itemLabel="Quatro" itemValue="quatro"/>
+                                            <f:selectItem itemLabel="Cinco ou mais" itemValue="cincoMais"/>
+
+                                        </h:selectOneRadio></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>4 - Informe a seguir o(s) núcleo(s) dos alunos que frequentam este local.</p>
+
+                            <rich:simpleTogglePanel switchType="client" label="Clique aqui para exibir/ocultar os Núcleos/Locais Observados">
+                                <a4j:region >
+                                    <rich:dataTable id="tabela"
+                                                    styleClass="nucleos" rendered="#{nucleoBean.renderedListaNucleos}"
+                                                    onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                                    cellpadding="0" cellspacing="0"
+                                                    border="0" var="local" value="#{nucleoBean.listaNucleos}">
+
+
+                                        <rich:column sortBy="#{local.referencia}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Referência"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.referencia}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.logradouro}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Logradouro"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.logradouro}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.numero}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Numero"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.numero}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.complemento}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Comp."/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.complemento}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.cep}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Cep"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.cep}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.bairro}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Bairro"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.bairro}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.municipio}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Cidade"/>
+                                            </f:facet>
+                                            <a4j:commandLink reRender="tabela"
+                                                             action="#{nucleoBean.selecionaCE}" status="aguarde">
+                                                <h:outputText value="#{local.municipio}"/>
+                                                <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                                            </a4j:commandLink>
+
+                                        </rich:column>
+                                    </rich:dataTable>
+                                </a4j:region>
+                            </rich:simpleTogglePanel>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>5 - Que tipo de atividade os alunos realizavam no momento de sua observação?
+
+                            <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q5"
+                                              value="#{CeRotina003Bean.rotina.q5}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Teóricas (Com explicações do educador)" itemValue="teoricas"/>
+                                <f:selectItem itemLabel="Práticas (Com a realização de atividades pelos alunos)" itemValue="praticas"/>
+                                <f:selectItem itemLabel="Teórico-práticas (Com explcicação do educador e atividades dos alunos)" itemValue="teorica-pratica"/>
+                                <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+
+
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <p>6 – Há material de consumo específico para o desenvolvimento das atividades do arco?
+                            <h:message for="q6" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q6"
+                                              value="#{CeRotina003Bean.rotina.q6}"
+                                              layout="pageDirection"
+                                              onclick="desabilitarCampoComplementar(this,'q6Condicional','nao')">
+                                <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                                <f:selectItem itemLabel="Não (vá para a questão 8)"  itemValue="nao"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table id="q6Condicional" style="">
+                                        <tr>
+                                            <td>
+                                                <p>7 – Os alunos utilizavam o material de consumo no momento da observação?
+                                        <h:message for="q7" style="color:#c70000; font-size:18px;"/><br/>
+                                        <h:selectOneRadio id="q7"
+                                                          value="#{CeRotina003Bean.rotina.q7}"
+                                                          layout="pageDirection">
+                                            <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                                            <f:selectItem itemLabel="Não"  itemValue="nao"/>
+                                        </h:selectOneRadio></p>
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <p>8 – Há material permanente específico para o desenvolvimento das atividades do arco?
+                        <h:message for="q8" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q8"
+                                          value="#{CeRotina003Bean.rotina.q8}"
+                                          layout="pageDirection"
+                                          onclick="desabilitarCampoComplementar(this,'q8Condicional','nao')">
+                            <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                            <f:selectItem itemLabel="Não (vá para a questão 10)"  itemValue="nao"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="q8Condicional" style="">
+                                    <tr>
+                                        <td>
+                                            <p>9 – Os alunos utilizavam material permanente no momento da observação?
+                                    <h:message for="q9" style="color:#c70000; font-size:18px;"/><br/>
+                                    <h:selectOneRadio id="q9"
+                                                      value="#{CeRotina003Bean.rotina.q9}"
+                                                      layout="pageDirection">
+                                        <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                                        <f:selectItem itemLabel="Não"  itemValue="nao"/>
+                                    </h:selectOneRadio></p>
+                            </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+
+                                <p>10 – Liste os materiais que estavam disponíveis: </p>
+                        <rich:simpleTogglePanel switchType="client" label="Clique aqui para exibir/ocultar os materiais de consumo e materiais permanentes">
+                            <rich:dataTable
+                                id="material"
+                                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                cellpadding="0" cellspacing="0"
+                                border="0" var="materialUtilizado" value="#{CeRotina003Bean.listaMaterialUtilizado}">
+
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Material"/>
+                                    </f:facet>
+                                    <h:outputText value="#{materialUtilizado.material.nome}"/>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Unidade"/>
+                                    </f:facet>
+                                    <h:outputText value="#{materialUtilizado.material.unidade}"/>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="QTD Sugerida"/>
+                                    </f:facet>
+                                    <h:outputText value="#{materialUtilizado.material.qtd}"/>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="QTD Identificada"/>
+                                    </f:facet>
+                                    <h:inputText value="#{materialUtilizado.qtdIdentificada}"
+                                                 size="5"
+                                                 maxlength="5"
+                                                 onkeyup="somente_numero(this)"/>
+                                </rich:column>
+
+                            </rich:dataTable>
+                        </rich:simpleTogglePanel>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <p>11 - Há registros complementares sobre a Qualificação Profissional?
+
+
+                        <h:message for="q11" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q11"
+                                          value="#{CeRotina003Bean.rotina.q11}"
+                                          layout="pageDirection"
+                                          onclick="habilitarCampoComplementar(this,'q11Complemento','sim')">
+                            <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                        </h:selectOneRadio>
+
+
+                        <table id="q11Complemento" style="display:none">
+                            <tr>
+                                <td>
+                                    <p>Em caso afirmativo, quais?<br/>
+                            <h:inputTextarea  rows="4"
+                                              cols="70"
+                                              value="#{CeRotina003Bean.rotina.q11Complemento}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </p>
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+                        </table>
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{CeRotina003Bean.salvarRotina}" reRender="form" onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.local}" target="#{CeRotina003Bean.local}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.ufEscolhida}" target="#{CeRotina003Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.coordenacaoEscolhida}" target="#{CeRotina003Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.local.cidadeLocal}" target="#{CeRotina003Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.entradaEscolhida}" target="#{CeRotina003Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.listaNucleos}" target="#{CeRotina003Bean.listaNucleos}" />
+                            <f:setPropertyActionListener value="#{CeRotina003Bean.rotina}" target="#{rotinasLancadasBean.cerotina003}" />
+                        </a4j:commandButton>
+
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

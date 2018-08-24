@@ -1,0 +1,20 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+   <!-- MODAL AGUARDE -->
+                <a4j:status id="aguarde2" onstart="javascript:Richfaces.showModalPanel('aguardeModal')" onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+                <rich:modalPanel id="aguardeModal" height="70" width="240">
+                    <f:facet name="header">
+                        <h:outputText value="Aguarde" />
+                    </f:facet>
+
+                    <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+                </rich:modalPanel>
+             
+</ui:composition>

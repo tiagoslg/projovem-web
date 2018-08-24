@@ -1,0 +1,98 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                 <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <div class="inner">
+            <span class="h1">
+                <h:outputText style="font-weight: bold; float: left; margin-top: 30px; margin-left: 310px;" value="O comprovante de lançamento será emitido somente após a validação dos dados. " rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dadosValidos eq -1 || rotinasLancadasBean.rotina006ArcosOcupacionais.dadosValidos eq 0}"/>
+                <h:outputText style="font-weight: bold; float: left; margin-top: 30px; margin-left: 310px;" value="Comprovante de Inserção de dados " rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dadosValidos eq 1}"/>
+                <h:outputLink value="javaScript:window.print()" style="float: left;" target="_self" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dadosValidos eq 1}">
+                    <h:graphicImage alt="Imprimir" border="0" width="60px" height="40px" value="http://projovem.fae.ufmg.br/projovem/imagens/impressora.gif"/>
+                </h:outputLink>
+            </span>
+            <br/>
+            <p style="display:inline-block;">
+                <h:outputText  value="O supervisor(a)  "/>
+                <h:outputText  value="#{rotinasLancadasBean.usuarioResponsavel}"/>
+                <h:outputText  value="#{rotina006ArcosOcupacionaisBean.usuarioResponsavel}"/>
+                <h:outputText  value=", CPF: "/>
+                <h:outputText  value="#{rotinasLancadasBean.cpfResponsavel}"/>
+                <h:outputText  value="#{rotina006ArcosOcupacionaisBean.cpfResponsavel}"/>
+                <h:outputText  value=" realizou a inserção de dados para a rotina
+                           de Qualificação Profissional (Rotina 006) no dia "/>
+                <h:outputText  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dataInsercao} às "/>
+                <h:outputText  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.horaInsercao}."/>
+            </p>
+            <p style="display:inline-block;">
+                <c:if test="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dadosEditados eq 1}">
+                    <h:outputText  value="Esta rotina foi editada pelo usuário  "/>
+                    <h:outputText  value="#{rotinasLancadasBean.usuarioEditor}"/>
+                    <h:outputText  value=" no dia "/>
+                    <h:outputText  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dataEdicao} às "/>
+                    <h:outputText  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.horaEdicao}."/>
+                </c:if>
+            </p>
+            <br/>
+            <br/>
+            <h4>Rotina de Qualificação Profissional</h4>
+            <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.id}" /></strong></p>
+            <p>UF: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaUf}" /></p>
+            <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaCoordenacao}" /></p>
+            <p>Município: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaMunicipio}" /></p>
+            <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaEntrada}" /></p>
+            <br/>
+            <br/>
+
+            <p>Nome Local: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.nomeLocal}" /></p>
+            <p>Endereço: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.enderecoLocal}" /></p>
+            <p>Numero: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.numeroLocal}" /></p>
+            <p>Complemento: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.complementoLocal}" /></p>
+            <p>Bairro: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.bairroLocal}" /></p>
+            <p>CEP: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.cepLocal}" /></p>
+            <p>Telefone: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.telefoneLocal}" /></p>
+
+            <c:if test="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dadosValidos eq 1}">
+                <ui:include src="respostas/rotina006ArcosOcupacionais.xhtml" />
+            </c:if>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,89 @@
+
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <span class="resposta-questao">
+                    <p><h:outputText value="Identificação do Arco"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.arco}"/></p>
+
+                    <p><h:outputText value="Instalações Disponíveis"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.instalacaoDisponivel}"/></p>
+
+                    <p><h:outputText value="Material permanente"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.materialPermanente}"/>
+
+                    <h:outputText value="Quantidade"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.quantidadeMaterialPermanente}"/></p>
+
+                    <p><h:outputText value="Material de Consumo"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.materialConsumo}"/>
+
+                    <h:outputText value="Quantidade"/>
+                    <h:inputText value="#{instrumentoBean.respostaMaterialInformada.quantidadeMaterialConsumo}"/>
+
+                    <h:commandButton reRender="instrumento"
+                    action="#{instrumentoBean.adicionarMaterial}" status="aguarde"
+                         value="Adicionar"
+                         style="background:#EEF6E1 none repeat scroll 0 0;border:1px solid #92B631;color:#000;;margin:10px 0;padding:3px 10px;margin-right:10px;height:auto;margin-left:15px;">
+                    </h:commandButton></p> 
+
+
+        <rich:dataTable value="#{instrumentoBean.materiais}" var="resposta">
+            <rich:column>
+                <f:facet name="header">Identificação <br/>do Arco</f:facet>
+                <h:outputText value="#{resposta.arco}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Instalações <br/>Disponíveis</f:facet>
+                <h:outputText value="#{resposta.instalacaoDisponivel}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Material <br/>permanente</f:facet>
+                <h:outputText value="#{resposta.materialPermanente}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Quantidade</f:facet>
+                <h:outputText value="#{resposta.quantidadeMaterialPermanente}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Material<br/> de Consumo</f:facet>
+                <h:outputText value="#{resposta.materialConsumo}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Quantidade</f:facet>
+                <h:outputText value="#{resposta.quantidadeMaterialConsumo}"/>
+            </rich:column>
+            <rich:column>
+
+                <a4j:commandLink value="Editar" action="#{instrumentoBean.editar}" reRender="instrumento">
+                    <f:setPropertyActionListener value="#{resposta}"
+                target="#{instrumentoBean.respostaMaterialInformada}" />
+                </a4j:commandLink>
+                            </rich:column>
+            <rich:column>
+                <a4j:commandLink value="Excluir" action="#{instrumentoBean.removerMaterial}" reRender="instrumento">
+                    <f:setPropertyActionListener value="#{resposta}"
+                target="#{instrumentoBean.respostaMaterialInformada}" />
+                </a4j:commandLink>
+            </rich:column>
+
+
+
+
+
+
+            
+        </rich:dataTable>
+    </span>
+
+
+
+
+</ui:composition>

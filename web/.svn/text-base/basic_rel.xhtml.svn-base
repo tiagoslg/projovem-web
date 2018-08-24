@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <head>
+        <title>Programa ProJovem Urbano</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+
+        <script type="text/javascript" language="javascript" src="/projovem/js/pwd_meter_min.js"></script>
+        <script type="text/javascript" language="javascript" src="/projovem/js/func.js"></script>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="header">
+
+                <ui:insert name="header"/>
+            </div>
+
+            <div class="clr"></div>
+
+            <div class="body">
+                <center>
+                <ui:insert name="body" />
+                </center>
+            </div>
+
+
+            <div id="center" style="margin:auto;">
+                <ui:insert name="content"/>
+            </div>
+
+
+            <div class="footer">
+                Assessoria de Avaliação e Supervisão <br/>
+                © 2009 - Secretaria Nacional de Juventude | Coordenação Nacional do ProJovem Urbano <br />
+                Setor Policial Sul, Área 05, Qd. 03, Bloco J - Brasília/DF<br />
+                <div class="clr"></div>
+                <!-- Site Meter XHTML Strict 1.0 
+                <script type="text/javascript" src="http://s23.sitemeter.com/js/counter.js?site=s23projovem">
+                </script>-->
+                <!-- Copyright (c)2009 Site Meter -->
+            </div>
+        </div>
+
+    </body>
+</html>

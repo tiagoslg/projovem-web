@@ -1,0 +1,56 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <a4j:keepAlive beanName="nucleoBean"/>
+
+    <a4j:region id="identificaLocal">
+
+
+        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+            <tr>
+                <td colspan="3">
+                    <p>Selecione coordenação e entrada correspondentes a essa inserção.</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                   
+                    <p>
+                        <h:selectOneMenu value="#{nucleoBean.coordenacaoEscolhida}"
+                                         >
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItems value="#{nucleoBean.coordenacoesPossiveisCe}" />
+                            <a4j:support event="onchange" action="#{nucleoBean.obtemEntradasCe}"
+                                         ajaxSingle="true" reRender="form" status="aguarde"/>
+                        </h:selectOneMenu>
+                    </p>
+
+                    <p>
+                    <h:outputText value="UF: " rendered="#{nucleoBean.renderedEntrada}" />
+                    <h:inputText id="uf" value="#{nucleoBean.ufEscolhida}" style="width:30px" required="true" disabled = "true" rendered="#{nucleoBean.renderedEntrada}"/>
+                    </p>
+
+                    <p>
+                        <h:outputText value="Entrada: " rendered="#{nucleoBean.renderedEntrada}" />
+                        <h:selectOneMenu value="#{nucleoBean.entradaEscolhida}"
+                                         rendered="#{nucleoBean.renderedEntrada}">
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItems value="#{nucleoBean.entradasPossiveis}" />
+                            <a4j:support event="onchange" action="#{nucleoBean.entradaSelecionada}"
+                                         ajaxSingle="true" reRender="form" status="aguarde"/>
+                        </h:selectOneMenu>
+                    </p>
+                </td>
+            </tr>
+           
+        </table>
+    </a4j:region>
+
+</ui:composition>

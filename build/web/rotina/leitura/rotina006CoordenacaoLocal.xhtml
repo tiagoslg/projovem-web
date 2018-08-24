@@ -1,0 +1,359 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+         <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+        <h4>Rotina de Qualificação Profissional</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="Formulário Coordenaçao Local"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotinasLancadasBean"/>
+                <a4j:keepAlive beanName="nucleoBean"/>
+                <h:form id="form">
+
+                    <p><h:messages /></p>
+                    <br />
+                    <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.id}" /></strong></p>
+
+                    <p>UF: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.identificaEntradaUf}" /></p>
+                    <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.identificaEntradaCoordenacao}" /></p>
+                    <p>Município: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.identificaEntradaMunicipio}" /></p>
+                    <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.identificaEntradaEntrada}" /></p>
+                    <br/>
+                    <br/>
+
+                    <p>Nome Local: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.nomeLocal}" /></p>
+                    <p>Endereço: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.enderecoLocal}" /></p>
+                    <p>Numero: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.numeroLocal}" /></p>
+                    <p>Complemento: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.complementoLocal}" /></p>
+                    <p>Bairro: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.bairroLocal}" /></p>
+                    <p>CEP: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.cepLocal}" /></p>
+                    <p>Telefone: <h:outputText value=" #{rotinasLancadasBean.rotina006CoordenacaoLocal.telefoneLocal}" /></p>
+
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td width="130px">
+                                <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="dataVisita"
+                                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.dataVisita}"
+                                     size="10"
+                                     maxlength="10"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Hora de início da observação: (notação 24 horas)
+                        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="horaInicioVisita"
+                                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.horaInicioVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Hora de término da observação: (notação 24 horas)
+                        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="horaTerminoVisita"
+                                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.horaTerminoVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Coordenação:
+                                <h:selectOneRadio id="tipoCordenacao"
+                                                  value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.tipoCordenacao}"
+                                                  layout="pageDirection"
+                                                  required="false"
+                                                  disabled  ="#{rotinasLancadasBean.disabled}">
+                                    <f:selectItem itemLabel="Municipal " itemValue="CM"/>
+                                    <f:selectItem itemLabel="Estadual " itemValue="CE"/>
+                                </h:selectOneRadio>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>1. Nome do responsável pelas informações:
+                        <h:message for="q1" style="color:#c70000; font-size:18px;"/></p>
+                        <p><h:inputText id="q1"
+                                        value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q1}"
+                                        size="50"
+                                        maxlength="50"
+                                        disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>2. Função do responsável pelas informações:
+                        <h:message for="q2" style="color:#c70000; font-size:18px;"/></p>
+                        <p><h:inputText id="q2"
+                                        value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q2}"
+                                        size="50"
+                                        maxlength="50"
+                                        disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>3. Quais arcos ocupacionais estão sendo oferecidos por esta coordenação local?</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Arco A<h:message for="q3a" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu id="q3a"
+                                         layout="pageDirection"
+                                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3a}"
+                                         required="false"
+                                         disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                        </h:selectOneMenu>
+
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Arco B<h:message for="q3b" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:selectOneMenu id="q3b"
+                                         layout="pageDirection"
+                                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3b}"
+                                         required="false"
+                                         disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Arco C<h:message for="q3c" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:selectOneMenu id="q3c"
+                                         layout="pageDirection"
+                                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3c}"
+                                         required="false"
+                                         disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Arco D<h:message for="q3d" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:selectOneMenu id="q3d"
+                                         layout="pageDirection"
+                                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3d}"
+                                         required="false"
+                                         disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Arco E<h:message for="q3e" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:selectOneMenu id="q3e"
+                                         layout="pageDirection"
+                                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3e}"
+                                         required="false"
+                                         disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                    </table>
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <p>4. Data de início das atividades dos arcos. (dd/mm/aaaa)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="80">
+                                        <p>Arco A<h:message for="q4a" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                    <h:inputText id="q4a"
+                                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4a}"
+                                 size="10"
+                                 maxlength="10"
+                                 disabled  ="#{rotinasLancadasBean.disabled}"/>
+                    <br/>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td width="80">
+                            <p>Arco B<h:message for="q4b" style="color:#c70000; font-size:18px;"/></p>
+                    </td>
+                    <td>
+                    <h:inputText id="q4b"
+                                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4b}"
+                                 size="10"
+                                 maxlength="10"
+                                 disabled  ="#{rotinasLancadasBean.disabled}"/>
+                    <br/>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td width="80">
+                            <p>Arco C<h:message for="q4c" style="color:#c70000; font-size:18px;"/></p>
+                    </td>
+                    <td>
+                    <h:inputText id="q4c"
+                                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4c}"
+                                 size="10"
+                                 maxlength="10"
+                                 disabled  ="#{rotinasLancadasBean.disabled}"/>
+                    <br/>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td width="80">
+                            <p>Arco D<h:message for="q4d" style="color:#c70000; font-size:18px;"/></p>
+                    </td>
+                    <td>
+                    <h:inputText id="q4d"
+                                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4d}"
+                                 size="10"
+                                 maxlength="10"
+                                 disabled  ="#{rotinasLancadasBean.disabled}"/>
+                    <br/>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td width="80">
+                            <p>Arco E<h:message for="q4e" style="color:#c70000; font-size:18px;"/></p>
+                    </td>
+                    <td>
+                    <h:inputText id="q4e"
+                                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4e}"
+                                 size="10"
+                                 maxlength="10"
+                                 disabled  ="#{rotinasLancadasBean.disabled}"/>
+                    <br/>
+                    </td>
+                    </tr>
+                    </table>
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>5. Qual o PRINCIPAL critério utilizado para a distribuição dos alunos nos arcos?
+                    <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                    <h:selectOneRadio id="q5"
+                                      value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5}"
+                                      layout="pageDirection"
+                                      disabled  ="#{rotinasLancadasBean.disabled}">
+                        <f:selectItem itemLabel="Os alunos escolheram o arco de sua preferência. " itemValue="a"/>
+                        <f:selectItem itemLabel="Os alunos ingressaram no arco por meio de sorteio.  " itemValue="b"/>
+                        <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com o número de vagas disponíveis. " itemValue="c"/>
+                        <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com a proximidade de sua residência ou núcleo. " itemValue="d"/>
+                        <f:selectItem itemLabel="Outro." itemValue="e"/>
+                    </h:selectOneRadio>
+                    <a4j:region rendered="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5 eq 'd'}">
+                        <table id="q5complemento">
+                            <tr>
+                                <td>
+                                    <p>Neste caso, registre no espaço abaixo:<br/>
+                            <h:inputText value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                    </a4j:region>
+                    </p>
+                    </td>
+                    </tr>
+                    </table>
+
+                    <br/>
+                    <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotinasLancadasBean.salvar}" reRender="form" onclick="javascript:scroll(0,0);" status="aguarde">
+                    <f:setPropertyActionListener value="#{rotinasLancadasBean.rotina006CoordenacaoLocal}" target="#{rotina006Bean.rotina}" />
+                    </a4j:commandButton>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

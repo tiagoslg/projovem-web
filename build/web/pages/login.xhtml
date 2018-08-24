@@ -1,0 +1,148 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+
+    <ui:define  name="header">
+         
+    <div class="logo">
+
+    </div>
+
+    <div class="clr"></div>
+    <div class="menu_login">
+
+    </div>
+    <div class="clr"></div>
+    <div class="header_text">
+      <div class="screen_list">
+        <div class="screen_images">
+            <a4j:keepAlive beanName="loginBean"/>
+            <h:form name="login" id="login">
+                
+                <a4j:region rendered="#{loginBean.renderedLogin}">
+                    <h:commandLink action="#{loginBean.validarUsuario}" style="background:none;border:none">
+                        <img src="images/leyr_10_top.png" alt="" style="float:right;margin-right:36px;margin-top:77px;width:42px; "/>
+                    </h:commandLink>
+                    <table style="float:right;margin-right:8px;margin-top:50px;">
+                        <tr>
+                            <td colspan="2">
+
+                                <h:messages/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="label_login">Login:</span>
+                            </td>
+                            <td>
+                                <h:inputText value="#{loginBean.cpf}" style="width:140px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="label_login">Senha:</span>
+                            </td>
+                            <td>
+                                <h:inputSecret redisplay="false" value="#{loginBean.senha}" style="width:140px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a4j:commandLink action="#{loginBean.esqueciSenha}"
+                                 reRender="login" style="background:none;border:none;font-weight:normal;color:#000;padding-left:0">
+                                    Esqueci minha senha.
+                                </a4j:commandLink>
+                            </td>
+                        </tr>
+                    </table>
+                </a4j:region>
+
+
+                <a4j:region rendered="#{loginBean.renderedEnviarSenha}" >
+
+                    <table style="float:right;margin-right:90px;margin-top:65px;">
+                        <tr>
+                            <td colspan="2">
+
+                                <h:messages/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="label_login">Cpf</span>
+                            </td>
+                            <td>
+                                <h:inputText value="#{loginBean.cpf}" style="width:140px;float:right;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:form>
+                                    <h:commandButton action="#{loginBean.solicitarNovaSenha}" value="Enviar" style="float:right"
+                                    reRender="login"/>
+                                </h:form>
+                            
+                            </td>
+                        </tr>
+                    </table>
+                </a4j:region>
+
+            </h:form>
+        </div>
+
+        <div class="clr"></div>
+      </div>
+      <h2>Sistema de Supervisão</h2>
+      <p>Sistema para entrada de dados e emissão de relatorios do Programa Nacional de Inclusão de Jovens - Projovem Urbano.</p>
+      <p>Acesso restrito.</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p><a href="http://www.projovemurbano.gov.br/site/" target="_blank">Acesse o Site do Governo Federal</a></p>
+    </div>
+
+  <div class="clr"></div>
+  <div class="body">
+
+</div>
+        <!--h:messages/>
+        <rich:panel style="width:400px;margin:10px">
+           <strong> Sistema Temporário. </strong><br/>
+            Em caso de duvidas, críticas ou sugestões, envie um email
+            para gtsupervisao@terra.com.br
+
+            
+        <div style="margin-left:85px;margin-top:20px;">
+        <rich:panel style="width:210px">
+            <f:facet name="header">
+                    Login
+            </f:facet>
+           <h:form>
+
+
+               <h:panelGrid columns="2">
+                   CPF:
+                   <h:inputText value="#{loginBean.cpf}" size="20"/>
+                   Senha:
+                   <h:inputSecret redisplay="false" value="#{loginBean.senha}" size="20"/>
+                   <h:outputText value=""/>
+                   <h:commandButton action="#{loginBean.validarUsuario}" value="Entrar"
+                   style="float:right"/>
+               </h:panelGrid>
+
+           </h:form>
+       </rich:panel>
+        </div>
+        <br/>
+        <br/>
+        Esta página estará disponível de segunda a sexta feira, no horário de 07 às 19horas
+       </rich:panel-->
+    </ui:define>
+</ui:composition>

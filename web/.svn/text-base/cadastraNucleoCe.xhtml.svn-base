@@ -1,0 +1,134 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:include viewId="/include/status.xhtml"/>
+        <h4></h4>
+
+
+        <div class="portfolio">
+            <h2><h:outputText value="Formulário de inserção de núcleos"/></h2>
+            <div class="text-home">
+                <a4j:form id="form">
+                    <div class="inner">
+                        <a4j:region name="local" id="local">
+                            <a4j:keepAlive beanName="localBean"/>
+
+
+                            <div class="clr color"></div>
+
+
+                            <a4j:include viewId="/include/CeIdentificaEntradaSemNucleo.xhtml"/>
+                            <a4j:region id="camposClassificacaoLocal" rendered="#{nucleoBean.renderedIdentificaLocalReferencia}">
+
+                                <a4j:include viewId="/include/identificaLocalReferencia.xhtml"
+                                             rendered="#{nucleoBean.renderedIdentificaLocalReferencia}"/>
+
+                                <!--p>Utilize os campos abaixo para cadastrar o núcleo/Local de observação.</p-->
+
+                                <h:panelGrid columns="3">
+                                    <!--p>Município:</p>
+                                    <h:inputText id="municipio" value="#{cadastraNucleoBean.nucleo.municipio}" style="width:300px" required="true"/>
+                                    <h:message for="municipio" style="color:#c70000; font-size:18px;"/-->
+
+                                    <!--p>Nome do Núcleo/Local:</p>
+                                    <h:inputText id="nome" value="#{cadastraNucleoBean.nucleo.referencia}" style="width:300px" required="true"/>
+                                    <h:message for="nome" style="color:#c70000; font-size:18px;"/-->
+
+                                    <!--p>CEP:</p>
+                                    <h:inputText id="cep" value="#{cadastraNucleoBean.nucleo.cep}"
+                                                 onkeyup="mascara_cep(this,event)"
+                                                 required="true"
+                                                 size="9"
+                                                 maxlength="9"/>
+                                    <h:message for="cep" style="color:#c70000; font-size:18px;"/-->
+
+                                    <!--p>Endereço: </p>
+                                    <h:inputText id="endereco" value="#{cadastraNucleoBean.nucleo.logradouro}" style="width:425px" required="true"/>
+                                    <h:message for="endereco" style="color:#c70000; font-size:18px;"/>
+
+                                    <p>Numero:</p>
+                                    <h:inputText id="numero" value="#{cadastraNucleoBean.nucleo.numero}"/>
+                                    <h:message for="numero" style="color:#c70000; font-size:18px;"/>
+
+                                    <p>Complemento:</p>
+                                    <h:inputText id="comple" value="#{cadastraNucleoBean.nucleo.complemento}"/>
+                                    <h:message for="comple" style="color:#c70000; font-size:18px;"/>
+
+                                    <p>Bairro:</p>
+                                    <h:inputText id="bairro" value="#{cadastraNucleoBean.nucleo.bairro}"/>
+                                    <h:message for="bairro" style="color:#c70000; font-size:18px;"/-->
+
+                                    <p>Justifique a inserção deste local:</p>
+                                    <h:inputTextarea id="just" value="#{cadastraNucleoBean.nucleo.justificativa}" rows="4" cols="50" required="true"/>
+                                    <h:message for="just" style="color:#c70000; font-size:18px;"/>
+
+
+                                </h:panelGrid>
+                                <a4j:commandButton action="#{cadastraNucleoBean.gravar}" value="Gravar" reRender="instrumento"
+                                                   styleClass="buttons" status="aguarde">
+                                    
+
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.cidadeLocal}" target="#{cadastraNucleoBean.nucleo.municipio}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.bairroLocal}" target="#{cadastraNucleoBean.nucleo.bairro}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.complementoLocal}" target="#{cadastraNucleoBean.nucleo.complemento}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.enderecoLocal}" target="#{cadastraNucleoBean.nucleo.logradouro}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.nomeLocal}" target="#{cadastraNucleoBean.nucleo.referencia}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.numeroLocal}" target="#{cadastraNucleoBean.nucleo.numero}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.local.cepLocal}" target="#{cadastraNucleoBean.nucleo.cep}" />
+
+
+                                    <f:setPropertyActionListener value="#{nucleoBean.ufEscolhida}" target="#{cadastraNucleoBean.nucleo.uf}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.coordenacaoEscolhida}" target="#{cadastraNucleoBean.nucleo.coordenacao}" />
+                                    <f:setPropertyActionListener value="#{nucleoBean.entradaEscolhida}" target="#{cadastraNucleoBean.nucleo.entrada}" />
+                                </a4j:commandButton>
+                            </a4j:region>
+                        </a4j:region>
+                    </div>
+
+
+                </a4j:form>
+            </div>
+
+        </div>
+
+        <div class="clr"></div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <head>
+        <title>Programa ProJovem Urbano</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+        <link rel="stylesheet" type="text/css" href="/projovem/css/basic.css"/>
+
+        <link href="/projovem/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/projovem/iecss.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" language="javascript" src="/projovem/js/pwd_meter_min.js"></script>
+        <script type="text/javascript" language="javascript" src="/projovem/js/func.js"></script>
+        <script type="text/javascript" language="javascript" src="/projovem/js/jquery.js"></script>
+
+        <script type="text/javascript">
+            $('#idRotina').ready(function() {
+                rotina = $('#idRotina').val();
+                switch(rotina){
+                    case "004":
+                        formatarRotina004();
+                        //alert(rotina);
+                        break;
+                    case "005":
+                        formatarRotina005();
+                        //alert(rotina);
+                        break;
+                    case "006":
+                        formatarRotina006();
+                        //alert(rotina);
+                        break;
+                    case "007":
+                        formatarRotina007();
+                        //alert(rotina);
+                        break;
+                    case "CE001":
+                        formatarRotinaCE001();
+                        //alert(rotina);
+                        break;
+                    case "CE002":
+                        formatarRotinaCE002();
+                        //alert(rotina);
+                        break;
+                    case "CE003":
+                        formatarRotinaCE003();
+                        //alert(rotina);
+                        break;
+                    default:
+                        //alert("=)");
+                }
+            });
+
+            //alert('rotina.value');
+            //$(document.getElementById('formRotina004')).ready(function() {
+                //alert('testeR4');
+                //formatarRotina004();
+            //});
+            //$(document.getElementById('formRotina005')).ready(function() {
+                //formatarRotina005();
+            //});
+        </script>
+    </head>
+
+    <body>
+        
+        <div class="main">
+
+
+
+            <div class="header">
+
+
+                <ui:insert name="header"/>
+            </div>
+            <div class="clr"></div>
+
+            <div class="body">
+                <ui:insert name="body" />
+            </div>
+
+
+            <div id="center" style="margin:auto;">
+                <ui:insert name="content"/>
+            </div>
+
+
+            <div class="footer">
+                Assessoria de Avaliação e Supervisão <br/>
+                &#169; 2009 - Secretaria Nacional de Juventude | Coordenação Nacional do ProJovem Urbano <br />
+                Setor Policial Sul, Área 05, Qd. 03, Bloco J - Brasília/DF<br />
+                <div class="clr"></div>
+                <!-- Site Meter XHTML Strict 1.0 
+                <script type="text/javascript" src="http://s23.sitemeter.com/js/counter.js?site=s23projovem">
+                </script>-->
+                <!-- Copyright (c)2009 Site Meter -->
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,184 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic_rel.xhtml">
+    <ui:define  name="header">
+        <div class="clr"></div>
+    </ui:define>
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h:form id="form">
+            <a4j:keepAlive beanName="rotinasLancadasBean"/>
+            <div style="width:1000px;padding:10px;border:1px solid">
+                <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+                    <div style="width:250px;float:left;padding-top:15px;">
+                        <!--p><img src="imagens/logo-projovem.JPG" style="width: 250px; height: 90px;"/></p-->
+
+                    </div>
+                    <div style="width:500px;float:left">
+                        <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                        <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO ROTINAS LANÇADAS</h2>
+                    </div>
+                    <div style="width:250px;float:left;padding-top:30px;">
+                        <!--p><img src="imagens/brasil_gd.jpg" style="width: 250px; height: 60px;"/></p-->
+                    </div>
+                </div>
+
+                <center>
+                    <a4j:region id="listaRotinasLancadas">
+                        <rich:dataTable id="tabela"
+                                        onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                        cellpadding="0" cellspacing="0"
+                                        border="0" var="rotina" value="#{rotinasLancadasBean.listaRotinasLancadasVO}"
+                                        >
+
+
+                            <rich:column rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 2 || currentUser.perfil eq 4}"
+                                         width="57">
+                                <f:facet name="header">
+                                    <h:outputText value="Validar"/>
+                                </f:facet>
+                                <a4j:commandLink reRender="form"
+                                                 action="#{rotinasLancadasBean.atualizarValidacao}" status="aguarde"
+                                                 rendered="#{rotina.dadosValidos eq 0 || rotina.dadosValidos eq -1}"
+                                                 onclick="if (!confirm('Tem certeza que deseja validar este registro?')) return false">
+                                    <h:graphicImage value="imagens/sim.png" alt="Validar Resposta" title="Validar Resposta" border="0"
+                                                    style="border: 0pt none;"/>
+                                    <f:setPropertyActionListener value="#{rotina.rotina}" target="#{rotinasLancadasBean.rotinaEscolhida}" />
+                                    <f:setPropertyActionListener value="1" target="#{rotinasLancadasBean.validacao}" />
+                                    <f:setPropertyActionListener value="#{rotina.idRotina}" target="#{rotinasLancadasBean.idRotinaEscolhida}"/>
+                                </a4j:commandLink>
+                                <h:outputText value="  " rendered="#{rotina.dadosValidos eq 0 || rotina.dadosValidos eq -1}"/>
+                                <a4j:commandLink reRender="form"
+                                                 action="#{rotinasLancadasBean.atualizarValidacao}" status="aguarde"
+                                                 rendered="#{rotina.dadosValidos eq 0 || rotina.dadosValidos eq -1}"
+                                                 onclick="if (!confirm('Tem certeza que deseja excluir este registro?')) return false">
+                                    <h:graphicImage value="imagens/no.gif" alt="Excluir Resposta" title="Excluir Resposta" border="0"
+                                                    style="border: 0pt none;"/>
+                                    <f:setPropertyActionListener value="#{rotina.rotina}" target="#{rotinasLancadasBean.rotinaEscolhida}" />
+                                    <f:setPropertyActionListener value="2" target="#{rotinasLancadasBean.validacao}" />
+                                    <f:setPropertyActionListener value="#{rotina.idRotina}" target="#{rotinasLancadasBean.idRotinaEscolhida}"/>
+                                </a4j:commandLink>
+                                <h:outputText value="  " rendered="#{rotina.dadosValidos eq 0 || rotina.dadosValidos eq -1}"/>
+                                <a4j:commandLink reRender="form"
+                                                 action="#{rotinasLancadasBean.editar}" status="aguarde"
+                                                 rendered="#{rotina.dadosValidos eq 0 || rotina.dadosValidos eq -1}"
+                                                 onclick="if (!confirm('Tem certeza que deseja editar este registro?')) return false">
+                                    <h:graphicImage value="imagens/editar.gif" alt="Editar Resposta" title="Editar Resposta" border="0"
+                                                    style="border: 0pt none;"/>
+                                    <f:setPropertyActionListener value="#{rotina.rotina}" target="#{rotinasLancadasBean.rotinaEscolhida}" />
+                                    <f:setPropertyActionListener value="#{rotina.idRotina}" target="#{rotinasLancadasBean.idRotinaEscolhida}"/>
+                                </a4j:commandLink>
+
+                               <h:commandLink reRender="form"
+                                              onclick="javascript:scroll(0,0);"
+                                              action="#{rotinasLancadasBean.visualizarComprovante}"
+                                              status="aguarde"
+                                              target="_blank"
+                                              rendered="#{rotina.dadosValidos eq 1}">
+                                    <h:graphicImage value="imagens/imprimir.gif" alt="Visualizar Comprovante" title="Visualizar Comprovante" border="0"
+                                                    style="border: 0pt none;"/>
+                                    <f:setPropertyActionListener value="#{rotina.rotina}" target="#{rotinasLancadasBean.rotinaEscolhida}" />
+                                    <f:setPropertyActionListener value="#{rotina.idRotina}" target="#{rotinasLancadasBean.idRotinaEscolhida}" />
+                                </h:commandLink>
+
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.id}" >
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.id}" />
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.dataVisita}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Data Visita / Aplicação"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.dataVisita}" />
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.identificaEntradaObservacao}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Observação" />
+                                </f:facet>
+                                <h:outputText value="#{rotina.identificaEntradaObservacao}" />
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.entrada}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Entrada"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.entrada}" />
+                            </rich:column>
+
+                            <rich:column sortBy="#{rotina.nucleo}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Nucleo"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.nucleo}" />
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.usuario}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Usuário"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.usuario}"/>
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.rotina}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Rotina"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.rotina}"/>
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.coordenacao}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Coordenação"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.coordenacao}"/>
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.uf}" >
+                                <f:facet name="header">
+                                    <h:outputText value="UF"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.uf}"/>
+                            </rich:column>
+                            <rich:column sortBy="#{rotina.municipio}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Município"/>
+                                </f:facet>
+                                <h:outputText value="#{rotina.municipio}"/>
+                            </rich:column>
+                            <rich:column >
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                               action="#{rotinasLancadasBean.visualizarRotina}" status="aguarde" target="_blank">
+                                    <h:outputText value="Visualizar Respostas"/>
+                                    <f:setPropertyActionListener value="#{rotina.rotina}" target="#{rotinasLancadasBean.rotinaEscolhida}" />
+                                    <f:setPropertyActionListener value="#{rotina.idRotina}" target="#{rotinasLancadasBean.idRotinaEscolhida}" />
+                                </h:commandLink>
+                            </rich:column>
+
+                        </rich:dataTable>
+                    </a4j:region>
+                </center>
+
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

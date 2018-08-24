@@ -1,0 +1,187 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <h4>ROTINA PARA VERIFICAÇÃO DOCUMENTAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = 003"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotinasLancadasBean"/>
+                <a4j:keepAlive beanName="nucleoBean"/>
+                <h:form id="form">
+
+                    <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.id}" /></strong></p>
+
+                    <p>UF: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.identificaEntradaUf}" /></p>
+                    <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.identificaEntradaCoordenacao}" /></p>
+                    <p>Município: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.identificaEntradaMunicipio}" /></p>
+                    <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.identificaEntradaEntrada}" /></p>
+                    <br/>
+                    <br/>
+
+                    <p>Nome Local: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.nomeLocal}" /></p>
+                    <p>Endereço: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.enderecoLocal}" /></p>
+                    <p>Numero: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.numeroLocal}" /></p>
+                    <p>Complemento: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.complementoLocal}" /></p>
+                    <p>Bairro: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.bairroLocal}" /></p>
+                    <p>CEP: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.cepLocal}" /></p>
+                    <p>Telefone: <h:outputText value=" #{rotinasLancadasBean.Rotina003Bean.telefoneLocal}" /></p>
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>Data da observação: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="dataVisita"
+                                     value="#{rotinasLancadasBean.Rotina003Bean.dataVisita}"
+                                     size="10"
+                                     maxlength="10"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Hora de início da observação: (notação 24 horas)
+                        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="horaInicioVisita"
+                                     value="#{rotinasLancadasBean.Rotina003Bean.horaInicioVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Hora de término da observação: (notação 24 horas)
+                        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="horaTerminoVisita"
+                                     value="#{rotinasLancadasBean.Rotina003Bean.horaTerminoVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+
+
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>Classificação do local:
+                        <h:message for="classificacaoLocal" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="classificacaoLocal"
+                                          value="#{rotinasLancadasBean.Rotina003Bean.classificacaoLocal}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Escola ou Instituição de Ensino."                          itemValue="1"/>
+                            <f:selectItem itemLabel="Igreja ou Instituição Religiosa."                          itemValue="2"/>
+                            <f:selectItem itemLabel="Outros Serviços Públicos (Posto de Saúde, CRAS...)."       itemValue="3"/>
+                            <f:selectItem itemLabel="Associação Civil (Assoc. de Moradores, Sindicato,...)."    itemValue="4"/>
+                            <f:selectItem itemLabel="Organização não governamental (ONG)."                      itemValue="5"/>
+                            <f:selectItem itemLabel="Coordenação Municipal ou Estadual do ProJovem Urbano."     itemValue="6"/>
+                            <f:selectItem itemLabel="Outro. "      itemValue="7"/>
+                        </h:selectOneRadio>
+
+                        <a4j:region rendered="#{rotinasLancadasBean.Rotina003Bean.classificacaoLocal eq '7'}">
+                            <table id="classificacaoLocalComplemento" >
+                                <tr>
+                                    <td>
+                                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                                <h:inputTextarea rows="4" cols="70" value="#{rotina002Bean.rotina.classificacaoLocalComplemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+                        </a4j:region>
+                        </p>
+
+                        </td>
+                        </tr>
+                    </table>
+
+
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>1 – Informe a forma de armazenamento das fichas (selecione uma única opção):
+                        <h:message for="formaArmazenamentoFichas" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="formaArmazenamentoFichas"
+                                          value="#{rotinasLancadasBean.Rotina003Bean.formaArmazenamentoFichas}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Em armários / arquivo."                                    itemValue="armarios/arquivo"/>
+                            <f:selectItem itemLabel="Em caixas."                                                itemValue="caixas"/>
+                            <f:selectItem itemLabel="Em pastas."                                                itemValue="pastas"/>
+                            <f:selectItem itemLabel="Outro."                                                    itemValue="outro"/>
+                        </h:selectOneRadio>
+                        <a4j:region rendered="#{rotinasLancadasBean.Rotina003Bean.formaArmazenamentoFichas eq 'outro'}">
+                            <table id="formaArmazenamentoFichasComplemento" >
+                                <tr>
+                                    <td>
+                                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                                <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.Rotina003Bean.formaArmazenamentoFichasComplemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+                        </a4j:region>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotinasLancadasBean.salvar}" reRender="form" onclick="javascript:scroll(0,0);" status="aguarde">
+                    <f:setPropertyActionListener value="#{rotinasLancadasBean.Rotina003}" target="#{Rotina003Bean.rotina}" />
+                    </a4j:commandButton>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

@@ -1,0 +1,197 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><h:outputLink value="http://projovem.fae.ufmg.br/projovem/rotina.jsf" rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 4}"> <h:outputText value="Rotinas"/> <br />
+                        <span>lançar respostas</span> </h:outputLink> </li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf" class="active">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <h4>Relatório de Rotinas Lançadas</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="Selecione os filtros desejados"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotinasLancadasBean"/>
+
+                <h:form id="form">
+                    <h:messages/>
+                    <table>
+                        <tr>
+                            <td>
+                                <p>Rotina</p>
+                            </td>
+                            <td>
+
+
+                        <h:selectOneMenu value="#{rotinasLancadasBean.rotinaEscolhida}">
+                            <f:selectItem itemLabel="Todas" itemValue="0" />
+                            <f:selectItem itemLabel="Rotina 1 - Rotina para Observação da Matrícula" itemValue="Rotina 001" />
+                            <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial" itemValue="Rotina 002" />
+                            <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial - Perfil dos Educadores" itemValue="Rotina 002 - Perfil Educadores" />
+                            <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial - Perfil dos Formadores" itemValue="Rotina 002 - Perfil Formadores" />
+                            <f:selectItem itemLabel="Rotina 3 - Rotina de Verificação Documental" itemValue="Rotina 003" />
+                            <f:selectItem itemLabel="Rotina 4 - Rotina de Supervisão das Condições de Oferta - Versão 2" itemValue="Rotina 004V2" />
+                            <f:selectItem itemLabel="Rotina 4 - Rotina de Supervisão das Condições de Oferta - Versão 3" itemValue="Rotina 004" />
+                            <f:selectItem itemLabel="Rotina 5 - Rotina para observação da Frequência" itemValue="Rotina 005" />
+                            <f:selectItem itemLabel="Rotina 6 - Rotina Qualificação Profissional - Formulário Cordenação Local" itemValue="Rotina 006 - Coordenacao Local" />
+                            <f:selectItem itemLabel="Rotina 6 - Rotina Qualificação Profissional - Formulário de Local Arcos Ocupacionais" itemValue="Rotina 006 - Arcos Ocupacionais" />
+                            <f:selectItem itemLabel="Rotina 6 - Rotina Qualificação Profissional - Formulário de Local Arcos OcupacionaisV3" itemValue="Rotina 006 - Arcos OcupacionaisV3" />
+                            <f:selectItem itemLabel="Rotina 7 - Rotina de Formação Continuada" itemValue="Rotina 007" />
+                            <f:selectItem itemLabel="Rotina CE 1 - Rotina Geral dos Núcleos" itemValue="Rotina 001 - Estadual" />
+                            <f:selectItem itemLabel="Rotina CE 2 - Perfil dos Educadores" itemValue="Rotina 002 - Estadual" />
+                            <f:selectItem itemLabel="Rotina CE 3 - Qualificação Profissional" itemValue="Rotina 003 - Estadual" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.rotinaSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                            </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>
+                                <h:selectManyCheckbox value="#{rotinasLancadasBean.listRotinaAguardandoValidacao}" layout="pageDirection" styleClass="opcoes">
+                                <f:selectItem itemLabel="Selecionar apenas rotinas aguardando validação" itemValue="1"/>
+                                <a4j:support event="onchange" action="#{rotinasLancadasBean.rotinaAguardandoValidacao}"
+                                         ajaxSingle="true" reRender="form" />
+                            </h:selectManyCheckbox>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>IR</p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu value="#{rotinasLancadasBean.irEscolhida}" disabled="#{rotinasLancadasBean.disableIr}">
+                            <f:selectItem itemLabel="Todas" itemValue="" />
+                            <f:selectItems value="#{rotinasLancadasBean.irs}" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.irSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Entrada</p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu value="#{rotinasLancadasBean.entradaEscolhida}" disabled="#{rotinasLancadasBean.disableEntrada}">
+                            <f:selectItem itemLabel="Todas" itemValue="" />
+                            <f:selectItems value="#{rotinasLancadasBean.entradas}" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.entradaSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Coordenação</p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu value="#{rotinasLancadasBean.coordenacaoEscolhida}" disabled="#{rotinasLancadasBean.disableCoordenacao}">
+                            <f:selectItem itemLabel="Todas" itemValue="" />
+                            <f:selectItems value="#{rotinasLancadasBean.coordenacoes}" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.coordenacaoSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Municipio</p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu value="#{rotinasLancadasBean.municipioEscolhida}" disabled="#{rotinasLancadasBean.disableMunicipio}">
+                            <f:selectItem itemLabel="Todos" itemValue="" />
+                            <f:selectItems value="#{rotinasLancadasBean.municipios}" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.municipioSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Supervisor</p>
+                            </td>
+                            <td>
+                        <h:selectOneMenu value="#{rotinasLancadasBean.supervisorEscolhida}" disabled="#{rotinasLancadasBean.disableSupervisor}">
+                            <f:selectItem itemLabel="Todos" itemValue="" />
+                            <f:selectItems value="#{rotinasLancadasBean.supervidores}" />
+                            <a4j:support event="onchange" action="#{rotinasLancadasBean.supervisorSelecionada}"
+                                         ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">
+                                <p>Período</p>
+                            </td>
+                            <td>
+                                <p>Data inicial</p>
+                            </td>
+                            <td>
+                        <h:inputText   value="#{rotinasLancadasBean.dataInicialEscolhida}"
+                                       size="10"
+                                       maxlength="10"
+                                       onkeyup="mascara_data(this,event)"
+                                       onblur="CheckDate(this)"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Data final</p>
+                            </td>
+                            <td>
+                        <h:inputText   value="#{rotinasLancadasBean.dataFinalEscolhida}"
+                                       size="10"
+                                       maxlength="10"
+                                       onkeyup="mascara_data(this,event)"
+                                       onblur="CheckDate(this)"/>
+                        </td>
+                        </tr>
+                    </table>
+                    <h:commandButton action="#{rotinasLancadasBean.gerarRelatorio}" value="Gerar Relatório" 
+                                     reRender="form" />
+
+
+
+                </h:form>
+
+            </div>
+        </div>
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

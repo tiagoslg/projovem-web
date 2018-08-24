@@ -1,0 +1,106 @@
+
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <span class="resposta-questao">
+        <a4j:region rendered="#{instrumentoBean.renderedQuestaoMaterial}">
+            <ui:include src="respostamaterial.xhtml" />
+        </a4j:region>
+        <h:selectOneRadio id="questao1" layout="pageDirection"
+        value="#{instrumentoBean.respostaSelecionada}"
+        rendered="#{instrumentoBean.renderedQuestaoMonovalorada}" >
+            <f:selectItems value="#{instrumentoBean.respostasPossiveisQuestoesMonovaloradas}"/>
+        </h:selectOneRadio>
+
+        <h:selectManyCheckbox  layout="pageDirection"
+        value="#{instrumentoBean.respostasDadasQuestoesMultivaloradas}"
+        rendered="#{instrumentoBean.renderedQuestaoMultivalorada}" >
+            <f:selectItems value="#{instrumentoBean.respostasPossiveisQuestoesMonovaloradas}"/>
+        </h:selectManyCheckbox>
+
+        <h:selectOneRadio  layout="pageDirection"
+        value="#{instrumentoBean.respostaSelecionada}"
+        rendered="#{instrumentoBean.renderedQuestaoMonovaloradaA4J}" status="aguarde">
+            <f:selectItems value="#{instrumentoBean.respostasPossiveisQuestoesMonovaloradas}"/>
+            <a4j:support event="onclick" action="#{instrumentoBean.cordenaDisabled}"
+                    ajaxSingle="true" reRender="instrumento" status="aguarde"/>
+        </h:selectOneRadio>
+
+
+        <h:dataTable value="#{instrumentoBean.respostasPossiveisQuestoesTextuais}" var="resposta">
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.time}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}"/></p>
+            </h:column>
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.date}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}"/></p>
+            </h:column>
+            
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.integer}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}"/></p>
+            </h:column>
+
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.shortInput}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}" rendered="#{!resposta.resposta.disabled}"/></p>
+            </h:column>
+
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.combo}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}"/></p>
+            </h:column>
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.combo}">
+                <h:selectOneMenu id="questao1" layout="pageDirection"
+                value="#{resposta.valor}">
+                    <f:selectItems value="#{resposta.listSelectItem}"/>
+                </h:selectOneMenu>
+            </h:column>
+
+           <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.shortInput}">
+                <h:inputText value="#{resposta.valor}" rendered="#{!resposta.resposta.disabled}"/>
+            </h:column>
+
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.integer}">
+                <h:inputText id="campoNumerico" value="#{resposta.valor}" rendered="#{!resposta.resposta.disabled}">
+                    <f:validateLongRange/>
+                </h:inputText>
+                <h:message for="campoNumerico" style="color:#c70000; font-size:18px;"/>
+            </h:column>
+
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.time}">
+
+                <h:inputText value="#{resposta.valor}" id="campoTime" size="5" maxlength="5"
+                onkeypress="mascara_hora(this)">
+                </h:inputText>
+                <h:message for="campoTime" style="color:#c70000; font-size:18px;"/>
+
+            </h:column>
+
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.date}">
+
+                <h:inputText value="#{resposta.valor}" id="campoDate" size="10" maxlength="10"
+                onkeypress="mascara_data(this)">
+                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                </h:inputText>
+                <h:message for="campoDate" style="color:#c70000; font-size:18px;"/>
+
+            </h:column>
+            <h:column rendered="#{resposta.resposta.dataTypeResposta eq tipoQuestao.longInput}">
+                <p><h:outputText value="#{resposta.resposta.respostaTextual}" rendered="#{!resposta.resposta.disabled}"/></p>
+                <br/>
+                <rich:editor rendered="#{!resposta.resposta.disabled}"
+                        id="editor" width="610" height="300"
+                         value="#{resposta.valor}" required="true">
+                </rich:editor>
+            </h:column>
+        </h:dataTable>
+    </span>
+
+
+
+
+</ui:composition>

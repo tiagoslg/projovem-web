@@ -1,0 +1,685 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>Rotina de Qualificação Profissional</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="Formulário Coordenaçao Local"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotina006Bean"/>
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="3"/>
+
+                    <a4j:include viewId="/include/identificaEntradaSemNucleo.xhtml"/>
+
+                    <a4j:region id="camposClassificacaoLocal" rendered="#{nucleoBean.renderedIdentificaLocalReferencia}">
+
+                        <a4j:include viewId="/include/identificaLocalReferencia.xhtml"
+                                     rendered="#{nucleoBean.renderedIdentificaLocalReferencia}"/>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td width="130px">
+                                    <p>Data da observação: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="dataVisita"
+                                         value="#{rotina006Bean.rotina.dataVisita}"
+                                         size="10"
+                                         maxlength="10"
+                                         onkeyup="mascara_data(this,event)"
+                                         onblur="CheckDate(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de início: (notação 24 horas)
+                            <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="horaInicioVisita"
+                                         value="#{rotina006Bean.rotina.horaInicioVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de término: (notação 24 horas)
+                            <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="horaTerminoVisita"
+                                         value="#{rotina006Bean.rotina.horaTerminoVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>
+                                <p>Coordenação:
+                                <h:selectOneRadio id="tipoCordenacao"
+                                                  value="#{rotina006Bean.rotina.tipoCordenacao}"
+                                                  layout="pageDirection"
+                                                  required="false">
+                                    <f:selectItem itemLabel="Municipal " itemValue="CM"/>
+                                    <f:selectItem itemLabel="Estadual " itemValue="CE"/>
+                                </h:selectOneRadio>
+                                </p>
+                            </td>
+                            </tr>
+                        </table>
+
+
+
+
+
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <p>1. Nome do responsável pelas informações:
+                            <h:message for="q1" style="color:#c70000; font-size:18px;"/></p>
+                            <p><h:inputText id="q1"
+                                            value="#{rotina006Bean.rotina.q1}"
+                                            size="50"
+                                            maxlength="50"
+                                            required="false"/>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>2. Função do responsável pelas informações:
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/></p>
+                            <p><h:inputText id="q2"
+                                            value="#{rotina006Bean.rotina.q2}"
+                                            size="50"
+                                            maxlength="50"
+                                            required="false"/>
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p>3. Quais arcos ocupacionais estão sendo oferecidos por esta coordenação local?</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Arco A<h:message for="q3a" style="color:#c70000; font-size:18px;"/></p>
+                                </td>
+                                <td>
+                            <h:selectOneMenu id="q3a"
+                                             layout="pageDirection"
+                                             value="#{rotina006Bean.rotina.q3a}"
+                                             required="false">
+                                <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                            </h:selectOneMenu>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arco B<h:message for="q3b" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneMenu id="q3b"
+                                             layout="pageDirection"
+                                             value="#{rotina006Bean.rotina.q3b}"
+                                             required="false">
+                                <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                            </h:selectOneMenu>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arco C<h:message for="q3c" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneMenu id="q3c"
+                                             layout="pageDirection"
+                                             value="#{rotina006Bean.rotina.q3c}"
+                                             required="false">
+                                <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                            </h:selectOneMenu>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arco D<h:message for="q3d" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneMenu id="q3d"
+                                             layout="pageDirection"
+                                             value="#{rotina006Bean.rotina.q3d}"
+                                             required="false">
+                                <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                            </h:selectOneMenu>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arco E<h:message for="q3e" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneMenu id="q3e"
+                                             layout="pageDirection"
+                                             value="#{rotina006Bean.rotina.q3e}"
+                                             required="false">
+                                <f:selectItems value="#{rotina006Bean.listaArcos}"/>
+                            </h:selectOneMenu>
+                            </td>
+                            </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>4. Data de início das atividades dos arcos. (dd/mm/aaaa)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="80">
+                                            <p>Arco A<h:message for="q4a" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                        <h:inputText id="q4a"
+                                     value="#{rotina006Bean.rotina.q4a}"
+                                     size="10"
+                                     maxlength="10"
+                                     onkeyup="mascara_data(this,event)"
+                                     onchange="CheckDate(this)"
+                                     required="false"/>
+                        <input type="checkbox" name="option1" value="true" onclick="bloquearCampo(this,'form:q4a','true')"/>Sem previsão de início
+                        <br/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td width="80">
+                                <p>Arco B<h:message for="q4b" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q4b"
+                                     value="#{rotina006Bean.rotina.q4b}"
+                                     size="10"
+                                     maxlength="10"
+                                     onkeyup="mascara_data(this,event)"
+                                     onchange="CheckDate(this)"/>
+                        <input type="checkbox" name="option1" value="true" onclick="bloquearCampo(this,'form:q4b','true')"/>Sem previsão de início
+                        <br/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td width="80">
+                                <p>Arco C<h:message for="q4c" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q4c"
+                                     value="#{rotina006Bean.rotina.q4c}"
+                                     size="10"
+                                     maxlength="10"
+                                     onkeyup="mascara_data(this,event)"
+                                     onchange="CheckDate(this)"/>
+                        <input type="checkbox" name="option1" value="true" onclick="bloquearCampo(this,'form:q4c','true')"/>Sem previsão de início
+                        <br/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td width="80">
+                                <p>Arco D<h:message for="q4d" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q4d"
+                                     value="#{rotina006Bean.rotina.q4d}"
+                                     size="10"
+                                     maxlength="10"
+                                     onkeyup="mascara_data(this,event)"
+                                     onchange="CheckDate(this)"/>
+                        <input type="checkbox" name="option1" value="true" onclick="bloquearCampo(this,'form:q4d','true')"/>Sem previsão de início
+                        <br/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td width="80">
+                                <p>Arco E<h:message for="q4e" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q4e"
+                                     value="#{rotina006Bean.rotina.q4e}"
+                                     size="10"
+                                     maxlength="10"
+                                     onkeyup="mascara_data(this,event)"
+                                     onchange="CheckDate(this)"/>
+                        <input type="checkbox" name="option1" value="true" onclick="bloquearCampo(this,'form:q4e','true')"/>Sem previsão de início
+                        <br/>
+                        </td>
+                        </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>5. Qual o PRINCIPAL critério utilizado para a distribuição dos alunos nos arcos?
+                        <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q5"
+                                          value="#{rotina006Bean.rotina.q5}"
+                                          layout="pageDirection"
+                                          onclick="habilitarCampoComplementar(this,'q5complemento','e')"
+                                          required="false">
+                            <f:selectItem itemLabel="Os alunos escolheram o arco de sua preferência. " itemValue="a"/>
+                            <f:selectItem itemLabel="Os alunos ingressaram no arco por meio de sorteio.  " itemValue="b"/>
+                            <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com o número de vagas disponíveis. " itemValue="c"/>
+                            <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com a proximidade de sua residência ou núcleo. " itemValue="d"/>
+                            <f:selectItem itemLabel="Outro." itemValue="e"/>
+                        </h:selectOneRadio>
+                        <table id="q5complemento" style="display:none">
+                            <tr>
+                                <td>
+                                    <p>Neste caso, registre no espaço abaixo:<br/>
+                            <h:inputText value="#{rotina006Bean.rotina.q5complemento}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        </p>
+                        </td>
+                        </tr>
+                        </table>
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <p>6. Especifique os dias de funcionamento, tipo de local (oficina, escola, etc), núcleos atendidos, arcos oferecidos e o endereço de cada
+                                        local onde os arcos são desenvolvidos. <br/>
+                                        <br/>
+
+                                    <table style="border:1px solid #DBDCD3;margin:10px;width:610px;">
+                                        <tr>
+                                            <td >
+                                                <p>Endereço (Rua, Av...):<br/>
+                                        <h:inputText value="#{rotina006Bean.local.enderecoLocal}" size="40" maxlength="100"/></p>
+                                </td>
+
+                                <td>
+                                    <p>No:<br/>
+                            <h:inputText value="#{rotina006Bean.local.numeroLocal}" size="15"/></p>
+                            </td>
+                            <td>
+                                <p>Complemento:<br/>
+                            <h:inputText value="#{rotina006Bean.local.complementoLocal}" size="15"/></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p> Telefone:<br/>
+                            <h:inputText value="#{rotina006Bean.local.telefoneLocal}"
+                                         size="13" maxlength="13"
+                                         onkeyup="mascara_telefone(this,event)"/></p>
+                            </td>
+                            </tr>
+                        </table>
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:610px;">
+                            <tr>
+                                <td>
+                                    <p>Tipo de Local:</p>
+                                </td>
+                                <td>
+
+                            <h:selectOneRadio value="#{rotina006Bean.local.tipoLocal}"
+                                              style="float:left"
+                                              onclick="habilitarCampoComplementar(this,'tipoLocalComplemento','Outro')">
+                                <f:selectItem itemLabel="Núcleo" itemValue="Núcleo"/>
+                                <f:selectItem itemLabel="Oficina externa" itemValue="OficinaExterna"/>
+                                <f:selectItem itemLabel="Outros" itemValue="Outro"/>
+                            </h:selectOneRadio>
+                            <table id="tipoLocalComplemento" style="display:none">
+                                <tr>
+                                    <td>
+                                        <p>Neste caso, registre no espaço abaixo:<br/>
+                                <h:inputText value="#{rotina006Bean.local.tipoLocalComplemento}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arcos Oferecidos:</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isArcosAOferecido}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Arco A" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isArcosBOferecido}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Arco B" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isArcosCOferecido}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Arco C" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isArcosDOferecido}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Arco D" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isArcosEOferecido}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Arco E" itemValue="true"/>
+                            </h:selectManyCheckbox>
+
+                            </td>
+                            </tr>
+                        </table>
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:610px;">
+
+                            <tr>
+                                <td colspan="2"><p>Dias de funcionamento por arco:</p><br/></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Arco A</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoASegunda}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Segunda-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoATerca}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Terça-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoAQuarta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quarta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoAQuinta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quinta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoASexta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sexta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoASabado}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sábado" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>Arco B</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBSegunda}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Segunda-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBTerca}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Terça-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBQuarta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quarta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBQuinta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quinta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBSexta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sexta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoBSabado}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sábado" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>Arco C</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCSegunda}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Segunda-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCTerca}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Terça-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCQuarta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quarta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCQuinta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quinta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCSexta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sexta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoCSabado}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sábado" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>Arco D</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDSegunda}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Segunda-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDTerca}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Terça-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDQuarta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quarta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDQuinta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quinta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDSexta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sexta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoDSabado}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sábado" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>Arco E</p>
+                                </td>
+                                <td>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoESegunda}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Segunda-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoETerca}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Terça-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoEQuarta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quarta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoEQuinta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Quinta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoESexta}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sexta-feira" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{rotina006Bean.local.isFuncionamentoArcoESabado}"
+                                                  styleClass="opcoes">
+                                <f:selectItem itemLabel="Sábado" itemValue="true"/>
+                            </h:selectManyCheckbox>
+                            </td>
+                            </tr>
+
+                        </table>
+
+
+
+                        </p>
+                        </td>
+                        </tr>
+                        </table>
+
+                        <table style="margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <center>
+                                        <a4j:commandButton value="Salvar informações do local da Qual. Prof."
+                                                           action="#{rotina006Bean.adicionarLocal}" reRender="form"/>
+                                    </center>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                            <rich:dataTable
+                                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                cellpadding="0" cellspacing="0"
+                                border="0" var="local" value="#{rotina006Bean.rotina.listaLocais}">
+
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Endereço"/>
+                                    </f:facet>
+                                    <h:outputText value="#{local.enderecoLocal}"/>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Editar"/>
+                                    </f:facet>
+                                    <a4j:commandLink value="Editar" reRender="form"
+                                                     action="#{rotina006Bean.editarLocal}" status="aguarde">
+                                        <f:setPropertyActionListener value="#{local}" target="#{rotina006Bean.local}" />
+                                    </a4j:commandLink>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Excluir"/>
+                                    </f:facet>
+                                    <a4j:commandLink value="Excluir" reRender="form"
+                                                     action="#{rotina006Bean.excluirLocal}" status="aguarde">
+                                        <f:setPropertyActionListener value="#{local}" target="#{rotina006Bean.local}" />
+                                    </a4j:commandLink>
+                                </rich:column>
+                            </rich:dataTable>
+                            </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotina006Bean.salvarRotina}" status="aguarde" reRender="form" onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.local}" target="#{rotina006Bean.localReferencia}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.ufEscolhida}" target="#{rotina006Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.coordenacaoEscolhida}" target="#{rotina006Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.municipioEscolhida}" target="#{rotina006Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.entradaEscolhida}" target="#{rotina006Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{rotina006Bean.rotina}" target="#{rotinasLancadasBean.rotina006CoordenacaoLocal}" />
+                        </a4j:commandButton>
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

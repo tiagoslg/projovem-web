@@ -1,0 +1,59 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+<div style="display:none">
+    <div id="div_nLength" >&#160;</div>
+    <div id="nLength" >&#160;</div>
+    <div id="nLengthBonus" >&#160;</div>
+    <div id="div_nAlphaUC" >&#160;</div>
+    <div id="nAlphaUC" >&#160;</div>
+    <div id="nAlphaUCBonus" >&#160;</div>
+    <div id="div_nAlphaLC" >&#160;</div>
+    <div id="nAlphaLC" >&#160;</div>
+    <div id="nAlphaLCBonus" >&#160;</div>
+    <div id="div_nNumber" >&#160;</div>
+    <div id="nNumber" >&#160;</div>
+    <div id="nNumberBonus" >&#160;</div>
+    <div id="div_nSymbol" >&#160;</div>
+    <div id="nSymbol" >&#160;</div>
+    <div id="nSymbolBonus" >&#160;</div>
+    <div id="div_nMidChar" >&#160;</div>
+    <div id="nMidChar" >&#160;</div>
+    <div id="nMidCharBonus" >&#160;</div>
+    <div id="div_nRequirements" >&#160;</div>
+    <div id="nRequirements" >&#160;</div>
+    <div id="nRequirementsBonus" >&#160;</div>
+    <div id="div_nAlphasOnly" >&#160;</div>
+    <div id="nAlphasOnly" >&#160;</div>
+    <div id="nAlphasOnlyBonus">&#160;</div>
+    <div id="div_nNumbersOnly" >&#160;</div>
+    <div id="nNumbersOnly" >&#160;</div>
+    <div id="nNumbersOnlyBonus" >&#160;</div>
+    <div id="div_nRepChar" >&#160;</div>
+    <div id="nRepChar" >&#160;</div>
+    <div id="nRepCharBonus" >&#160;</div>
+    <div id="div_nConsecAlphaUC" >&#160;</div>
+    <div id="nConsecAlphaUC" >&#160;</div>
+    <div id="nConsecAlphaUCBonus" >&#160;</div>
+    <div id="div_nConsecAlphaLC" >&#160;</div>
+    <div id="nConsecAlphaLC" >&#160;</div>
+    <div id="nConsecAlphaLCBonus" >&#160;</div>
+    <div id="div_nConsecNumber" >&#160;</div>
+    <div id="nConsecNumber" >&#160;</div>
+    <div id="nConsecNumberBonus" >&#160;</div>
+    <div id="div_nSeqAlpha" >&#160;</div>
+    <div id="nSeqAlpha" >&#160;</div>
+    <div id="nSeqAlphaBonus" >&#160;</div>
+    <div id="div_nSeqNumber" >&#160;</div>
+    <div id="nSeqNumber" >&#160;</div>
+    <div id="nSeqNumberBonus" >&#160;</div>
+</div>
+             
+</ui:composition>

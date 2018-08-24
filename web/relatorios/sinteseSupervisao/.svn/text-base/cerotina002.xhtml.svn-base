@@ -1,0 +1,174 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina CE002 - PERFIL DOS EDUCADORES</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/>
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagemCe002.listaCeRotina002}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.id}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Entrada"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.identificaEntradaEntrada}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data da Entrevista"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.dataAplicacao}"/></center>
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaCeRotina002Size} educadores entrevistados."/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1i}% dos educadores entrevistados informam ter mestrado como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1i gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1j}% dos educadores entrevistados informam ter doutorado como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1j gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9ac}% dos educadores entrevistados afirmam ter conhecimento avançado sobre software de texto"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9ac gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9bc}% dos educadores entrevistados afirmam ter conhecimento avançado sobre confecção de planilhas"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9bc gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9cc}% dos educadores entrevistados afirmam ter conhecimento avançado sobre acesso a internet"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9cc gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q12maior}% dos educadores entrevistados afirmaram ser a carga horária total da formação inicial superior a 96 horas presenciais"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q12maior gt 0}"/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.positivo eq 0}"/> </p>
+
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1a}% dos educadores entrevistados informam ter o ensino fundamental como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1b}% dos educadores entrevistados informam ter o ensino médio como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1b gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1c}% dos educadores entrevistados informam ter o ensino médio (opção magistério) como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1c gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q1d}% dos educadores entrevistados informam ter o ensino superior incompleto como nível máximo de escolaridade"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q1d gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8anao}% dos educadores entrevistados afirmaram desconhecer o Manual do educador"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8anao gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8bnao}% dos educadores entrevistados afirmaram desconhecer o Agenda do Estudante"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8bnao gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8cnao}% dos educadores entrevistados afirmaram desconhecer o caderno do Projeto de Orientação Profissional"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8cnao gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8dnao}% dos educadores entrevistados afirmaram desconhecer o caderno do Plano de Ação Comunitária"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8dnao gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8enao}% dos educadores entrevistados afirmaram desconhecer o Guia de estudo da Unidade Formativa"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8enao gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q8fnao}% dos educadores entrevistados afirmaram desconhecer o Caderno de Registro e Avaliação"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q8fnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9aa}% dos educadores entrevistados afirmam não ter conhecimento sobre software de texto"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9aa gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9ba}% dos educadores entrevistados afirmam não ter conhecimento sobre confecção de planilhas"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9ba gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q9ca}% dos educadores entrevistados afirmam não ter conhecimento sobre acesso a internet"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q9ca gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q10parcialmente}% dos educadores entrevistados afirmam ter participado parcialmente da formação inicial oferecida pelo PJU"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q10parcialmente gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q10nao}% dos educadores entrevistados afirmam  não ter participado da formação inicial do PJU"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q10nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q12menor}% dos educadores entrevistados afirmaram ser a carga horária total da formação inicial inferior a 96 horas presenciais"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q12menor gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q13nao}% dos educadores entrevistados afirmaram não ter utilizado o Guia do Educador na formação inicial do programa"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q13nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q14nao}% dos educadores entrevistados afirmaram não ter utilizado o Manual do aluno na formação inicial do programa"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q14nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q15nao}% dos educadores entrevistados afirmaram que a participação na formação inicial não contribui para o seu trabalho no PJU"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q15nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagemCe002.q19nao}% dos educadores entrevistados afirmam que a participação as atividades coletivas/em grupo não tem contribuido para o seu trabalho no PJU"
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.q19nao gt 0}"/> </p>
+
+        
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagemCe002.negativo eq 0}"/> </p>
+
+        <br/>
+
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagemCe002.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+    </div>
+</ui:composition>

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+  Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td width="130px">
+                <p>Data da Visita: <br/>    (dd/mm/aaaa)
+        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="dataVisita"
+                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.dataVisita}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de início da observação: (notação 24 horas)
+        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaInicioVisita"
+                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.horaInicioVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de término da observação: (notação 24 horas)
+        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaTerminoVisita"
+                     value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.horaTerminoVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Coordenação:
+                <h:selectOneRadio id="tipoCordenacao"
+                                  value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.tipoCordenacao}"
+                                  layout="pageDirection"
+                                  required="false"
+                                  disabled="true">
+                    <f:selectItem itemLabel="Municipal " itemValue="CM"/>
+                    <f:selectItem itemLabel="Estadual " itemValue="CE"/>
+                </h:selectOneRadio>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+                <p>1. Nome do responsável pelas informações:
+        <h:message for="q1" style="color:#c70000; font-size:18px;"/></p>
+        <p><h:inputText id="q1"
+                        value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q1}"
+                        size="50"
+                        maxlength="50"
+                        disabled  ="true"/>
+        </p>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>2. Função do responsável pelas informações:
+        <h:message for="q2" style="color:#c70000; font-size:18px;"/></p>
+        <p><h:inputText id="q2"
+                        value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q2}"
+                        size="50"
+                        maxlength="50"
+                        disabled  ="true"/>
+        </p>
+        </td>
+        </tr>
+    </table>
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <p>3. Quais arcos ocupacionais estão sendo oferecidos por esta coordenação local?</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Arco A<h:message for="q3a" style="color:#c70000; font-size:18px;"/></p>
+            </td>
+            <td>
+        <h:outputText id="q3a"
+                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3a}"
+                         disabled  ="true"/>
+
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Arco B<h:message for="q3b" style="color:#c70000; font-size:18px;"/></p>
+        </td>
+        <td>
+        <h:outputText id="q3b"
+                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3b}"
+                         disabled  ="true"/>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Arco C<h:message for="q3c" style="color:#c70000; font-size:18px;"/></p>
+        </td>
+        <td>
+        <h:outputText id="q3c"
+                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3c}"
+                         disabled  ="true"/>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Arco D<h:message for="q3d" style="color:#c70000; font-size:18px;"/></p>
+        </td>
+        <td>
+        <h:outputText id="q3d"
+                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3d}"
+                         disabled  ="true"/>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Arco E<h:message for="q3e" style="color:#c70000; font-size:18px;"/></p>
+        </td>
+        <td>
+        <h:outputText id="q3e"
+                         value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q3e}"
+                         disabled  ="true"/>
+        </td>
+        </tr>
+    </table>
+
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <p>4. Data de início das atividades dos arcos. (dd/mm/aaaa)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="80">
+                        <p>Arco A<h:message for="q4a" style="color:#c70000; font-size:18px;"/></p>
+        </td>
+        <td>
+    <h:inputText id="q4a"
+                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4a}"
+                 size="10"
+                 maxlength="10"
+                 disabled  ="true"/>
+    <br/>
+    </td>
+    </tr>
+    <tr>
+        <td width="80">
+            <p>Arco B<h:message for="q4b" style="color:#c70000; font-size:18px;"/></p>
+    </td>
+    <td>
+    <h:inputText id="q4b"
+                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4b}"
+                 size="10"
+                 maxlength="10"
+                 disabled  ="true"/>
+    <br/>
+    </td>
+    </tr>
+    <tr>
+        <td width="80">
+            <p>Arco C<h:message for="q4c" style="color:#c70000; font-size:18px;"/></p>
+    </td>
+    <td>
+    <h:inputText id="q4c"
+                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4c}"
+                 size="10"
+                 maxlength="10"
+                 disabled  ="true"/>
+    <br/>
+    </td>
+    </tr>
+    <tr>
+        <td width="80">
+            <p>Arco D<h:message for="q4d" style="color:#c70000; font-size:18px;"/></p>
+    </td>
+    <td>
+    <h:inputText id="q4d"
+                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4d}"
+                 size="10"
+                 maxlength="10"
+                 disabled  ="true"/>
+    <br/>
+    </td>
+    </tr>
+    <tr>
+        <td width="80">
+            <p>Arco E<h:message for="q4e" style="color:#c70000; font-size:18px;"/></p>
+    </td>
+    <td>
+    <h:inputText id="q4e"
+                 value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q4e}"
+                 size="10"
+                 maxlength="10"
+                 disabled  ="true"/>
+    <br/>
+    </td>
+    </tr>
+    </table>
+
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>5. Qual o PRINCIPAL critério utilizado para a distribuição dos alunos nos arcos?
+    <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+    <h:selectOneRadio id="q5"
+                      value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5}"
+                      layout="pageDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Os alunos escolheram o arco de sua preferência. " itemValue="a"/>
+        <f:selectItem itemLabel="Os alunos ingressaram no arco por meio de sorteio.  " itemValue="b"/>
+        <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com o número de vagas disponíveis. " itemValue="c"/>
+        <f:selectItem itemLabel="Os alunos ingressaram no arco de acordo com a proximidade de sua residência ou núcleo. " itemValue="d"/>
+        <f:selectItem itemLabel="Outro." itemValue="e"/>
+    </h:selectOneRadio>
+    <a4j:region rendered="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5 eq 'd'}">
+        <table id="q5complemento">
+            <tr>
+                <td>
+                    <p>Neste caso, registre no espaço abaixo:<br/>
+            <h:inputText value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.q5complemento}" disabled  ="true"/></p>
+            </td>
+            </tr>
+        </table>
+    </a4j:region>
+    </p>
+    </td>
+    </tr>
+    </table>
+
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+        <rich:dataTable
+            onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+            cellpadding="0" cellspacing="0"
+            border="0" var="local" value="#{rotinasLancadasBean.rotina006CoordenacaoLocal.listaLocais}">
+
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Endereço"/>
+                </f:facet>
+                <h:outputText value="#{local.enderecoLocal}"/>
+            </rich:column>
+
+        </rich:dataTable>
+        </td>
+        </tr>
+    </table>
+
+</ui:composition>

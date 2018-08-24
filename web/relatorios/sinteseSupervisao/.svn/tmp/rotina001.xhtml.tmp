@@ -1,0 +1,148 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina 1 - ROTINA PARA OBSERVAÇÃO DA MATRÍCULA</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <!--p><h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/></p-->
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagem001.listaRotina001}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <CENTER></CENTER><h:outputText value="#{rotina.id}"/></CENTER>
+=======
+                    <center><h:outputText value="#{rotina.id}"/></center>
+>>>>>>> .r145
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Entrada"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <CENTER><h:outputText value="#{rotina.identificaEntradaEntrada}"/></CENTER>
+=======
+                    <center><h:outputText value="#{rotina.identificaEntradaEntrada}"/></center>
+>>>>>>> .r145
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data Observação"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <CENTER><h:outputText value="#{rotina.dataVisita}"/></CENTER>
+=======
+                    <center><h:outputText value="#{rotina.dataVisita}"/></center>
+>>>>>>> .r145
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaRotina001Size} Observações realizadas."/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q3a} dos locais de matrícula o tempo médio que os alunos esperaram para receber atendimento foi inferior a 15 minutos."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q3a gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q6ma} dos locais observados 2/3 ou mais dos jovens realizaram teste ou apresentaram registro escolar."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q6ma gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q7cma} dos locais de matricula 2/3 ou mais dos jovens observados tiveram suas fichas preenchidas."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q7cma gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q7dma} dos locais de matricula 2/3 ou mais dos jovens observados que não levaram todos os documentos receberam orientações para retornar."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q7dma gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q8ama} dos locais observados 2/3 ou mais dos jovens preencheram todos os requisitos e efetivaram a matrícula."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q8ama gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q8bma} dos locais observados 2/3 ou mais dos jovens tiveram suas matrículas confirmadas on-line naquele momento."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q8bma gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q10sim} dos locais de matrícula os jovens matriculados foram informados da data do início das aulas."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q10sim gt 0}"/> </p>
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem001.positivo eq 0}"/> </p>
+
+
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q2naohavia} dos locais de matrícula havia menos de 1 funcionário no turno observado."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q2naohavia gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q3c} dos locais de matrícula o tempo médio que os alunos esperaram para receber atendimento foi superior a 30 minutos."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q3c gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q4} dos locais de matricula não havia acesso à internet."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q4 gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q6ame} dos locais observados 1/3 ou menos dos jovens realizaram teste ou apresentaram registro escolar."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q6ame gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q7ame} dos locais de matricula 2/3 ou mais dos jovens observados não levaram documento de identificação."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q7ame gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q7bme} dos locais de matricula 2/3 ou mais dos jovens observados não levaram comprovante de residência."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q7bme gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem001.q9nao} dos locais de matrícula os jovens matriculados não foram informados do local das aulas."
+                         rendered="#{sinteseSupervisaoBean.contagem001.q9nao gt 0}"/> </p>
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem001.negativo eq 0}"/> </p>
+
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagem001.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+
+    </div>
+</ui:composition>

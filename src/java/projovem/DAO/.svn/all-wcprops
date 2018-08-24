@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/175/trunk/projovem/src/java/projovem/DAO
+END
+Rotina001DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/Rotina001DAO.java
+END
+Rotina002DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/Rotina002DAO.java
+END
+Rotina003DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/Rotina003DAO.java
+END
+RespostaMaterialDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/RespostaMaterialDAO.java
+END
+RotinasDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/183/trunk/projovem/src/java/projovem/DAO/RotinasDAO.java
+END
+Rotina004DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/179/trunk/projovem/src/java/projovem/DAO/Rotina004DAO.java
+END
+QuestaoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/17/trunk/projovem/src/java/projovem/DAO/QuestaoDAO.java
+END
+Rotina005DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/Rotina005DAO.java
+END
+Rotina006DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/175/trunk/projovem/src/java/projovem/DAO/Rotina006DAO.java
+END
+ColetaDadosDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/ColetaDadosDAO.java
+END
+Rotina007DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/Rotina007DAO.java
+END
+ArcoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/ArcoDAO.java
+END
+NucleoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/170/trunk/projovem/src/java/projovem/DAO/NucleoDAO.java
+END
+CeRotina001DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/CeRotina001DAO.java
+END
+CeRotina002DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/CeRotina002DAO.java
+END
+UsuarioDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/UsuarioDAO.java
+END
+InstrumentoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/InstrumentoDAO.java
+END
+CeRotina003DAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/146/trunk/projovem/src/java/projovem/DAO/CeRotina003DAO.java
+END
+LocalDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/LocalDAO.java
+END
+MaterialDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/MaterialDAO.java
+END
+RespostaDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/DAO/RespostaDAO.java
+END
+LogAcessosDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/179/trunk/projovem/src/java/projovem/DAO/LogAcessosDAO.java
+END
+CepDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/23/trunk/projovem/src/java/projovem/DAO/CepDAO.java
+END
+UfDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/19/trunk/projovem/src/java/projovem/DAO/UfDAO.java
+END
+BaseDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/11/trunk/projovem/src/java/projovem/DAO/BaseDAO.java
+END

@@ -1,0 +1,366 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina 7 - ROTINA DE FORMAÇÃO CONTINUADA</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/>
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagem007.listaRotina007}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.id}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Entrada"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.identificaEntradaEntrada}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+
+                    <f:facet name="header">
+                        <h:outputText value="Data da Entrevista"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.dataAplicacao}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Observação"/>
+                    </f:facet>
+                    <center><h:outputText value=" #{rotina.identificaEntradaObservacao}ª"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 1 || rotina.identificaEntradaObservacao eq 2 || rotina.identificaEntradaObservacao eq 3}"/>
+ 	                    <h:outputText value=" #{rotina.identificaEntradaObservacao}"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 'NSA'}"/></center>
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaRotina007Size} educadores entrevistados."/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2h}% dos Educadores tem Especialização (lato sensu) como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2h gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2i}% dos Educadores tem Mestrado como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2i gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2j}% dos Educadores tem Doutorado ou posterior como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2j gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q11a}% dos Educadores sempre participam dessas atividades."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q11a gt 0}"/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem007.positivo eq 0}"/> </p>
+
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q1b}% dos Educadores participaram parcialmente da formação inicial oferecida pelo Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q1b gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q1c}% dos Educadores não participaram da formação inicial oferecida pelo Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q1c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2a}% dos Educadores tem o ensino fundamental como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2b}% dos Educadores tem o ensino médio/técnico como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2b gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2c}% dos Educadores tem o ensino médio/magistério como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2c gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2d}% dos Educadores tem o ensino Superior Incompleto como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2d gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3a}% dos Educadores não concuiu o ensino superior."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3a gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6anao}% dos Educadores nao conhecem o Manual do Educador do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6anao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6bnao}% dos Educadores nao conhecem a Agenda do Estudante do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6bnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6cnao}% dos Educadores nao conhecem o Caderno do Projeto de Orientação Profissional (POP)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6cnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6dnao}% dos Educadores nao conhecem o Caderno do Plano de Ação Comunitária (PLA)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6dnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6enao}% dos Educadores nao conhecem o Guia de Estudo da Unidade Formativa."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6enao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6fnao}% dos Educadores nao conhecem o Caderno de Registro e Avaliação (CRA)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6fnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6gnao}% dos Educadores nao conhecem o Plano Nacional de Formação de gestores, formadores e educadores."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6gnao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7aa}% dos Educadores não tem conhecimento de softwares de texto."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7aa gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7ba}% dos Educadores não tem conhecimento de confecção de planilhas."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7ba gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7ca}% dos Educadores não tem conhecimento de Internet."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7ca gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q9c}% dos Educadores afirmam que não há atividades coletivas com os educadores do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q9c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q12b}% dos Educadores afirmaram que participar das atividades não tem contribuido para o trabalho no Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q12b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q14nao}% dos Educadores afirmaram que o guia do aluno não é utilizado na formação continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q14nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q15nao}% dos Educadores afirmaram que o Manual do educador não é utilizado na formação continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q15nao gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q16c}% dos Educadores afirmaram que o Projeto de Orientação Profissional (POP) nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q16c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q17c}% dos Educadores afirmaram que o Plano de Ação Comunitária (PLA) nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q17c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q18c}% dos Educadores afirmaram que as Fichas de Registro de Avaliações nunca é discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q18c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q19c}% dos Educadores afirmaram que a Integração entre as três dimensões (educação/trabalho/participação cidadã) nunca é discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q19c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q20c}% dos Educadores afirmaram que Estudos complementares nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q20c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q21c}% dos Educadores afirmaram que Plantões nunca são discutidos na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q21c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q22c}% dos Educadores afirmaram que a Evasão/desistencia/frequência nunca é discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q22c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q23c}% dos Educadores afirmaram que o Relacionamento com os alunos nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q23c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q24c}% dos Educadores afirmaram que a Aprendizagem dos alunos nunca é discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q24c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q25c}% dos Educadores afirmaram que o Acesso ao material didático nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q25c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q26c}% dos Educadores afirmaram que a Integração entre as Condições de trabalho no núcleo nunca é discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q26c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q27c}% dos Educadores afirmaram que o Planejamento das Unidades Formativas nunca é discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q27c gt 0}"/> </p>
+
+        
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem007.negativo eq 0}"/> </p>
+
+        <br/>
+
+        <!--p><b><h:outputText value="Outros aspectos observados:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q1a}% dos Educadores participaram da formação inicial oferecida pelo Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q1a gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2e}% dos Educadores tem o ensino Superior completo tecnológico como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2e gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2f}% dos Educadores tem o ensino Superior completo licenciatura como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2f gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q2g}% dos Educadores tem o ensino Superior completo bacharelado como o nível máximo de escolaridade."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q2g gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3b}% dos Educadores tem como formação o curso Tecnólogo."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3b gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3c}% dos Educadores tem formação em Educação (Pedagogia, Normal Superior ou similar)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3c gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3d}% dos Educadores tem formação em letras (ou similar)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3d gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3e}% dos Educadores tem formação em Ciências Humanas (História, Geografia ou similar)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3e gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3f}% dos Educadores tem formação em Ciências Exatas (Matemática, Física, Química ou similar)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3f gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q3g}% dos Educadores tem formação em Ciências Biológicas (Ciências, Biologia ou similar)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q3g gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6asim}% dos Educadores conhecem o Manual do Educador do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6asim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6bsim}% dos Educadores conhecem a Agenda do Estudante do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6bsim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6csim}% dos Educadores conhecem o Caderno do Projeto de Orientação Profissional (POP)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6csim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6dsim}% dos Educadores conhecem o Caderno do Plano de Ação Comunitária (PLA)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6dsim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6esim}% dos Educadores conhecem o Guia de Estudo da Unidade Formativa."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6esim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6fsim}% dos Educadores conhecem o Caderno de Registro e Avaliação (CRA)."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6fsim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q6gsim}% dos Educadores conhecem o Plano Nacional de Formação de gestores, formadores e educadores."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q6gsim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7ab}% dos Educadores tem conhecimento básico/iniciante de softwares de texto."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7ab gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7ac}% dos Educadores tem conhecimento avançado de softwares de texto."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7ac gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7bb}% dos Educadores tem conhecimento básico/iniciante de confecção de planilhas."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7bb gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7bc}% dos Educadores tem conhecimento avançado de confecção de planilhas."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7bc gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7cb}% dos Educadores tem conhecimento básico/iniciante de confecção de Internet."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7cb gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q7cc}% dos Educadores tem conhecimento avançado de confecção de Internet."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q7cc gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q9a}% dos Educadores afirmam que há, no mínimo 12h mensais de atividades coletivas com os educadores do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q9a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q9b}% dos Educadores afirmam que há menos de 12h mensais de atividades coletivas com os educadores do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q9b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q11b}% dos Educadores às vezes participam dessas atividades."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q11b gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q11c}% dos Educadores raramente/nunca participam dessas atividades."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q11c gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q11d}% dos Educadores afirmaram que não são realizadas atividades com os educadores."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q11d gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q12a}% dos Educadores afirmaram que participar das atividades tem contribuido para o trabalho no Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q12a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q12c}% dos Educadores afirmaram que não são realizadas atividades com os educadores."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q12c gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q14sim}% dos Educadores afirmaram que o guia do aluno é utilizado na formação continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q14sim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q15sim}% dos Educadores afirmaram que o Manual do educador é utilizado na formação continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q15sim gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q16a}% dos Educadores afirmaram que o Projeto de Orientação Profissional (POP) é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q16a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q16b}% dos Educadores afirmaram que o Projeto de Orientação Profissional (POP) é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q16b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q17a}% dos Educadores afirmaram que o Plano de Ação Comunitária (PLA) é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q17a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q17b}% dos Educadores afirmaram que o Plano de Ação Comunitária (PLA) é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q17b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q18a}% dos Educadores afirmaram que as Fichas de Registro de Avaliações é frequentemente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q18a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q18b}% dos Educadores afirmaram que as Fichas de Registro de Avaliações é raramente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q18b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q19a}% dos Educadores afirmaram que a Integração entre as três dimensões (educação/trabalho/participação cidadã) é frequentemente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q19a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q19b}% dos Educadores afirmaram que a Integração entre as três dimensões (educação/trabalho/participação cidadã) é raramente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q19b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q20a}% dos Educadores afirmaram que Estudos complementares é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q20a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q20b}% dos Educadores afirmaram que Estudos complementares é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q20b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q21a}% dos Educadores afirmaram que Plantões são frequentemente discutidos na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q21a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q21b}% dos Educadores afirmaram que Plantões são raramente discutidos na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q21b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q22a}% dos Educadores afirmaram que a Evasão/desistencia/frequência é frequentemente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q22a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q22b}% dos Educadores afirmaram que a Evasão/desistencia/frequência é raramente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q22b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q23a}% dos Educadores afirmaram que o Relacionamento com os alunos é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q23a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q23b}% dos Educadores afirmaram que o Relacionamento com os alunos é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q23b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q24a}% dos Educadores afirmaram que a Aprendizagem dos alunos é frequentemente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q24a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q24b}% dos Educadores afirmaram que a Aprendizagem dos alunos é raramente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q24b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q25a}% dos Educadores afirmaram que o Acesso ao material didático é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q25a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q25b}% dos Educadores afirmaram que o Acesso ao material didático é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q25b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q26a}% dos Educadores afirmaram que a Integração entre as Condições de trabalho no núcleo é frequentemente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q26a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q26b}% dos Educadores afirmaram que a Integração entre as Condições de trabalho no núcleo é raramente discutida na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q26b gt 0}"/> </p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q27a}% dos Educadores afirmaram que o Planejamento das Unidades Formativas é frequentemente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q27a gt 0}"/> </p>
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem007.q27b}% dos Educadores afirmaram que o Planejamento das Unidades Formativas é raramente discutido na Formação Continuada."
+                         rendered="#{sinteseSupervisaoBean.contagem007.q27b gt 0}"/> </p-->
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagem007.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+    </div>
+</ui:composition>

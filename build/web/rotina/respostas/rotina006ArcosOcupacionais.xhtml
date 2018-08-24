@@ -1,0 +1,1434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+  Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+    <h:form id="form">
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td width="150" colspan="3">
+                <p>Observação: <h:outputText value=" #{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaObservacao}ª Observação"
+                                             rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaObservacao eq 1 || rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaObservacao eq 2 || rotinasLancadasBean.rotina006ArcosOcupacionais.identificaEntradaObservacao eq 3}"/></p>
+        </td>
+        </tr>
+        <tr>
+            <td width="130px">
+                <p>Data da Visita: <br/>    (dd/mm/aaaa)
+        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="dataVisita"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.dataVisita}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de início da observação: (notação 24 horas)
+        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaInicioVisita"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.horaInicioVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de término da observação: (notação 24 horas)
+        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaTerminoVisita"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.horaTerminoVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        </tr>
+    </table>
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+                                <td>
+                                    <p>Quais os núcleos são atendidos neste local.</p>
+
+                            <rich:simpleTogglePanel switchType="client" label="Clique aqui para exibir/ocultar os Núcleos/Locais Observados">
+                                <a4j:region >
+                                    <rich:dataTable id="tabela"
+                                                    styleClass="nucleos"
+                                                    onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                                    cellpadding="0" cellspacing="0"
+                                                    border="0" var="local" value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.nucleoAtendido}">
+                                        <rich:column sortBy="#{local.referencia}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Referência"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.referencia}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.logradouro}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Logradouro"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.logradouro}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.numero}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Numero"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.numero}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.complemento}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Comp."/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.complemento}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.cep}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Cep"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.cep}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.bairro}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Bairro"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.bairro}"/>
+                                        </rich:column>
+                                        <rich:column sortBy="#{local.municipio}" styleClass="#{local.selecionado}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Cidade"/>
+                                            </f:facet>
+                                            <h:outputText value="#{local.municipio}"/>
+                                        </rich:column>
+                                    </rich:dataTable>
+                                </a4j:region>
+                            </rich:simpleTogglePanel>
+                            </td>
+                            </tr>
+        <tr>
+            <td>
+                <p>1.  Identifique os Arcos Ocupacionais do ProJovem Urbano oferecidos neste local?
+                <table style="text-align:center;">
+                    <tr>
+                        <td colspan="2">
+                            <p>Arco</p>
+                        </td>
+                        <td>
+                            <p>Data da observação <br/> (dia, mês e ano)</p>
+                        </td>
+                        <td>
+                            <p>Horário Início</p>
+                        </td>
+                        <td>
+                            <p>Horário Término</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>A:</p>
+                        </td>
+                        <td>
+                    <h:selectOneMenu id="q1Aarco"
+                                     layout="pageDirection"
+                                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1Aarco}"
+                                     disabled  ="true">
+                        <f:selectItems value="#{rotina006ArcosOcupacionaisBean.listaArcos}"/>
+                    </h:selectOneMenu>
+            </td>
+            <td>
+        <h:inputText id="q1AdataObservacao"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1AdataObservacao}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1AhoraInicio"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1AhoraInicio}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1AhoraTermino"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1AhoraTermino}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <p>B:</p>
+            </td>
+            <td>
+        <h:selectOneMenu id="q1Barco"
+                         layout="pageDirection"
+                         value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1Barco}"
+                         disabled  ="true">
+            <f:selectItems value="#{rotina006ArcosOcupacionaisBean.listaArcos}"/>
+        </h:selectOneMenu>
+        </td>
+        <td>
+        <h:inputText id="q1BdataObservacao"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1BdataObservacao}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1BhoraInicio"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1BhoraInicio}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1BhoraTermino"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1BhoraTermino}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <p>C:</p>
+            </td>
+            <td>
+        <h:selectOneMenu id="q1Carco"
+                         layout="pageDirection"
+                         value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1Carco}"
+                         disabled  ="true">
+            <f:selectItems value="#{rotina006ArcosOcupacionaisBean.listaArcos}"/>
+        </h:selectOneMenu>
+        </td>
+        <td>
+        <h:inputText id="q1CdataObservacao"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1CdataObservacao}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1ChoraInicio"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1ChoraInicio}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1ChoraTermino"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1ChoraTermino}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <p>D:</p>
+            </td>
+            <td>
+        <h:selectOneMenu id="q1Darco"
+                         layout="pageDirection"
+                         value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1Darco}"
+                         disabled  ="true">
+            <f:selectItems value="#{rotina006ArcosOcupacionaisBean.listaArcos}"/>
+        </h:selectOneMenu>
+        </td>
+        <td>
+        <h:inputText id="q1DdataObservacao"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1DdataObservacao}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1DhoraInicio"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1DhoraInicio}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1DhoraTermino"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1DhoraTermino}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <p>E:</p>
+            </td>
+            <td>
+        <h:selectOneMenu id="q1Earco"
+                         layout="pageDirection"
+                         value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1Earco}"
+                         disabled  ="true">
+            <f:selectItems value="#{rotina006ArcosOcupacionaisBean.listaArcos}"/>
+        </h:selectOneMenu>
+        </td>
+        <td>
+        <h:inputText id="q1EdataObservacao"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1EdataObservacao}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1EhoraInicio"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1EhoraInicio}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        <td>
+        <h:inputText id="q1EhoraTermino"
+                     value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q1EhoraTermino}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </td>
+        </tr>
+
+    </table>
+
+    </p>
+    </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>2 - Quantos núcleos são atendidos neste local?
+
+
+    <h:inputText id="q2"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q2}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+
+    </p>
+    </td>
+    </tr>
+
+
+    <tr>
+        <td colspan="2">
+            <p>O Arco funciona no endereço informado?
+                (Em caso negativo, informe imediatamente ao coordenador regional)
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>4 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q4"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q4}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>5 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q5"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q5}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>6 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q6"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q6}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>7 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q7"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q7}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>8 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q8"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q8}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <p>Qual o horário de funcionamento das atividades no dia da sua visita? (Usar notação 24 horas.)
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>9 - Arco A</p>
+                    </td>
+                    <td>
+                        <p>Início:
+                <h:inputText id="q9InicioAtividades"
+                             value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q9InicioAtividades}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/></p>
+        </td>
+        <td>
+            <p>Término:
+    <h:inputText id="q9FinalAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q9FinalAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+    <h:outputText value="Fechado" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q9Fechado eq 'true'}"/>
+
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>10 - Arco B</p>
+        </td>
+        <td>
+            <p>Início:
+    <h:inputText id="q10InicioAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q10InicioAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+        <p>Término:
+    <h:inputText id="q10FinalAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q10FinalAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+    <h:outputText value="Fechado" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q10Fechado eq 'true'}"/>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>11 - Arco C</p>
+        </td>
+        <td>
+            <p>Início:
+    <h:inputText id="q11InicioAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q11InicioAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+        <p>Término:
+    <h:inputText id="q11FinalAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q11FinalAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+    <h:outputText value="Fechado" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q11Fechado eq 'true'}"/>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>12 - Arco D</p>
+        </td>
+        <td>
+            <p>Início:
+    <h:inputText id="q12InicioAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q12InicioAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+        <p>Término:
+    <h:inputText id="q12FinalAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q12FinalAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+    <h:outputText value="Fechado" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q12Fechado eq 'true'}"/>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>13 - Arco E</p>
+        </td>
+        <td>
+            <p>Início:
+    <h:inputText id="q13InicioAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q13InicioAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+        <p>Término:
+    <h:inputText id="q13FinalAtividades"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q13FinalAtividades}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/></p>
+    </td>
+    <td>
+    <h:outputText value="Fechado" rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q13Fechado eq 'true'}"/>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>O horário das aulas dos arcos está afixado em local visível?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>14 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q14"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q14}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>15 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q15"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q15}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>16 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q16"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q16}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>17 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q17"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q17}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>18 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q18"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q18}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>O horário estava sendo cumprido no dia de sua observação?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>19 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q19"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q19}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>20 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q20"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q20}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>21 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q21"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q21}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>22 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q22"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q22}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>23 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q23"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q23}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>Quantos educadores e alunos estavam presentes nos arcos ocupacionais no momento da sua visita?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>24 - Arco A</p>
+                    </td>
+                    <td>
+                        <p>Educadores
+                <h:inputText id="q24Educadores"
+                             value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q24Educadores}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                </p>
+        </td>
+        <td>
+            <p>Alunos
+    <h:inputText id="q24Alunos"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q24Alunos}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>25 - Arco B</p>
+        </td>
+        <td>
+            <p>Educadores
+    <h:inputText id="q25Educadores"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q25Educadores}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    <td>
+        <p>Alunos
+    <h:inputText id="q25Alunos"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q25Alunos}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>26 - Arco C</p>
+        </td>
+        <td>
+            <p>Educadores
+    <h:inputText id="q26Educadores"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q26Educadores}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    <td>
+        <p>Alunos
+    <h:inputText id="q26Alunos"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q26Alunos}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>27 - Arco D</p>
+        </td>
+        <td>
+            <p>Educadores
+    <h:inputText id="q27Educadores"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q27Educadores}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    <td>
+        <p>Alunos
+    <h:inputText id="q27Alunos"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q27Alunos}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>28 - Arco E</p>
+        </td>
+        <td>
+            <p>Educadores
+    <h:inputText id="q28Educadores"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q28Educadores}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    <td>
+        <p>Alunos
+    <h:inputText id="q28Alunos"
+                 value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q28Alunos}"
+                 size="5"
+                 maxlength="5"
+                 disabled  ="true"/>
+    </p>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>Que tipo de atividade os alunos realizavam no momento de sua visita?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>29 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q29"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q29}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Teóricas" itemValue="teoricas"/>
+                    <f:selectItem itemLabel="Práticas" itemValue="praticas"/>
+                    <f:selectItem itemLabel="Teórico-práticas " itemValue="teoricoPraticas"/>
+                    <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>30 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q30"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q30}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Teóricas" itemValue="teoricas"/>
+        <f:selectItem itemLabel="Práticas" itemValue="praticas"/>
+        <f:selectItem itemLabel="Teórico-práticas " itemValue="teoricoPraticas"/>
+        <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>31 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q31"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q31}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Teóricas" itemValue="teoricas"/>
+        <f:selectItem itemLabel="Práticas" itemValue="praticas"/>
+        <f:selectItem itemLabel="Teórico-práticas " itemValue="teoricoPraticas"/>
+        <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>32 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q32"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q32}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Teóricas" itemValue="teoricas"/>
+        <f:selectItem itemLabel="Práticas" itemValue="praticas"/>
+        <f:selectItem itemLabel="Teórico-práticas " itemValue="teoricoPraticas"/>
+        <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>33 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q33"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q33}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Teóricas" itemValue="teoricas"/>
+        <f:selectItem itemLabel="Práticas" itemValue="praticas"/>
+        <f:selectItem itemLabel="Teórico-práticas " itemValue="teoricoPraticas"/>
+        <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>Há material de consumo específico para o desenvolvimento das atividades do arco?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>34 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q34"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q34}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>35 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q35"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q35}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>36 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q36"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q36}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>37 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q37"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q37}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>38 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q38"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q38}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>Há material permanente específico para o desenvolvimento das atividades do arco?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>39 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q39"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q39}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>40 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q40"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q40}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>41 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q41"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q41}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>42 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q42"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q42}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>43 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q43"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q43}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>No momento de sua observação, os alunos elogiaram a qualificação profissional oferecida?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>44 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q44"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q44}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>45 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q45"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q45}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>46 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q46"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q46}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>47 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q47"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q47}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>48 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q48"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q48}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+        <td colspan="2">
+            <p>No momento de sua observação, alunos reclamaram da qualificação profissional oferecida?
+
+                <br/>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>49 - Arco A</p>
+                    </td>
+                    <td>
+                <h:selectOneRadio id="q49"
+                                  value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q49}"
+                                  layout="lineDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>50 - Arco B</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q50"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q50}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>51 - Arco C</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q51"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q51}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>52 - Arco D</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q52"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q52}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <p>53 - Arco E</p>
+        </td>
+        <td>
+    <h:selectOneRadio id="q53"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q53}"
+                      layout="lineDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+    </table>
+
+
+    </p>
+    </td>
+    </tr>
+
+
+    <tr>
+        <td colspan="2">
+            <p>54 - Há registros complementares sobre a Qualificação Profissional?
+
+                <br/>
+    <h:selectOneRadio id="q54"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q54}"
+                      layout="pageDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Sim" itemValue="sim"/>
+        <f:selectItem itemLabel="Não" itemValue="nao"/>
+    </h:selectOneRadio>
+
+    <a4j:region rendered="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q54 eq 'sim'}">
+        <table id="q54Complemento" >
+            <tr>
+                <td>
+                    <p>Caso sim, registre abaixo.<br/>
+
+            <h:inputTextarea  rows="4"
+                              cols="70"
+                              value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q54Complemento}"
+                              disabled  ="true"/></p>
+            </td>
+            </tr>
+        </table>
+    </a4j:region>
+
+    </p>
+    </td>
+    </tr>
+
+
+
+    <tr>
+        <td>
+    <rich:dataTable value="#{rotinasLancadasBean.materiais}" var="resposta">
+        <rich:column>
+            <f:facet name="header">Identificação <br/>do Arco</f:facet>
+            <h:outputText value="#{resposta.identificacaoArco}"/>
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Instalações <br/>Disponíveis</f:facet>
+            <h:outputText value="#{resposta.instalacoesDisponiveis}"/>
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Material <br/>permanente</f:facet>
+            <h:outputText value="#{resposta.materialPermanente}"/>
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Quantidade</f:facet>
+            <h:outputText value="#{resposta.materialPermanenteQuantidade}"    />
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Material<br/> de Consumo</f:facet>
+            <h:outputText value="#{resposta.materialConsumo}"/>
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Quantidade</f:facet>
+            <h:outputText value="#{resposta.materialConsumoQuantidade}" />
+        </rich:column>
+    </rich:dataTable>
+
+    </td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <p>56 - Quantas vezes você se dirigiu ao local para essa rotina de supervisão?</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+    <h:selectOneRadio id="q56"
+                      value="#{rotinasLancadasBean.rotina006ArcosOcupacionais.q56}"
+                      layout="pageDirection"
+                      disabled  ="true">
+        <f:selectItem itemLabel="Uma" itemValue="uma"/>
+        <f:selectItem itemLabel="Duas" itemValue="duas"/>
+        <f:selectItem itemLabel="Três" itemValue="tres"/>
+        <f:selectItem itemLabel="Quatro" itemValue="quatro"/>
+        <f:selectItem itemLabel="Cinco" itemValue="cinco"/>
+        <f:selectItem itemLabel="Mais de Cinco" itemValue="maisCinco"/>
+    </h:selectOneRadio>
+    </td>
+    </tr>
+
+
+
+    </table>
+</h:form>
+</ui:composition>

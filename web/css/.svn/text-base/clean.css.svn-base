@@ -1,0 +1,4 @@
+/*@charset "utf-8";*/
+.tabela{border:1px solid;width:950px;}
+.coluna{border:1px solid}
+H1{font-size:15px;text-align:center;}

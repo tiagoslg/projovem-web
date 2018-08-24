@@ -1,0 +1,297 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><h:outputLink value="http://projovem.fae.ufmg.br/projovem/rotina.jsf" rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 4}"> <h:outputText value="Rotinas"/> <br />
+                        <span>lançar respostas</span> </h:outputLink> </li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf" class="active">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <h4>Minhas Rotinas</h4>
+
+        <div class="portfolio portfolio-big">
+            <div class="text-home text-home-big">
+
+                <a4j:form id="minhasRotinas">
+                    <a4j:region rendered="#{!globalRotinaBean.renderedRespostas}">
+
+                        <p>Prezado(a) supervisor(a),</p>
+                        <p>Abaixo estão listadas as rotinas inseridas no sistema por você.
+                            Selecione a entrada desejada para exibir as repostas dadas.</p>
+                        <div class="clr"></div>
+
+                        <br/>
+
+                        <table border="1">
+                            <ui:repeat value="#{globalRotinaBean.listColeta}" var="coletaDados">
+                                <a4j:region rendered="#{coletaDados.posisao eq 1}">
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Supervisor que realizou a coleta</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > UF</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Cidade</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > ID</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Código CAED</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Justificativa </span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Usuário que incluiu no sistema</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Nome:</span></span>
+                                        </td>
+
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Endereço:</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Numero:</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Comp</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Cep:</span></span>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="titulo-questao-resumo"><span > Bairro:</span></span>
+                                        </td>
+
+                                    <ui:repeat value="#{coletaDados.resumo}" var="respostaDada" >
+                                        <ui:repeat value="#{respostaDada.resposta}" var="resposta" >
+                                            <td valign="top">
+                                            <h:outputText value="#{respostaDada.titulo}" /><br/>
+                                            <span ><h:outputText value="Questão  #{respostaDada.numeroQuestao}" />
+                                                <br/>
+                                                <br/>
+                                                <h:outputText value="#{respostaDada.questao}" /><br/>
+                                                <br/>
+                                                <br/>
+                                                <h:outputText value="#{resposta.label}"/><br/></span>
+                                            </td>
+                                        </ui:repeat>
+                                    </ui:repeat>
+                                    </tr>
+                                </a4j:region>
+
+                                <tr>
+                                    <td valign="top">
+                                        <span >
+                                            <br/>
+
+                                            <h:outputText value="#{coletaDados.coletaDados.usuario.nome}"/>
+                                        </span>
+                                    </td>
+                                    <td valign="top">
+                                        <span >
+                                            <br/>
+
+                                            <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.cep.uf}"/>
+                                        </span>
+                                    </td>
+                                    <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.cep.cidade}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.local.id}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.local.codigo}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.local.justificativa}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.local.usuario.nome}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.local.nome}"/>
+                                </td>
+
+
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.cep.logradouro}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.numero}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.complemento}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.cep.numero}"/>
+                                </td>
+                                <td valign="top">
+                                <h:outputText value="#{coletaDados.coletaDados.enderecoLocal.cep.bairro}"/>
+                                </td>
+
+                                <ui:repeat value="#{coletaDados.resumo}" var="respostaDada">
+                                    <ui:repeat value="#{respostaDada.resposta}" var="resposta">
+                                        <td valign="top">
+                                            <span >
+                                                <h:outputText  escape="false" value="#{resposta.value}"/>
+                                            </span>
+                                        </td>
+                                    </ui:repeat>
+                                </ui:repeat>
+                                </tr>
+
+                            </ui:repeat>
+                        </table>
+                        <br/>
+
+                    </a4j:region>
+
+
+                    <a4j:region rendered="#{minhasRotinasBean.renderedRespostas}" >
+
+                        <table class="tabela">
+                            <tr>
+                                <td>
+                            <h:commandButton value="Voltar" reRender="minhasRotinas">
+                                <f:setPropertyActionListener value="false" target="#{minhasRotinasBean.renderedRespostas}" />
+                            </h:commandButton>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin" style="">
+                                        <h:outputText class="label" value="Código:  "/>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.local.codigo}"/>
+                                    </div>
+                                </td>
+                                <td colspan="3" class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Nome:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.local.nome}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Endereço:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.cep.logradouro}"/>
+                                    </div>
+                                </td>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Numero:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.numero}"/><br/>
+                                    </div>
+                                </td>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Complemento:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.complemento}"/><br/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="CEP:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.cep.numero}"/>
+                                    </div>
+                                </td>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Bairro:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.cep.bairro}"/>
+                                    </div>
+                                </td>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="Cidade:  "></h:outputText>
+                                        <h:outputText class="labelDado"  value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.cep.cidade}"/>
+                                    </div>
+                                </td>
+                                <td class="coluna no-background-color">
+                                    <div class="inner-table-resumo no-margin">
+                                        <h:outputText class="label" value="UF:  "></h:outputText>
+                                        <h:outputText class="labelDado" value="#{minhasRotinasBean.coletaSelecionada.enderecoLocal.cep.uf}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h:dataTable value="#{minhasRotinasBean.resumo}" var="respostaDada"
+                                     styleClass="tabela" columnClasses="coluna" cellspacing="5" >
+                            <h:column>
+                                <div class="inner-table-resumo">
+                                    <span class="titulo-questao-resumo"><h:outputText value="Questão  #{respostaDada.numeroQuestao}" /></span>
+                                    <br/>
+
+                                    <hr size="1" color="#c0c0c0"/>
+                                    <br/>
+                                    <h:outputText styleClass="pergunta-resumo" value="#{respostaDada.questao}"/>
+                                    <br/>
+                                    <br/>
+                                    <hr size="1" color="#c0c0c0"/>
+
+                                    <h:outputText styleClass="titulo-questao-resumo" value="Resposta"/>
+                                    <h:dataTable value="#{respostaDada.resposta}" var="resposta">
+                                        <h:column>
+                                            <h:outputText  value="#{resposta.label}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:outputText escape="false" value="#{resposta.value}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </h:column>
+
+                        </h:dataTable>
+                        <h:commandButton value="Voltar" reRender="minhasRotinas" style="margin-left:20px">
+                            <f:setPropertyActionListener value="false" target="#{minhasRotinasBean.renderedRespostas}" />
+                        </h:commandButton>
+                    </a4j:region>
+                </a4j:form>
+            </div>
+        </div>
+
+        <div class="clr"></div>
+    </ui:define >    
+
+</ui:composition>

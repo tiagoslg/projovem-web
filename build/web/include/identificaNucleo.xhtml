@@ -1,0 +1,221 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <a4j:keepAlive beanName="nucleoBean"/>
+    <a4j:region  rendered="#{!nucleoBean.renderedIdentificaLocal}">
+        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+
+            <tr>
+                <td colspan="3">
+                    <p>
+            <h:outputText value="Referência:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.referencia}"/>
+            </p>
+            </td>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                    <p>
+            <h:outputText value="Logradouro:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.logradouro}"/>
+            </p>
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+            <h:outputText value="Numero:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.numero}"/>
+            </p>
+            </td>
+            <td>
+                <p>
+            <h:outputText value="   Comp.:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.complemento}"/>
+            </p>
+            </td>
+            <td>
+                <p>
+            <h:outputText value="  Cep:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.cep}"/>
+            </p>
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+            <h:outputText value="Bairro:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.bairro}"/>
+            </p>
+            </td>
+            <td>
+                <p colspan="2">
+            <h:outputText value="  Cidade:  "/>
+            <h:outputText value="#{nucleoBean.nucleoEscolhido.municipio}"/>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+            <a4j:commandLink action="#{nucleoBean.alterarNucleoSelecionado}"
+                             value="Alterar Local selecionado" reRender="form"/>
+            </td>
+            </tr>
+        </table>
+
+    </a4j:region>
+    <a4j:region id="identificaLocal" rendered="#{nucleoBean.renderedIdentificaLocal}">
+
+
+        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+            <tr>
+                <td colspan="3">
+                    <p>Selecione a UF e a coordenação em que se encontra o local observado.</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>
+            <h:selectOneMenu id="comboEstado" value="#{nucleoBean.ufEscolhida}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.ufPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemCoordenacoes}"
+                             ajaxSingle="true" reRender="form" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+            <p>
+            <h:selectOneMenu value="#{nucleoBean.coordenacaoEscolhida}"
+                             rendered="#{nucleoBean.renderedCoordenacao}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.coordenacoesPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemEntradasPorCoordenacao}"
+                             ajaxSingle="true" reRender="form" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+
+            <p>
+            <h:selectOneMenu value="#{nucleoBean.entradaEscolhida}"
+                             rendered="#{nucleoBean.renderedEntrada}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.entradasPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemNucleosPorEntrada}"
+                             ajaxSingle="true" reRender="form" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+
+            </td>
+            </tr>
+
+            <tr>
+                <td>
+            <a4j:region rendered="#{nucleoBean.renderedListaNucleos}">
+                <p>Utilize as <strong>setas</strong> no cabeçalho para ordenar alfabéticamente.</p>
+                <p>Após localiza-lo clique na linha correspondente.</p>
+                <p>Caso o núcleo/Local de matrícula não conste na listagem abaixo
+                <a4j:commandLink value=" clique aqui" action="#{nucleoBean.cadastraNucleo}"
+                                 style="background:none;padding:0"/> para cadastra-lo.</p>
+            </a4j:region>
+            </td>
+            </tr>
+            <tr>
+                <td>
+            <rich:dataTable
+                styleClass="nucleos" rendered="#{nucleoBean.renderedListaNucleos}"
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="local" value="#{nucleoBean.listaNucleos}">
+
+
+                <rich:column sortBy="#{local.referencia}" >
+                    <f:facet name="header">
+                        <h:outputText value="Referência"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.referencia}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+                </rich:column>
+                <rich:column sortBy="#{local.logradouro}" >
+                    <f:facet name="header">
+                        <h:outputText value="Logradouro"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.logradouro}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+                <rich:column sortBy="#{local.numero}" >
+                    <f:facet name="header">
+                        <h:outputText value="Numero"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.numero}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+                <rich:column sortBy="#{local.complemento}" >
+                    <f:facet name="header">
+                        <h:outputText value="Comp."/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.complemento}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+                <rich:column sortBy="#{local.cep}" >
+                    <f:facet name="header">
+                        <h:outputText value="Cep"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.cep}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+                <rich:column sortBy="#{local.bairro}">
+                    <f:facet name="header">
+                        <h:outputText value="Bairro"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.bairro}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+                <rich:column sortBy="#{local.municipio}">
+                    <f:facet name="header">
+                        <h:outputText value="Cidade"/>
+                    </f:facet>
+                    <a4j:commandLink reRender="form"  onclick="javascript:scroll(0,0);"
+                                     action="#{nucleoBean.seleciona}" status="aguarde">
+                        <h:outputText value="#{local.municipio}"/>
+                        <f:setPropertyActionListener value="#{local}" target="#{nucleoBean.nucleoEscolhido}" />
+                    </a4j:commandLink>
+
+                </rich:column>
+            </rich:dataTable>
+            </td>
+            </tr>
+        </table>
+    </a4j:region>
+
+</ui:composition>

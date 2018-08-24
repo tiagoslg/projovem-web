@@ -1,0 +1,129 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina CE003 - QUALIFICAÇÃO PROFISSIONAL</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+            <h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/>
+            </td>
+            <td rowspan="2" width="10%">
+                <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+            </td>
+            </tr>
+        </table>
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagemCe003.listaCeRotina003}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.id}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Entrada"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.identificaEntradaEntrada}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data da Entrevista"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.dataVisita}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Observação"/>
+                    </f:facet>
+                    <center><h:outputText value=" #{rotina.identificaEntradaObservacao}ª"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 1 || rotina.identificaEntradaObservacao eq 2}"/>
+ 	                    <h:outputText value=" #{rotina.identificaEntradaObservacao}"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 'NSA'}"/></center>
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaCeRotina003Size} locais observados."/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.positivo eq 0}"/> </p>
+
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagemCe003.q2nao} dos locais observados os alunos não têm aulas de Qualificação Profissional."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.q2nao gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagemCe003.q5d} dos locais observados os alunos não realizavam atividades de Qualificação Profissional no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.q5d gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagemCe003.q6nao} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do Arco."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.q6nao gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagemCe003.q8nao} dos locais observados não há material permanente específico para o desenvolvimento das atividades do Arco."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.q8nao gt 0}"/> </p>
+
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagemCe003.negativo eq 0}"/> </p>
+
+        <br/>
+
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagemCe003.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+    </div>
+</ui:composition>

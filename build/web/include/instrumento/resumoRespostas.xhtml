@@ -1,0 +1,128 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+
+<p><h:outputText value="Existem Questões não respondidas.
+Todas as questões devem ser respondidas. "
+rendered="#{instrumentoBean.renderedNaoPodeGravar}"/></p>
+
+ <a4j:region  rendered="#{!instrumentoBean.renderedNaoPodeGravar}">
+
+ <a4j:region id="resumoRespostas" rendered="#{instrumentoBean.renderedResumoRespostas}">
+
+        <table class="tabela">
+            <ui:repeat value="#{instrumentoBean.coletaDados.multiplosEnderecosLocal}" var="local">
+            <tr>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin" style="">
+                        <h:outputText class="label" value="Código:  "/>
+                        <h:outputText class="labelDado" value="#{local.local.codigo}"/>
+                    </div>
+                </td>
+                <td colspan="3" class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Nome:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.local.nome}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Endereço:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.cep.logradouro}"/>
+                    </div>
+                </td>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Numero:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.numero}"/><br/>
+                    </div>
+                </td>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Complemento:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.complemento}"/><br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="CEP:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.cep.numero}"/>
+                    </div>
+                </td>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Bairro:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.cep.bairro}"/>
+                    </div>
+                </td>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="Cidade:  "></h:outputText>
+                        <h:outputText class="labelDado"  value="#{local.cep.cidade}"/>
+                    </div>
+                </td>
+                <td class="coluna no-background-color">
+                    <div class="inner-table-resumo no-margin">
+                        <h:outputText class="label" value="UF:  "></h:outputText>
+                        <h:outputText class="labelDado" value="#{local.cep.uf}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+            </tr>
+            </ui:repeat>
+        </table>
+    
+                 <div class="clr"></div>
+                <h:dataTable value="#{instrumentoBean.resumo}" var="respostaDada"
+                styleClass="tabela" columnClasses="coluna" cellspacing="5">
+                    <h:column>
+                        <div class="inner-table-resumo">
+                        <span class="titulo-questao-resumo"><h:outputText value="Questão  #{respostaDada.numeroQuestao}" /></span>
+                        <br/>
+
+                        <hr size="1" color="#c0c0c0"/>
+                        <br/>
+                        <h:outputText styleClass="pergunta-resumo" value="#{respostaDada.questao}"/>
+                        <br/>
+                        <br/>
+                        <hr size="1" color="#c0c0c0"/>
+
+                        <h:outputText styleClass="titulo-questao-resumo" value="Resposta"/>
+                        <h:dataTable value="#{respostaDada.resposta}" var="resposta">
+                            <h:column>
+                                <h:outputText  value="#{resposta.label}"/>
+                            </h:column>
+                            <h:column>
+                                <h:outputText escape="false" value="#{resposta.value}"/>
+                            </h:column>
+                        </h:dataTable>
+                        </div>
+                    </h:column>
+
+                </h:dataTable>
+                
+            </a4j:region>
+    </a4j:region>
+
+
+</ui:composition>

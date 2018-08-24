@@ -1,0 +1,42 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+
+ <a4j:region  id="resumoRespostas"
+ rendered="#{instrumentoBean.renderedComprovante}">
+<div class="inner">
+    <span class="h1">
+        <center><h:outputText value="Comprovante de inserção dos Dados" /></center>
+    </span>
+    <br/>
+    <br/>
+        <h:outputText  value="O supervisor(a)  "/>
+        <h:outputText  value="#{currentUser.nome}"/>
+        <h:outputText  value=", CPF: "/>
+        <h:outputText  value="#{currentUser.cpf}"/>
+        <h:outputText  value=" realizou a inserção de dados para a rotina "/>
+        <h:outputText  value="#{instrumentoBean.instrumento.codigo}"/>
+        <h:outputText  value=" no dia "/>
+        <h:outputText  value="#{instrumentoBean.coletaDados.dataLancamento}">
+            <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+        </h:outputText>
+
+
+        <h:outputText  value=" para o local "/>
+        <h:outputText  value="#{instrumentoBean.localEscolhido.nome}."/>
+
+
+    <br/>
+    <br/>
+</div>
+</a4j:region>
+
+
+</ui:composition>

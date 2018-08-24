@@ -1,0 +1,216 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div class="inner">
+        <a4j:region name="local" id="local">
+            <a4j:keepAlive beanName="localBean"/>
+            <p>Selecione o município em que se encontra o local observado.</p>
+
+
+            <h:selectOneMenu value="#{instrumentoBean.ufFiltrada}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{instrumentoBean.ufPossiveis}" />
+                <a4j:support event="onchange" action="#{instrumentoBean.obtemCidadesDoEstado}"
+                             ajaxSingle="true" reRender="instrumento" status="aguarde"/>
+            </h:selectOneMenu>
+
+            <h:selectOneMenu value="#{instrumentoBean.cidadeFiltrada}"
+                             rendered="#{instrumentoBean.renderedCidade}">
+                <f:selectItems value="#{instrumentoBean.cidadesPossiveis}" />
+            </h:selectOneMenu>
+            <br/>
+
+
+            <a4j:commandButton action="#{instrumentoBean.pesquisar}"
+                               value="Pesquisar" reRender="instrumento"
+                               styleClass="buttons" status="aguarde"/>
+
+
+            <a4j:region rendered="#{instrumentoBean.renderedIncluirLocal}">
+                <div class="clr color"></div>
+                <h:messages/>
+                <p>Utilize os campos abaixo para cadastrar o núcleo/Local de matrícula.</p>
+                <h:panelGrid columns="3" >
+                    <p>Nome do Núcleo/Local:</p>
+                    <h:inputText id="nome" value="#{localBean.nomeNucleo}" style="width:300px" required="true"/>
+                    <h:message for="nome" style="color:#c70000; font-size:18px;"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="4">
+                    <p>CEP:</p><h:inputText id="cep" value="#{localBean.cep}"
+                                            onkeypress="mascara_cep(this)" required="true"/>
+                    <h:message for="cep" style="color:#c70000; font-size:18px;"/>
+                    <a4j:commandButton action="#{localBean.pesquisarCep}"
+                                       value="Pesquisar" reRender="instrumento"
+                                       styleClass="buttons" status="aguarde"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="3" rendered="#{localBean.renderedResultadoPesquisa}">
+                    <p>Endereço: </p>
+                    <h:inputText id="endereco" value="#{localBean.endereco.cep.logradouro}" style="width:425px" required="true"/>
+                    <h:message for="endereco" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Numero:</p>
+                    <h:inputText id="numero" value="#{localBean.endereco.numero}"/>
+                    <h:message for="numero" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Complemento:</p>
+                    <h:inputText id="comple" value="#{localBean.endereco.complemento}"/>
+                    <h:message for="comple" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Bairro:</p>
+                    <h:inputText id="bairro" value="#{localBean.endereco.cep.bairro}"/>
+                    <h:message for="bairro" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Cidade:</p>
+                    <h:inputText id="cidade" value="#{localBean.endereco.cep.cidade}" required="true"/>
+                    <h:message for="cidade" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Uf:</p>
+                    <h:inputText id="uf" value="#{localBean.endereco.cep.uf}" required="true"/>
+                    <h:message for="uf" style="color:#c70000; font-size:18px;"/>
+
+                    <p>Justifique a inserção:</p>
+                    <h:inputTextarea id="just" value="#{localBean.justificativa}" rows="4" cols="50" required="true"/>
+                    <h:message for="just" style="color:#c70000; font-size:18px;"/>
+
+                    <a4j:commandButton action="#{localBean.salvarLocal}" value="Gravar" reRender="instrumento"
+                                       styleClass="buttons" status="aguarde">
+                        <f:setPropertyActionListener value="false"
+                                                     target="#{instrumentoBean.renderedPesquisaLocais}" />
+                        <f:setPropertyActionListener value="false"
+                                                     target="#{instrumentoBean.renderedIncluirLocal}" />
+                        <f:setPropertyActionListener value="#{instrumentoBean.instrumento}"
+                                                     target="#{localBean.instrumento}" />
+                    </a4j:commandButton>
+
+                </h:panelGrid>
+
+
+                <!--table>
+                <tr>
+                    <td>
+                        <p>CEP:</p>
+                    </td>
+                    <td>
+                        <h:inputText value="#{localBean.cep}"/>
+                    </td>
+                </tr>
+            </table-->
+
+
+            </a4j:region>
+
+            <a4j:region rendered="#{instrumentoBean.renderedPesquisaLocais}">
+
+                <div class="clr color"></div>
+
+                <p>Utilize as <strong>setas</strong> no cabeçalho para ordenar alfabéticamente.</p>
+                <a4j:region rendered="#{!instrumentoBean.renderedMultiplosNucleos}">
+                    <p>Após localiza-lo clique no ícone
+                        "<h:graphicImage value="/imagens/action_forward.gif" styleClass="icone"/>"
+                    para selecionar o local e iniciar o questionário.</p>
+                </a4j:region>
+                <a4j:region rendered="#{instrumentoBean.renderedMultiplosNucleos}">
+                    <p>Após localizar o(s) núcleo(s) na tabela abaixo
+                    e clique em prosseguir para iniciar o questionário. </p>
+                    <p> <b>ATENÇÃO! </b> Caso esta entrada referencie mais de um núcleo
+                        você terá que identifica-los agora.
+                    </p>
+                </a4j:region>
+                <p>Caso o núcleo/Local de matrícula não conste na listagem abaixo
+                    <a4j:commandLink value=" clique aqui" action="#{instrumentoBean.cadastrarLocal}"
+                                 reRender="instrumento" style="background:none;padding:0"/> para cadastra-lo.</p>
+
+
+                <rich:dataTable
+                    onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                    cellpadding="0" cellspacing="0"
+                    border="0" var="local" value="#{instrumentoBean.locais}">
+
+
+                    <rich:column rendered="#{instrumentoBean.renderedMultiplosNucleos}">
+
+                        <h:selectOneRadio value="#{local.selecionado}">
+                            <f:selectItem itemValue="true"/>
+                        </h:selectOneRadio>
+                    </rich:column>
+                    <rich:column sortBy="#{local.nome}" >
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{local.nome}"/>
+                    </rich:column>
+                    <rich:column sortBy="#{local.endereco.cep.logradouro}" >
+                        <f:facet name="header">
+                            <h:outputText value="Endereço"/>
+                        </f:facet>
+                        <h:outputText value="#{local.endereco.cep.logradouro}"/>
+                    </rich:column>
+                    <rich:column sortBy="#{local.endereco.numero}" >
+                        <f:facet name="header">
+                            <h:outputText value="Numero"/>
+                        </f:facet>
+                        <h:outputText value="#{local.endereco.numero}"/>
+                    </rich:column>
+                    <rich:column sortBy="#{local.endereco.complemento}" >
+                        <f:facet name="header">
+                            <h:outputText value="Comp."/>
+                        </f:facet>
+                        <h:outputText value="#{local.endereco.complemento}"/>
+                    </rich:column>
+                    <rich:column sortBy="#{local.endereco.cep.numero}" >
+                        <f:facet name="header">
+                            <h:outputText value="Cep"/>
+                        </f:facet>
+                        <h:outputText value="#{local.endereco.cep.numero}"/>
+                    </rich:column>
+                    <rich:column sortBy="#{local.endereco.cep.bairro}">
+                        <f:facet name="header">
+                            <h:outputText value="Bairro"/>
+                        </f:facet>
+                        <h:outputText value="#{local.endereco.cep.bairro}"/>
+                    </rich:column>
+
+                    <rich:column>
+                        <a4j:commandLink reRender="instrumento" onclick="javascript:scroll(0,0);"
+                                         action="#{localBean.alterarDados}" status="aguarde" value="Editar">
+                            <f:setPropertyActionListener value="#{local}" target="#{localBean.localVO}" />
+                            <f:setPropertyActionListener value="false" target="#{instrumentoBean.renderedPesquisaLocais}" />
+                            <f:setPropertyActionListener value="true" target="#{instrumentoBean.renderedIncluirLocal}" />
+
+
+                        </a4j:commandLink>
+                    </rich:column>
+                    <rich:column rendered="#{!instrumentoBean.renderedMultiplosNucleos}">
+                        <a4j:commandLink reRender="instrumento" onclick="javascript:scroll(0,0);"
+                                         action="#{instrumentoBean.iniciarPerguntas}" status="aguarde">
+                            <h:graphicImage value="/imagens/action_forward.gif"/>
+                            <f:setPropertyActionListener value="#{local}" target="#{instrumentoBean.localEscolhido}" />
+                        </a4j:commandLink>
+
+
+                    </rich:column>
+
+                </rich:dataTable>
+
+                <h:commandButton reRender="instrumento" onclick="javascript:scroll(0,0);"
+                                 action="#{instrumentoBean.iniciarPerguntas}" status="aguarde"
+                                 styleClass="buttons" value="Prosseguir" rendered="#{instrumentoBean.renderedMultiplosNucleos}">
+                </h:commandButton>
+
+            </a4j:region>
+        </a4j:region>
+    </div>
+
+
+
+</ui:composition>

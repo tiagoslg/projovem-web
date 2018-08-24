@@ -1,0 +1,284 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <div class="inner">
+
+            <h4>QUALIFICAÇÃO PROFISSIONAL</h4>
+
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = CE003"/></h2>
+
+            <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.cerotina003.id}" /></strong></p>
+            <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.cerotina003.identificaEntradaCoordenacao}" /></p>
+            <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.cerotina003.identificaEntradaEntrada}" /></p>
+
+            <p>Nome Local: <h:outputText value=" #{rotinasLancadasBean.cerotina003.nomeLocal}" /></p>
+            <p>Endereço: <h:outputText value=" #{rotinasLancadasBean.cerotina003.enderecoLocal}" /></p>
+            <p>Numero: <h:outputText value=" #{rotinasLancadasBean.cerotina003.numeroLocal}" /></p>
+            <p>Complemento: <h:outputText value=" #{rotinasLancadasBean.cerotina003.complementoLocal}" /></p>
+            <p>Bairro: <h:outputText value=" #{rotinasLancadasBean.cerotina003.bairroLocal}" /></p>
+            <p>CEP: <h:outputText value=" #{rotinasLancadasBean.cerotina003.cepLocal}" /></p>
+            <p>Telefone: <h:outputText value=" #{rotinasLancadasBean.cerotina003.telefoneLocal}" /></p>
+            <br/>
+            <br/>
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td colspan="3">
+                        <p>Arco ocupacional observado:
+                <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneMenu id="q1"
+                                 layout="pageDirection"
+                                 value="#{rotinasLancadasBean.cerotina003.q1}"
+                                 disabled  ="true">
+                    <f:selectItems value="#{CeRotina003Bean.listaArcos}"/>
+                </h:selectOneMenu>
+                </p>
+                </td>
+                </tr>
+            </table>
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td width="150" colspan="3">
+                        <p>Observação: <h:outputText value=" #{rotinasLancadasBean.cerotina003.identificaEntradaObservacao}" />ª Observação</p>
+                </td>
+                </tr>
+                <tr>
+                    <td width="150">
+                        <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText  id="dataVisita"
+                              value="#{rotinasLancadasBean.cerotina003.dataVisita}"
+                              size="10" maxlength="10"
+                              onkeyup="mascara_data(this,event)"
+                              onblur="CheckDate(this)"
+                              required="true"
+                              disabled  ="true"/>
+
+                </p>
+                </td>
+                <td>
+                    <p>Hora de início da observação: <br/>  (notação 24 horas)
+                <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText id="horaInicioVisita"
+                             value="#{rotinasLancadasBean.cerotina003.horaInicioVisita}"
+                             size="5"
+                             maxlength="5"
+                             onkeyup="mascara_hora(this,event)"
+                             onblur="Verifica_Hora(this)"
+                             required="true"
+                             disabled  ="true"/>
+
+                </p>
+                </td>
+                <td>
+                    <p>Hora de término da observação: <br/>  (notação 24 horas)
+                <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText id="horaTerminoVisita"
+                             value="#{rotinasLancadasBean.cerotina003.horaTerminoVisita}"
+                             size="5"
+                             maxlength="5"
+                             onkeyup="mascara_hora(this,event)"
+                             onblur="Verifica_Hora(this)"
+                             required="true"
+                             disabled  ="true"/>
+
+                </p>
+                </td>
+                </tr>
+            </table>
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td>
+                        <p>2 – Os alunos deste arco têm aulas de Qualificação Profissional?
+                <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q2"
+                                  value="#{rotinasLancadasBean.cerotina003.q2}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+
+                </h:selectOneRadio>
+                </p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>3 – Este local é frequentado por alunos de quantos núcleos do PROJOVEM urbano?
+                <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q3"
+                                  value="#{rotinasLancadasBean.cerotina003.q3}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Um" itemValue="um"/>
+                    <f:selectItem itemLabel="Dois" itemValue="dois"/>
+                    <f:selectItem itemLabel="Três" itemValue="tres"/>
+                    <f:selectItem itemLabel="Quatro" itemValue="quatro"/>
+                    <f:selectItem itemLabel="Cinco ou mais" itemValue="cincoMais"/>
+
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>5 - Que tipo de atividade os alunos realizavam no momento de sua observação?
+
+                <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q5"
+                                  value="#{rotinasLancadasBean.cerotina003.q5}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Teóricas (Com explicações do educador)" itemValue="teoricas"/>
+                    <f:selectItem itemLabel="Práticas (Com a realização de atividades pelos alunos)" itemValue="praticas"/>
+                    <f:selectItem itemLabel="Teórico-práticas (Com explcicação do educador e atividades dos alunos)" itemValue="teorica-pratica"/>
+                    <f:selectItem itemLabel="Nenhuma" itemValue="nenhuma"/>
+
+
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <p>6 – Há material de consumo específico para o desenvolvimento das atividades do arco?
+                <h:message for="q6" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q6"
+                                  value="#{rotinasLancadasBean.cerotina003.q6}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                    <f:selectItem itemLabel="Não (vá para a questão 8)"  itemValue="nao"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>7 – Os alunos utilizavam o material de consumo no momento da observação?
+                <h:message for="q7" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q7"
+                                  value="#{rotinasLancadasBean.cerotina003.q7}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                    <f:selectItem itemLabel="Não"  itemValue="nao"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>8 – Há material permanente específico para o desenvolvimento das atividades do arco?
+                <h:message for="q8" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q8"
+                                  value="#{rotinasLancadasBean.cerotina003.q8}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                    <f:selectItem itemLabel="Não (vá para a questão 10)"  itemValue="nao"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>9 – Os alunos utilizavam material permanente no momento da observação?
+                <h:message for="q9" style="color:#c70000; font-size:18px;"/><br/>
+                <h:selectOneRadio id="q9"
+                                  value="#{rotinasLancadasBean.cerotina003.q9}"
+                                  layout="pageDirection"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim"      itemValue="sim"/>
+                    <f:selectItem itemLabel="Não"  itemValue="nao"/>
+                </h:selectOneRadio></p>
+                </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <p>11 - Há registros complementares sobre a Qualificação Profissional?
+
+
+                <h:message for="q11" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:selectOneRadio id="q11"
+                                  value="#{rotinasLancadasBean.cerotina003.q11}"
+                                  layout="pageDirection"
+                                  onclick="habilitarCampoComplementar(this,'q11Complemento','sim')"
+                                  required="true"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                    <f:selectItem itemLabel="Não" itemValue="nao"/>
+                </h:selectOneRadio></p>
+
+
+                <table id="q11Complemento" style="display:none">
+                    <tr>
+                        <td>
+                            <p>Em caso afirmativo, quais?<br/>
+                    <h:inputTextarea  rows="4"
+                                      cols="70"
+                                      value="#{rotinasLancadasBean.cerotina003.q11Complemento}"
+                                      disabled  ="true"/></p>
+                    </td>
+                    </tr>
+
+                </table>
+                </td>
+                </tr>
+
+            </table>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

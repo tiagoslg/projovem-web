@@ -1,0 +1,135 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br:8080/projovem" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><h:outputLink value="http://projovem.fae.ufmg.br/projovem/rotina.jsf" rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 4}"> <h:outputText value="Rotinas"/> <br />
+                        <span>lançar respostas</span> </h:outputLink> </li>
+                    <li><a href="http://projovem.fae.ufmg.br:8080/projovem/relatorio.jsf" class="active">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br:8080/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br:8080/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <h4>Relatório de Síntese de Supervisão</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="Selecione os filtros desejados"/></h2>
+            <div class="text-home">
+                <h:form id="form">
+                    <h:messages/>
+                    <h:outputLink value="#{sinteseSupervisaoBean.linkCaed}"
+                                  style="background: none repeat scroll 0% 0% transparent; margin-left: 270px;"
+                                  rendered="#{sinteseSupervisaoBean.renderedLinkCaed}">Download</h:outputLink>
+                    <a4j:keepAlive beanName="sinteseSupervisaoBean"/>
+
+                    <p>Entrada
+                    <h:selectOneMenu value="#{sinteseSupervisaoBean.entradaEscolhida}">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{sinteseSupervisaoBean.entradas}" />
+                        <a4j:support event="onchange" action="#{sinteseSupervisaoBean.obtemCoordenacoes}"
+                                     ajaxSingle="true" reRender="form" />
+                    </h:selectOneMenu>
+                    </p>
+
+                    <p><h:outputText value="Coordenação" rendered="#{sinteseSupervisaoBean.renderedCoordenacoes}"/>
+                    <h:selectOneMenu value="#{sinteseSupervisaoBean.coordenacaoEscolhida}"
+                                     rendered="#{sinteseSupervisaoBean.renderedCoordenacoes}"
+                                     disabled="#{sinteseSupervisaoBean.disableCoordenacao}">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{sinteseSupervisaoBean.coordenacoes}" />
+                        <a4j:support event="onchange" action="#{sinteseSupervisaoBean.obtemMunicipios}"
+                                     ajaxSingle="true" reRender="form" />
+                    </h:selectOneMenu>
+
+                    </p>
+
+                    <p>
+                        <h:outputText value="Municipio"
+                                      rendered="#{sinteseSupervisaoBean.renderedMunicipios}"/>
+                        <h:selectOneMenu value="#{sinteseSupervisaoBean.municipioEscolhida}"
+                                         disabled="#{sinteseSupervisaoBean.disableMunicipios}"
+                                         rendered="#{sinteseSupervisaoBean.renderedMunicipios}">
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItem itemLabel="Todos" itemValue="0" />
+                            <f:selectItems value="#{sinteseSupervisaoBean.municipios}" />
+                            <a4j:support event="onchange" action="#{sinteseSupervisaoBean.obtemRotinas}"
+                                     ajaxSingle="true" reRender="form" />
+                        </h:selectOneMenu>
+                    </p>
+
+                    <p><h:outputText value="Rotina" rendered="#{sinteseSupervisaoBean.renderedRotinas}"/>
+                    <h:selectOneMenu value="#{sinteseSupervisaoBean.rotinaEscolhida}"
+                                     rendered="#{sinteseSupervisaoBean.renderedRotinas}">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItem itemLabel="Rotina 1 - Rotina para Observação da Matrícula" itemValue="1" />
+                        <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial" itemValue="2" />
+                        <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial - Perfil dos Formadores" itemValue="21" />
+                        <f:selectItem itemLabel="Rotina 2 - Rotina de Formação Inicial - Perfil dos Educadores" itemValue="22" />
+                        <f:selectItem itemLabel="Rotina 3 - Rotina de Verificação Documental" itemValue="3" />
+                        <f:selectItem itemLabel="Rotina 4 - Rotina de Supervisão das Condições de Oferta" itemValue="4" />
+                        <f:selectItem itemLabel="Rotina 5 - Rotina para observação da Frequência" itemValue="5" />
+                        <f:selectItem itemLabel="Rotina 6 - Rotina Qualificação Profissional - Formulário de Local Arcos Ocupacionais" itemValue="6" />
+                        <f:selectItem itemLabel="Rotina 7 - Rotina de Formação Continuada" itemValue="7" />
+                        <f:selectItem itemLabel="Rotina CE 1 - Rotina Geral dos Núcleos" itemValue="CE1" />
+                        <f:selectItem itemLabel="Rotina CE 2 - Perfil dos Educadores" itemValue="CE2" />
+                        <f:selectItem itemLabel="Rotina CE 3 - Qualificação Profissional" itemValue="CE3" />
+                        <a4j:support event="onchange" action="#{sinteseSupervisaoBean.obtemObservacoes}"
+                                     ajaxSingle="true" reRender="form" />
+                    </h:selectOneMenu>
+                    </p>
+
+                    <p><h:outputText value="Observação" rendered="#{sinteseSupervisaoBean.renderedObservacao}"/>
+                    <h:selectOneMenu value="#{sinteseSupervisaoBean.observacaoEscolhida}"
+                                     rendered="#{sinteseSupervisaoBean.renderedObservacao}"
+                                     disabled="#{sinteseSupervisaoBean.disableObservacao}">
+                        <f:selectItem itemLabel="Selecione" itemValue="-1" />
+                        <f:selectItem itemLabel="1ª Observação" itemValue="1" />
+                        <f:selectItem itemLabel="2ª Observaçao" itemValue="2" />
+                        <f:selectItem itemLabel="3ª Observação" itemValue="3" />
+                        <f:selectItem itemLabel="Todas" itemValue="0" />
+                        <a4j:support event="onchange" action="#{sinteseSupervisaoBean.liberarBotao}"
+                                     ajaxSingle="true" reRender="form" />
+                    </h:selectOneMenu>
+                    </p>
+
+                    <h:commandButton action="#{sinteseSupervisaoBean.gerarRelatorio}" value="Gerar Relatório" rendered="#{sinteseSupervisaoBean.renderedBotaoGerar}"
+                                     reRender="form" />
+
+
+
+                </h:form>
+            </div>
+        </div>
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

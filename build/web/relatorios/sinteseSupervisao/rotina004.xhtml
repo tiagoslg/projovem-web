@@ -1,0 +1,295 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <head>
+        <title>Programa ProJovem Urbano</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+    </head>
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina 4 - ROTINA DE CONDIÇÕES DE OFERTA</h3>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <p><h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/></p>
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                cellpadding="0" cellspacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagem004.listaRotina004}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <CENTER><h:outputText value="#{rotina.id}"/></CENTER>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Código CAED"/>
+                    </f:facet>
+                    <CENTER><h:outputText value="#{rotina.nucleo.codigoCAED}"/></CENTER>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Local"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.nucleo.referencia}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.nucleo.municipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data Observação"/>
+                    </f:facet>
+                    <CENTER><h:outputText value="#{rotina.dataVisita}"/></CENTER>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Observação"/>
+                    </f:facet>
+                    <center><h:outputText value=" #{rotina.identificaEntradaObservacao}ª"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 1 || rotina.identificaEntradaObservacao eq 2 || rotina.identificaEntradaObservacao eq 3}"/>
+ 	                    <h:outputText value=" #{rotina.identificaEntradaObservacao}"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 'NSA'}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Referência"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.nucleo.referencia}"/>
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value="Total de Locais observados = #{sinteseSupervisaoBean.listaRotina004Size}"/></p>
+        <p><h:outputText value="Total de Locais em funcionamento = #{sinteseSupervisaoBean.contagem004.q2sim} "
+                         rendered="#{sinteseSupervisaoBean.contagem004.q2sim gt 0}"/> </p>
+        <p><h:outputText value="Total de Locais observados que não estavam em funcionamento = #{sinteseSupervisaoBean.contagem004.q2nao}"
+                         rendered="#{sinteseSupervisaoBean.contagem004.q2nao gt 0}"/> </p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q6a} dos locais observados a biblioteca está disponível para os alunos do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q6a gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q9sim} dos locais observados o espaço destinado à sala/laboratório de informática possui acesso à internet."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q9sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q14sim} dos locais observados os educadores do Projovem Urbano possuem uma sala para encontros e reuniões."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q14sim gt 0}"/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem004.positivo eq 0}"/> </p>
+
+        <br/>
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem004.q3nao} dos locais observados não estavam funcionando no endereço cadastrado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q3nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q4b} dos locais observados o horário de funcionamento do núcleo, no dia da visita, foi entre 3 e 4 horas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q4b gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q4c} dos locais observados o horário de funcionamento do núcleo, no dia da visita, foi inferior a 3 horas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q4c gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q5nao} dos locais observados não há bebedouros suficientes (pelo menos 1 bebedouro para cada 50 alunos observados)."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q5nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q8nao} dos locais observados os alunos não tem acesso à laboratório de informática."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q8nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q12nao} dos locais observados o espaço (escola) onde funciona o núcleo não dispõe de televisão para uso nas atividades didáticas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q12nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q13nao} dos locais observados o espaço (escola) onde funciona o núcleo não dispõe de DVD ou vídeo cassete para uso nas atividades didáticas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q13nao gt 0}"/> </p>
+        <!--p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q17nao} dos locais observados há menos de 2 banheiros para cada 50 alunos observados."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q17nao gt 0}"/> </p!-->
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q18nao} dos locais observados as salas de aula do espaço (escola) onde funciona o núcleo não possuem tamanho adequado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q18nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24aC} dos locais observados o educador de língua portuguesa ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24aC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24bC} dos locais observados o educador de língua inglesa ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24bC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24cC} dos locais observados o educador de ciências humanas ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24cC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24dC} dos locais observados o educador de matemática ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24dC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24eC} dos locais observados o educador de ciências da natureza ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24eC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24fC} dos locais observados o educador de qualificação para o trabalho  ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24fC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24gC} dos locais observados o educador de participação social e comunitária ainda não foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24gC gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q59nao} dos locais observados não foi servida merenda no dia da visita."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q59nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q20nao} dos locais observados havia alunos sem carteira e/ou mesa."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q20nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q21nao} dos locais observados as carteiras não são de tamanho adequado para os alunos do Projovem."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q21nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q22nao} dos locais observados a sala de aula não possui cadeira para o educador."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q22nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q23nao} dos locais observados a sala de aula não possui mesa para o educador."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q23nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q25b} dos locais observados a sala de aula possui quadro para o ensino em condições precárias de uso."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q25b gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q25c} dos locais observados a sala de aula não possui quadro para o ensino."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q25c gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q19b} dos locais observados havia mais de 10 e menos de 25 alunos em média presentes na sala no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q19b gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q19c} dos locais observados havia 10 ou menos alunos em média presentes na sala no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q19c gt 0}"/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem004.negativo eq 0}"/> </p>
+
+
+
+        <br/>
+        <!--p><b><h:outputText value="Outros aspectos observados:"/></b></p>
+
+        <p><h:outputText value="#{sinteseSupervisaoBean.contagem004.q3sim} dos locais observados estavam funcionando no endereço cadastrado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q3sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q4a} dos locais observados o horário de funcionamento do núcleo, no dia da visita, foi igual ou suerior a 4 horas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q4a gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q5sim} dos locais observados há bebedouros suficientes (pelo menos 1 bebedouro para cada 50 alunos observados)."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q5sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q6b} dos locais observados a biblioteca não está disponível para os alunos do Projovem Urbano."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q6b gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q6c} dos locais observados não há biblioteca."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q6c gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q8sim} dos locais observados os alunos tem acesso à laboratório de informática."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q8sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q9nao} dos locais observados o espaço destinado à sala/laboratório de informática não possui acesso à internet."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q9nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q12sim} dos locais observados o espaço (escola) onde funciona o núcleo dispõe de televisão para uso  nas atividades didáticas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q12sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q13sim} dos locais observados o espaço (escola) onde funciona o núcleo dispõe de DVD ou vídeo cassete para uso  nas atividades didáticas."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q13sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q14nao} dos locais observados os educadores do Projovem Urbano não possuem uma sala para encontros e reuniões. "
+                         rendered="#{sinteseSupervisaoBean.contagem004.q14nao gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q17sim} dos locais observados há pelo menos de 2 banheiros para cada 50 alunos observados."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q17sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q18sim} dos locais observados as salas de aula do espaço (escola) onde funciona o núcleo possuem tamanho adequado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q18sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24aA} dos locais observados o educador de língua portuguesa  estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24aA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24aB} dos locais observados o educador de língua portuguesa não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24aB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24bA} dos locais observados o educador de língua inglesa estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24bA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24bB} dos locais observados o educador de língua inglesa não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24bB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24cA} dos locais observados o educador de ciências humanas  estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24cA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24cB} dos locais observados o educador de ciências humanas não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24cB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24dA} dos locais observados o educador de matemática  estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24dA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24dB} dos locais observados o educador de matemática não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24dB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24eA} dos locais observados o educador de ciências da natureza  estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24eA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24eB} dos locais observados o educador de ciências da natureza não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24eB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24fA} dos locais observados o educador de qualificação para o trabalho   estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24fA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24fB} dos locais observados o educador de qualificação para o trabalho  não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24fB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24gA} dos locais observados o educador de participação social e comunitária  estava presente."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24gA gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q24gB} dos locais observados o educador de participação social e comunitária não estava presente, mas já foi contratado."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q24gB gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q58sim} dos locais observados foi servida merenda no dia da visita."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q58sim gt 0}"/> </p>
+
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q11a} dos locais observados o espaço (escola) onde está o núcleo possui rampas de acesso para portadores de necessidades especiais."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q11a gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q11b} dos locais observados o espaço (escola) onde está o núcleo não possui rampas de acesso para portadores de necessidades especiais."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q11b gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q11b} dos núcleos o espaço (escola) onde está o núcleo não possui rampas de acesso para portadores de necessidades especiais.
+                         Em #{sinteseSupervisaoBean.contagem004.q10sim} desses núcleos, há portadores com necessidades especiais de locomoção."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q11b gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q15sim} dos locais observados a sala para encontros e reuniões possui cadeiras suficientes para todos os educadores presentes no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q15sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q15nao} dos locais observados a sala para encontros e reuniões não possui cadeiras suficientes para todos os educadores presentes no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q15nao gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q16sim} dos locais observados os educadores do Projovem dispõem de um escaninho ou local para guardar o matrial didático."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q16sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q16nao} dos locais observados os educadores do Projovem não dispõem de um escaninho ou local para guardar o matrial didático."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q16nao gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q20sim} dos locais observados havia alunos utilizando material didático no dia da visita."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q20sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q20nao} dos locais observados não havia alunos utilizando material didático no dia da visita."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q20nao gt 0}"/> </p>
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q59sim} dos locais observados há bebedouros suficientes (pelo menos 1 bebedouro para cada 50 alunos observados)."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q59sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q59nao} dos locais observados há bebedouros suficientes (pelo menos 1 bebedouro para cada 50 alunos observados)."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q59nao gt 0}"/> </p>
+
+
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q20sim} dos locais observados não havia alunos sem carteira e/ou mesa."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q20sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q21sim} dos locais observados as carteiras são de tamanho adequado para os alunos do Projovem."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q21sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q22sim} dos locais observados a sala de aula possui cadeira para o educador."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q22sim gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q23sim} dos locais observados a sala de aula possui mesa para o educador."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q23sim gt 0}"/> </p>
+
+
+
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q25a} dos locais observados a sala de aula possui quadro para o ensino em condições de uso."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q25a gt 0}"/> </p>
+        <p><h:outputText value="Em #{sinteseSupervisaoBean.contagem004.q19a} dos locais observados havia 25 ou mais alunos em média presentes na sala no momento da observação."
+                         rendered="#{sinteseSupervisaoBean.contagem004.q19a gt 0}"/> </p-->
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagem004.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+
+    </div>
+</ui:composition>

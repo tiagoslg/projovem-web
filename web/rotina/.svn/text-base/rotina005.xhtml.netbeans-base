@@ -1,0 +1,522 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>ROTINA DE OBSERVAÇÃO DA FREQUÊNCIA.</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = 005"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotina005Bean"/>
+
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="2"/>
+
+                    <div id="erros" style="width:300px;display:inline-block;">
+                        <h:messages/>
+                    </div>
+
+                    <a4j:include viewId="/include/identificaNucleo.xhtml"/>
+
+                    <a4j:region  rendered="#{!nucleoBean.renderedIdentificaLocal}">
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td width="150" colspan="3">
+                                    <p>Observação: 
+                            <h:message for="identificaEntradaObservacao" style="color:#c70000; font-size:18px;"/>
+                            <h:selectOneMenu id="identificaEntradaObservacao" value="#{rotina005Bean.rotina.identificaEntradaObservacao}">
+                                <f:selectItem itemLabel="Selecione" itemValue="" />
+                                <f:selectItem itemValue="1" itemLabel ="1ª Observação" />
+                                <f:selectItem itemValue="2" itemLabel ="2ª Observação" />
+                                <f:selectItem itemValue="3" itemLabel ="3ª Observação" />
+                            </h:selectOneMenu>
+
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td width="150">
+                                    <p>Data da observação: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText  id="dataVisita"
+                                          value="#{rotina005Bean.rotina.dataVisita}"
+                                          size="10" maxlength="10"
+                                          onkeyup="mascara_data(this,event)"
+                                          onblur="CheckDate(this)"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de início da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaInicioVisita"
+                                         value="#{rotina005Bean.rotina.horaInicioVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"/>
+
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de término da observação: <br/>  (notação 24 horas)
+                            <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:inputText id="horaTerminoVisita"
+                                         value="#{rotina005Bean.rotina.horaTerminoVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"/>
+
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+
+                            <tr>
+                                <td colspan="2">
+                                    <p>1 - Quantas vezes você dirigiu-se ao núcleo para essa rotina de supervisão?
+                            <h:message for="q1" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q1"
+                                              value="#{rotina005Bean.rotina.q1}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Uma vez." itemValue="umaVez"/>
+                                <f:selectItem itemLabel="Duas vezes. " itemValue="duasVezes"/>
+                                <f:selectItem itemLabel="Três vezes." itemValue="trezVezes"/>
+                                <f:selectItem itemLabel="Quatro vezes ou mais." itemValue="quatroMais"/>
+                            </h:selectOneRadio>
+
+
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>2 - O núcleo estava em funcionamento?
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/>
+                            <br/>
+                            <h:selectOneRadio id="q2"
+                                              value="#{rotina005Bean.rotina.q2}"
+                                              layout="pageDirection"
+                                              onclick="desabilitarCampoComplementar(this,'q5Condicional','nao')">
+                                <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                <f:selectItem itemLabel="Não. (informe imediatamente a coordenação da sua IR) " itemValue="nao"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <table id="q5Condicional" style="">
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <p>3 - O núcleo estava em funcionamento no endereço cadastrado?
+                                        <h:message for="q3" style="color:#c70000; font-size:18px;"/>
+                                        <br/>
+                                        <h:selectOneRadio id="q3"
+                                                          value="#{rotina005Bean.rotina.q3}"
+                                                          layout="pageDirection">
+                                            <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                                            <f:selectItem itemLabel="Não. (informe imediatamente a coordenação da sua IR) " itemValue="nao"/>
+                                        </h:selectOneRadio>
+
+                                        </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>4 - Qual foi o horário de funcionamento do núcleo no dia da sua observação? (Usar notação 24 horas.) </p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p>A - Horário de abertura: </p>
+                                            </td>
+                                            <td>
+                                        <h:inputText id="q4a"
+                                                     value="#{rotina005Bean.rotina.q4a}"
+                                                     size="5"
+                                                     maxlength="5"
+                                                     onkeyup="mascara_hora(this,event)"
+                                                     onblur="Verifica_Hora(this)"/>
+                                        <h:message for="q4a" style="color:#c70000; font-size:18px;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>B - Horário de Fechamento: </p>
+                                </td>
+                                <td>
+                            <h:inputText id="q4b"
+                                         value="#{rotina005Bean.rotina.q4b}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"/>
+                            <h:message for="q4b" style="color:#c70000; font-size:18px;"/>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>5 -  Quantas turmas estão em funcionamento no núcleo?
+                        <h:message for="q5" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q5"
+                                          value="#{rotina005Bean.rotina.q5}"
+                                          layout="pageDirection"
+                                          onclick="habilitarTurma(this,5, 'turma')">
+                            <f:selectItem itemLabel="0" itemValue="0"/>
+                            <f:selectItem itemLabel="1" itemValue="1"/>
+                            <f:selectItem itemLabel="2" itemValue="2"/>
+                            <f:selectItem itemLabel="3" itemValue="3"/>
+                            <f:selectItem itemLabel="4" itemValue="4"/>
+                            <f:selectItem itemLabel="5" itemValue="5"/>
+                        </h:selectOneRadio>
+
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                
+                                <table style="display:none" id="turma1">
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>6 - Quantos alunos estavam presentes nas salas no momento da sua observação?</p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>A - Sala 1: </p>
+                                        </td>
+                                        <td>
+                                    <h:inputText id="q6a"
+                                                 value="#{rotina005Bean.rotina.q6a}"
+                                                 size="5"
+                                                 maxlength="5"
+                                                 onkeyup="somente_numero(this)"/>
+                                    <h:message for="q6a" style="color:#c70000; font-size:18px;"/>
+                            </td>
+                        </tr>
+                        <tr style="display:none" id="turma2">
+                            <td>
+                                <p>B - Sala 2: </p>
+                            </td>
+                            <td>
+                        <h:inputText id="q6b"
+                                     value="#{rotina005Bean.rotina.q6b}"
+                                     size="5"
+                                     maxlength="5"
+                                     onkeyup="somente_numero(this)"/>
+                        <h:message for="q6b" style="color:#c70000; font-size:18px;"/>
+                        </td>
+                        </tr>
+                        <tr style="display:none" id="turma3">
+                            <td>
+                                <p>C - Sala 3: </p>
+                            </td>
+                            <td>
+                        <h:inputText id="q6c"
+                                     value="#{rotina005Bean.rotina.q6c}"
+                                     size="5"
+                                     maxlength="5"
+                                     onkeyup="somente_numero(this)"/>
+                        <h:message for="q6c" style="color:#c70000; font-size:18px;"/>
+                        </td>
+                        </tr>
+                        <tr style="display:none" id="turma4">
+                            <td>
+                                <p>D - Sala 4: </p>
+                            </td>
+                            <td>
+                        <h:inputText id="q6d"
+                                     value="#{rotina005Bean.rotina.q6d}"
+                                     size="5"
+                                     maxlength="5"
+                                     onkeyup="somente_numero(this)"/>
+                        <h:message for="q6d" style="color:#c70000; font-size:18px;"/>
+                        </td>
+                        </tr>
+                        <tr style="display:none" id="turma5">
+                            <td>
+                                <p>E - Sala 5: </p>
+                            </td>
+                            <td>
+                        <h:inputText id="q6e"
+                                     value="#{rotina005Bean.rotina.q6e}"
+                                     size="5"
+                                     maxlength="5"
+                                     onkeyup="somente_numero(this)"/>
+                        <h:message for="q6e" style="color:#c70000; font-size:18px;"/>
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>7 - No momento da sua observação, havia alunos utilizando os computadores do laboratório de informática?
+                        <h:message for="q7" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q7"
+                                          value="#{rotina005Bean.rotina.q7}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                        </h:selectOneRadio>
+
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>8 - A  seguir,  serão  apresentadas  algumas  questões  sobre  os
+                                    educadores. Para  as  atividades  escritas  abaixo,  responda  se
+                                    os  profissionais  estão  ou  não  presentes  no  momento  da
+                                    observação.  Caso  não  estejam  presentes,  informe-se  com  o
+                                    educador  responsável  pelo  núcleo  se  esses  profissionais  já
+                                    foram contratados.
+
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>A. Língua Portuguesa:
+                        <h:message for="q8a" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8a"
+                                          value="#{rotina005Bean.rotina.q8a}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>B. Língua Inglesa:
+                        <h:message for="q8b" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8b"
+                                          value="#{rotina005Bean.rotina.q8b}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>C. Ciências Humanas:
+                        <h:message for="q8c" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8c"
+                                          value="#{rotina005Bean.rotina.q8c}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>D. Matemática:
+                        <h:message for="q8d" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8d"
+                                          value="#{rotina005Bean.rotina.q8d}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>E. Ciências da Natureza:
+                        <h:message for="q8e" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8e"
+                                          value="#{rotina005Bean.rotina.q8e}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>F. Qualificação para o trabalho:
+                        <h:message for="q8f" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8f"
+                                          value="#{rotina005Bean.rotina.q8f}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>G. Participação Social e Comunitária
+                        <h:message for="q8g" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        <h:selectOneRadio id="q8g"
+                                          value="#{rotina005Bean.rotina.q8g}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim, o educador estava presente." itemValue="sim"/>
+                            <f:selectItem itemLabel="Não, mas o educador já foi contratado. " itemValue="naoEducadorContratado"/>
+                            <f:selectItem itemLabel="Não. O educador ainda não foi contratado. " itemValue="naoEducadorNaoContratado"/>
+                        </h:selectOneRadio>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>9 - Neste núcleo, a avaliação formativa foi realizada?
+                        <h:message for="q9" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q9"
+                                          value="#{rotina005Bean.rotina.q9}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim" itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                        </h:selectOneRadio>
+
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                                <p>10 – Você deseja registrar suas impressões gerais sobre as condições de freqüência dos alunos e dos educadores.
+                        <h:message for="q10" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q10"
+                                          value="#{rotina005Bean.rotina.q10}"
+                                          layout="pageDirection"
+                                          onclick="habilitarCampoComplementar(this,'q10complemento','Sim')">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+
+                        </p>
+                        <table id="q10complemento" style="display:none">
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea  id="q10Complemento"
+                                              rows="4"
+                                              cols="70"
+                                              value="#{rotina005Bean.rotina.q10Complemento}"/>
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons"
+                                           action="#{rotina005Bean.salvarRotina}" status="aguarde"
+                                           reRender="form"
+                                           onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido}" target="#{rotina005Bean.rotina.nucleo}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.uf}" target="#{rotina005Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.coordenacao}" target="#{rotina005Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.municipio}" target="#{rotina005Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.entrada}" target="#{rotina005Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{rotina005Bean.rotina}" target="#{rotinasLancadasBean.rotina005}" />
+                        </a4j:commandButton>
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

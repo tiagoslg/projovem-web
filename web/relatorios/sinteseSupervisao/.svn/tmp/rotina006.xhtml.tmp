@@ -1,0 +1,593 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="width:1000px;padding:10px;border:1px solid">
+        <div style="border-bottom:2px solid;height:150px;margin-bottom:30px;">
+            <div style="width:250px;float:left;padding-top:15px;">
+                <a HREF="relatoriocoordenacao.jsf"><!--p><img alt="Projovem Urbano" src="imagens/logo-projovem.JPG" border="0" style="width: 250px; height: 90px;"/></p--></a>
+
+            </div>
+            <div style="width:500px;float:left">
+                <h1 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">PROJOVEM URBANO</h1>
+                <h2 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">RELATÓRIO SÍNTESE DE SUPERVISÃO</h2>
+                <h3 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">Rotina 6 - ROTINA DE QUALIFICAÇÃO PROFISSIONAL</h3>
+                <h4 style="margin-bottom:0;margin-left:0;margin-right:0;margin-top:10px;text-align:center;">LOCAL DOS ARCOS OCUPACIONAIS</h4>
+            </div>
+            <div style="width:200px;float:left;padding-top:50px;padding-left:30px">
+                <!--p><img alt="Brasil, um país de todos" src="imagens/brasil_gd.jpg"/></p-->
+            </div>
+        </div>
+
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <p><h:outputText value="Instituição responsável pela supervisão do programa #{sinteseSupervisaoBean.irResponsavel}"/></p>
+                </td>
+                <td rowspan="2" width="10%">
+                    <a target="_self" HREF="javaScript:window.print()"><img alt="Imprimir" border="0" src="imagens/impressora.gif"/></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><h:outputText value="Dados referentes à #{sinteseSupervisaoBean.coordenacaoEscolhida}"/></p>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+        <center>
+            <rich:dataTable
+
+                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                ceiipadding="0" ceiispacing="0"
+                border="0" var="rotina" value="#{sinteseSupervisaoBean.contagem006.listaRotina006}">
+
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.id}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Entrada"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.identificaEntradaEntrada}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Município"/>
+                    </f:facet>
+                    <h:outputText value="#{rotina.identificaEntradaMunicipio}"/>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Data Observação"/>
+                    </f:facet>
+                    <center><h:outputText value="#{rotina.dataVisita}"/></center>
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputText value="Observação"/>
+                    </f:facet>
+<<<<<<< .mine
+                    <center><h:outputText value=" #{rotina.identificaEntradaObservacao}ª"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 1 || rotina.identificaEntradaObservacao eq 2 || rotina.identificaEntradaObservacao eq 3}"/>
+ 	                    <h:outputText value=" #{rotina.identificaEntradaObservacao}"
+ 	                                  rendered="#{rotina.identificaEntradaObservacao eq 'NSA'}"/></center>
+=======
+                    <center><h:outputText value=" #{rotina.identificaEntradaObservacao}ª"
+                                  rendered="#{rotina.identificaEntradaObservacao eq 1 || rotina.identificaEntradaObservacao eq 2 || rotina.identificaEntradaObservacao eq 3}"/>
+                    <h:outputText value=" #{rotina.identificaEntradaObservacao}"
+                                  rendered="#{rotina.identificaEntradaObservacao eq 'NSA'}"/></center>
+>>>>>>> .r145
+                </rich:column>
+            </rich:dataTable>
+        </center>
+
+        <p> <h:outputText value=" #{sinteseSupervisaoBean.listaRotina006Size} locais observados."/></p>
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados que acrescentam às condicionalidades estabelecidas no programa e contribuem para sua qualidade:"/></b></p>
+        <!--<p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.teste} dos locais observados o horário de funcionamento do arco Administração, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.teste gt 0}'/> </p>-->
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismomais} dos locais observados o horário de funcionamento do arco Agroextrativismo, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismomais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaomais} dos locais observados o horário de funcionamento do arco Alimentação, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaomais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaimais} dos locais observados o horário de funcionamento do arco Arte e Cultura I, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiimais} dos locais observados o horário de funcionamento do arco Arte e Cultura II, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosimais} dos locais observados o horário de funcionamento do arco Construção e Reparos I (Revestimentos), no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiimais} dos locais observados o horário de funcionamento do arco Construção e Reparos II (Instalações), no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaomais} dos locais observados o horário de funcionamento do arco Educação, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaomais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazermais} dos locais observados o horário de funcionamento do arco Esporte e Lazer, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazermais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormais} dos locais observados o horário de funcionamento do arco Gestão Pública e Terceiro Setor, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficamais} dos locais observados o horário de funcionamento do arco Gráfica, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficamais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriamais} dos locais observados o horário de funcionamento do arco Joalheria, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriamais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveismais} dos locais observados o horário de funcionamento do arco Madeira e Móveis, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveismais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicamais} dos locais observados o horário de funcionamento do arco Metalmecânica, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicamais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturamais} dos locais observados o horário de funcionamento do arco Pesca e Piscicultura, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturamais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudemais} dos locais observados o horário de funcionamento do arco Saúde, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudemais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosimais} dos locais observados o horário de funcionamento do arco Serviços Domésticos I, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiimais} dos locais observados o horário de funcionamento do arco Serviços Domésticos ii, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiimais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaismais} dos locais observados o horário de funcionamento do arco Serviços Pessoais, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaismais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicamais} dos locais observados o horário de funcionamento do arco Telemática, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicamais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportemais} dos locais observados o horário de funcionamento do arco Transporte, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportemais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidademais} dos locais observados o horário de funcionamento do arco Turismo e Hospitalidade, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidademais gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariomais} dos locais observados o horário de funcionamento do arco Vestuário, no dia da visita, foi superior a 4 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuariomais gt 0}'/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem006.positivo eq 0}"/> </p>
+
+        <br/>
+
+        <p><b><h:outputText value="Aspectos observados quanto ao não cumprimento das condicionalidades estabelecidas no programa e que afetam sua implementação:"/></b></p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaomenos} dos locais observados o horário de funcionamento do arco Administração, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaomenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismomenos} dos locais observados o horário de funcionamento do arco Agroextrativismo, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismomenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaomenos} dos locais observados o horário de funcionamento do arco Alimentação, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaomenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaimenos} dos locais observados o horário de funcionamento do arco Arte e Cultura I, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiimenos} dos locais observados o horário de funcionamento do arco Arte e Cultura II, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosimenos} dos locais observados o horário de funcionamento do arco Construção e Reparos I (Revestimentos), no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiimenos} dos locais observados o horário de funcionamento do arco Construção e Reparos II (Instalações), no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaomenos} dos locais observados o horário de funcionamento do arco Educação, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaomenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazermenos} dos locais observados o horário de funcionamento do arco Esporte e Lazer, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazermenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormenos} dos locais observados o horário de funcionamento do arco Gestão Pública e Terceiro Setor, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficamenos} dos locais observados o horário de funcionamento do arco Gráfica, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficamenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriamenos} dos locais observados o horário de funcionamento do arco Joalheria, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriamenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveismenos} dos locais observados o horário de funcionamento do arco Madeira e Móveis, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveismenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicamenos} dos locais observados o horário de funcionamento do arco Metalmecânica, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicamenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturamenos} dos locais observados o horário de funcionamento do arco Pesca e Piscicultura, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturamenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudemenos} dos locais observados o horário de funcionamento do arco Saúde, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudemenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosimenos} dos locais observados o horário de funcionamento do arco Serviços Domésticos I, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiimenos} dos locais observados o horário de funcionamento do arco Serviços Domésticos ii, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiimenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaismenos} dos locais observados o horário de funcionamento do arco Serviços Pessoais, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaismenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicamenos} dos locais observados o horário de funcionamento do arco Telemática, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicamenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportemenos} dos locais observados o horário de funcionamento do arco Transporte, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportemenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidademenos} dos locais observados o horário de funcionamento do arco Turismo e Hospitalidade, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidademenos gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariomenos} dos locais observados o horário de funcionamento do arco Vestuário, no dia da visita, foi inferior a 3 horas.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuariomenos gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaonf} dos locais observados o  arco Administração, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaonf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismonf} dos locais observados o  arco Agroextrativismo, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismonf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaonf} dos locais observados o  arco Alimentação, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaonf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturainf} dos locais observados o  arco Arte e Cultura I, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturainf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiinf} dos locais observados o  arco Arte e Cultura II, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiinf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosinf} dos locais observados o  arco Construção e Reparos I (Revestimentos), não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosinf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiinf} dos locais observados o  arco Construção e Reparos II (Instalações), não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiinf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaonf} dos locais observados o  arco Educação, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaonf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazernf} dos locais observados o  arco Esporte e Lazer, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazernf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetornf} dos locais observados o  arco Gestão Pública e Terceiro Setor, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetornf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficanf} dos locais observados o  arco Gráfica, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficanf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalherianf} dos locais observados o  arco Joalheria, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalherianf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveisnf} dos locais observados o  arco Madeira e Móveis, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveisnf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicanf} dos locais observados o  arco Metalmecânica, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicanf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturanf} dos locais observados o  arco Pesca e Piscicultura, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturanf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudenf} dos locais observados o  arco Saúde, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudenf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosinf} dos locais observados o  arco Serviços Domésticos I, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosinf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiinf} dos locais observados o  arco Serviços Domésticos ii, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiinf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaisnf} dos locais observados o  arco Serviços Pessoais, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaisnf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicanf} dos locais observados o  arco Telemática, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicanf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportenf} dos locais observados o  arco Transporte, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportenf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadenf} dos locais observados o  arco Turismo e Hospitalidade, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadenf gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuarionf} dos locais observados o  arco Vestuário, não funciona no endereço informado.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuarionf gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaohorafix} dos locais observados o horário das aulas do arco Administração, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaohorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismohorafix} dos locais observados o horário das aulas do arco Agroextrativismo, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismohorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaohorafix} dos locais observados o horário das aulas do arco Alimentação, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaohorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaihorafix} dos locais observados o horário das aulas do arco Arte e Cultura I, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiihorafix} dos locais observados o horário das aulas do arco Arte e Cultura II, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosihorafix} dos locais observados o horário das aulas do arco Construção e Reparos I (Revestimentos), não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiihorafix} dos locais observados o horário das aulas do arco Construção e Reparos II (Instalações), não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaohorafix} dos locais observados o horário das aulas do arco Educação, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaohorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazerhorafix} dos locais observados o horário das aulas do arco Esporte e Lazer, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazerhorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetorhorafix} dos locais observados o horário das aulas do arco Gestão Pública e Terceiro Setor, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetorhorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficahorafix} dos locais observados o horário das aulas do arco Gráfica, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficahorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriahorafix} dos locais observados o horário das aulas do arco Joalheria, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriahorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveishorafix} dos locais observados o horário das aulas do arco Madeira e Móveis, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveishorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicahorafix} dos locais observados o horário das aulas do arco Metalmecânica, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicahorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturahorafix} dos locais observados o horário das aulas do arco Pesca e Piscicultura, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturahorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudehorafix} dos locais observados o horário das aulas do arco Saúde, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudehorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosihorafix} dos locais observados o horário das aulas do arco Serviços Domésticos I, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiihorafix} dos locais observados o horário das aulas do arco Serviços Domésticos ii, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiihorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaishorafix} dos locais observados o horário das aulas do arco Serviços Pessoais, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaishorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicahorafix} dos locais observados o horário das aulas do arco Telemática, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicahorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportehorafix} dos locais observados o horário das aulas do arco Transporte, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportehorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadehorafix} dos locais observados o horário das aulas do arco Turismo e Hospitalidade, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadehorafix gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariohorafix} dos locais observados o horário das aulas do arco Vestuário, não está afixado em local visível.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuariohorafix gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaohorcump} dos locais observados o horário das aulas do arco Administração, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaohorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismohorcump} dos locais observados o horário das aulas do arco Agroextrativismo, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismohorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaohorcump} dos locais observados o horário das aulas do arco Alimentação, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaohorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaihorcump} dos locais observados o horário das aulas do arco Arte e Cultura I, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiihorcump} dos locais observados o horário das aulas do arco Arte e Cultura II, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosihorcump} dos locais observados o horário das aulas do arco Construção e Reparos I (Revestimentos), não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiihorcump} dos locais observados o horário das aulas do arco Construção e Reparos II (Instalações), não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaohorcump} dos locais observados o horário das aulas do arco Educação, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaohorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazerhorcump} dos locais observados o horário das aulas do arco Esporte e Lazer, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazerhorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetorhorcump} dos locais observados o horário das aulas do arco Gestão Pública e Terceiro Setor, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetorhorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficahorcump} dos locais observados o horário das aulas do arco Gráfica, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficahorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriahorcump} dos locais observados o horário das aulas do arco Joalheria, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriahorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveishorcump} dos locais observados o horário das aulas do arco Madeira e Móveis, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveishorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicahorcump} dos locais observados o horário das aulas do arco Metalmecânica, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicahorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturahorcump} dos locais observados o horário das aulas do arco Pesca e Piscicultura, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturahorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudehorcump} dos locais observados o horário das aulas do arco Saúde, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudehorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosihorcump} dos locais observados o horário das aulas do arco Serviços Domésticos I, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiihorcump} dos locais observados o horário das aulas do arco Serviços Domésticos ii, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiihorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaishorcump} dos locais observados o horário das aulas do arco Serviços Pessoais, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaishorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicahorcump} dos locais observados o horário das aulas do arco Telemática, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicahorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportehorcump} dos locais observados o horário das aulas do arco Transporte, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportehorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadehorcump} dos locais observados o horário das aulas do arco Turismo e Hospitalidade, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadehorcump gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariohorcump} dos locais observados o horário das aulas do arco Vestuário, não estava sendo cumprido no dia de sua observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuariohorcump gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaoeducador} dos locais observados não havia nenhum educador presente no arco Administração, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaoeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismoeducador} dos locais observados não havia nenhum educador presente no arco Agroextrativismo, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismoeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaoeducador} dos locais observados não havia nenhum educador presente no arco Alimentação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaoeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaieducador} dos locais observados não havia nenhum educador presente no arco Arte e Cultura I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiieducador} dos locais observados não havia nenhum educador presente no arco Arte e Cultura II, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosieducador} dos locais observados não havia nenhum educador presente no arco Construção e Reparos I (Revestimentos), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiieducador} dos locais observados não havia nenhum educador presente no arco Construção e Reparos II (Instalações), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaoeducador} dos locais observados não havia nenhum educador presente no arco Educação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaoeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazereducador} dos locais observados não havia nenhum educador presente no arco Esporte e Lazer, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazereducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoreducador} dos locais observados não havia nenhum educador presente no arco Gestão Pública e Terceiro Setor, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoreducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficaeducador} dos locais observados não havia nenhum educador presente no arco Gráfica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficaeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriaeducador} dos locais observados não havia nenhum educador presente no arco Joalheria, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriaeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveiseducador} dos locais observados não havia nenhum educador presente no arco Madeira e Móveis, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveiseducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicaeducador} dos locais observados não havia nenhum educador presente no arco Metalmecânica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicaeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturaeducador} dos locais observados não havia nenhum educador presente no arco Pesca e Piscicultura, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturaeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudeeducador} dos locais observados não havia nenhum educador presente no arco Saúde, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudeeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosieducador} dos locais observados não havia nenhum educador presente no arco Serviços Domésticos I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiieducador} dos locais observados não havia nenhum educador presente no arco Serviços Domésticos ii, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiieducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaiseducador} dos locais observados não havia nenhum educador presente no arco Serviços Pessoais, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaiseducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicaeducador} dos locais observados não havia nenhum educador presente no arco Telemática, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicaeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transporteeducador} dos locais observados não havia nenhum educador presente no arco Transporte, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transporteeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadeeducador} dos locais observados não havia nenhum educador presente no arco Turismo e Hospitalidade, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadeeducador gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuarioeducador} dos locais observados não havia nenhum educador presente no arco Vestuário, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuarioeducador gt 0}'/> </p>
+
+<p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaoalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Administração, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaoalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismoalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Agroextrativismo, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismoalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaoalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Alimentação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaoalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Arte e Cultura I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Arte e Cultura II, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Construção e Reparos I (Revestimentos), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Construção e Reparos II (Instalações), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaoalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Educação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaoalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazeralunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Esporte e Lazer, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazeralunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Gestão Pública e Terceiro Setor, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficaalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Gráfica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficaalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriaalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Joalheria, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriaalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveisalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Madeira e Móveis, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveisalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicaalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Metalmecânica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicaalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Pesca e Piscicultura, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudealunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Saúde, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudealunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Serviços Domésticos I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Serviços Domésticos ii, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaisalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Serviços Pessoais, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaisalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicaalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Telemática, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicaalunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportealunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Transporte, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportealunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Turismo e Hospitalidade, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunob gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuarioalunob} dos locais observados havia mais de 10 e menos de 25 alunos presentes na sala do arco Vestuário, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuarioalunob gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaoalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Administração, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaoalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismoalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Agroextrativismo, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismoalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaoalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Alimentação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaoalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Arte e Cultura I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Arte e Cultura II, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Construção e Reparos I (Revestimentos), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Construção e Reparos II (Instalações), no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaoalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Educação, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaoalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazeralunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Esporte e Lazer, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazeralunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Gestão Pública e Terceiro Setor, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficaalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Gráfica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficaalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriaalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Joalheria, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriaalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveisalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Madeira e Móveis, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveisalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicaalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Metalmecânica, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicaalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Pesca e Piscicultura, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudealunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Saúde, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudealunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Serviços Domésticos I, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Serviços Domésticos ii, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaisalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Serviços Pessoais, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaisalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicaalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Telemática, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicaalunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportealunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Transporte, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportealunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Turismo e Hospitalidade, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunoc gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuarioalunoc} dos locais observados havia 10 ou menos alunos presentes na sala do arco Vestuário, no momento da observação'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuarioalunoc gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaoalunonao} dos locais observados os alunos do arco Administração não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.administracaoalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismoalunonao} dos locais observados os alunos do arco Agroextrativismo não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismoalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaoalunonao} dos locais observados os alunos do arco Alimentação não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.alimentacaoalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaialunonao} dos locais observados os alunos do arco Arte e Cultura I não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiialunonao} dos locais observados os alunos do arco Arte e Cultura II não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosialunonao} dos locais observados os alunos do arco Construção e Reparos I (Revestimentos) não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiialunonao} dos locais observados os alunos do arco Construção e Reparos II (Instalações) não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaoalunonao} dos locais observados os alunos do arco Educação não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.educacaoalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazeralunonao} dos locais observados os alunos do arco Esporte e Lazer não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.esporteelazeralunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunonao} dos locais observados os alunos do arco Gestão Pública e Terceiro Setor não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetoralunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficaalunonao} dos locais observados os alunos do arco Gráfica não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.graficaalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriaalunonao} dos locais observados os alunos do arco Joalheria não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.joalheriaalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveisalunonao} dos locais observados os alunos do arco Madeira e Móveis não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveisalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicaalunonao} dos locais observados os alunos do arco Metalmecânica não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicaalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunonao} dos locais observados os alunos do arco Pesca e Piscicultura não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturaalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudealunonao} dos locais observados os alunos do arco Saúde não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.saudealunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosialunonao} dos locais observados os alunos do arco Serviços Domésticos I não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunonao} dos locais observados os alunos do arco Serviços Domésticos ii não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiialunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaisalunonao} dos locais observados os alunos do arco Serviços Pessoais não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaisalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicaalunonao} dos locais observados os alunos do arco Telemática não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.telematicaalunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportealunonao} dos locais observados os alunos do arco Transporte não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.transportealunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunonao} dos locais observados os alunos do arco Turismo e Hospitalidade não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadealunonao gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuarioalunonao} dos locais observados os alunos do arco Vestuário não realizavam nenhuma atividade no momento da visita.'
+                         rendered='#{sinteseSupervisaoBean.contagem006.vestuarioalunonao gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaomatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Administração'  rendered='#{sinteseSupervisaoBean.contagem006.administracaomatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismomatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Agroextrativismo'  rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismomatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaomatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Alimentação'  rendered='#{sinteseSupervisaoBean.contagem006.alimentacaomatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Arte e Cultura I'  rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Arte e Cultura II'  rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Construção e Reparos I (Revestimentos)'  rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Construção e Reparos II (Instalações)'  rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaomatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Educação'  rendered='#{sinteseSupervisaoBean.contagem006.educacaomatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazermatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Esporte e Lazer'  rendered='#{sinteseSupervisaoBean.contagem006.esporteelazermatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Gestão Pública e Terceiro Setor'  rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficamatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Gráfica'  rendered='#{sinteseSupervisaoBean.contagem006.graficamatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriamatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Joalheria'  rendered='#{sinteseSupervisaoBean.contagem006.joalheriamatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveismatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Madeira e Móveis'  rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveismatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicamatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Metalmecânica'  rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicamatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturamatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Pesca e Piscicultura'  rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturamatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudematcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Saúde'  rendered='#{sinteseSupervisaoBean.contagem006.saudematcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Serviços Domésticos I'  rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiimatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Serviços Domésticos ii'  rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiimatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaismatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Serviços Pessoais'  rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaismatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicamatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Telemática'  rendered='#{sinteseSupervisaoBean.contagem006.telematicamatcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportematcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Transporte'  rendered='#{sinteseSupervisaoBean.contagem006.transportematcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadematcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Turismo e Hospitalidade'  rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadematcon gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariomatcon} dos locais observados não há material de consumo específico para o desenvolvimento das atividades do arco Vestuário'  rendered='#{sinteseSupervisaoBean.contagem006.vestuariomatcon gt 0}'/> </p>
+
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.administracaomatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Administração'  rendered='#{sinteseSupervisaoBean.contagem006.administracaomatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.agroextrativismomatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Agroextrativismo'  rendered='#{sinteseSupervisaoBean.contagem006.agroextrativismomatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.alimentacaomatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Alimentação'  rendered='#{sinteseSupervisaoBean.contagem006.alimentacaomatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Arte e Cultura I'  rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.arteeculturaiimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Arte e Cultura II'  rendered='#{sinteseSupervisaoBean.contagem006.arteeculturaiimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Construção e Reparos I (Revestimentos)'  rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.construcaoereparosiimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Construção e Reparos II (Instalações)'  rendered='#{sinteseSupervisaoBean.contagem006.construcaoereparosiimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.educacaomatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Educação'  rendered='#{sinteseSupervisaoBean.contagem006.educacaomatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.esporteelazermatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Esporte e Lazer'  rendered='#{sinteseSupervisaoBean.contagem006.esporteelazermatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Gestão Pública e Terceiro Setor'  rendered='#{sinteseSupervisaoBean.contagem006.gestaopublicaeterceirosetormatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.graficamatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Gráfica'  rendered='#{sinteseSupervisaoBean.contagem006.graficamatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.joalheriamatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Joalheria'  rendered='#{sinteseSupervisaoBean.contagem006.joalheriamatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.madeiraemoveismatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Madeira e Móveis'  rendered='#{sinteseSupervisaoBean.contagem006.madeiraemoveismatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.metalmecanicamatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Metalmecânica'  rendered='#{sinteseSupervisaoBean.contagem006.metalmecanicamatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.pescaepisciculturamatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Pesca e Piscicultura'  rendered='#{sinteseSupervisaoBean.contagem006.pescaepisciculturamatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.saudematper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Saúde'  rendered='#{sinteseSupervisaoBean.contagem006.saudematper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Serviços Domésticos I'  rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicosdomesticosiimatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Serviços Domésticos ii'  rendered='#{sinteseSupervisaoBean.contagem006.servicosdomesticosiimatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.servicospessoaismatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Serviços Pessoais'  rendered='#{sinteseSupervisaoBean.contagem006.servicospessoaismatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.telematicamatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Telemática'  rendered='#{sinteseSupervisaoBean.contagem006.telematicamatper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.transportematper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Transporte'  rendered='#{sinteseSupervisaoBean.contagem006.transportematper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.turismoehospitalidadematper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Turismo e Hospitalidade'  rendered='#{sinteseSupervisaoBean.contagem006.turismoehospitalidadematper gt 0}'/> </p>
+        <p><h:outputText value='Em #{sinteseSupervisaoBean.contagem006.vestuariomatper} dos locais observados não há material permanente específico para o desenvolvimento das atividades do arco Vestuário'  rendered='#{sinteseSupervisaoBean.contagem006.vestuariomatper gt 0}'/> </p>
+
+        <p><h:outputText value="Os dados registrados não contém observações a este respeito."
+                         rendered="#{sinteseSupervisaoBean.contagem006.negativo eq 0}"/> </p>
+
+        <br/>
+        <p><h:outputText value="Sr(a) Coordenador(a), este é um relatório dinâmico, novos dados poderão ser inseridos ou atualizados e alterar os resultados apresentados."/></p>
+        <p><h:outputText value="Brasília, #{sinteseSupervisaoBean.contagem006.dataatual}"/></p>
+        <hr/>
+        <p align="center" id="rodape">Assessoria de Avaliação e Supervisão da Coordenação Nacional do Projovem Urbano<br/>
+            <a href="mailto:avaliacao.supervisaoprojovem@planalto.gov.br">avaliacao.supervisaoprojovem@planalto.gov.br</a></p>
+        <p align="right" id="des">Desenvolvido pela UFMG</p>
+    </div>
+</ui:composition>

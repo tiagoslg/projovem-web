@@ -1,0 +1,436 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>ROTINA DE FORMAÇÃO INICIAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="PERFIL DOS EDUCADORES"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotina002PerfilEducadoresBean"/>
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="2"/>
+
+                    <a4j:include viewId="/include/identificaEntradaSemNucleoRotina002Perfil.xhtml"/>
+
+                    <a4j:region id="camposClassificacaoLocal" rendered="#{nucleoBean.renderedIdentificaLocalReferencia}">
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td colspan="3">
+                                    <p>Nome:
+                            <h:message for="nome" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="nome"
+                                         value="#{rotina002PerfilEducadoresBean.rotina.nome}"
+                                         size="95"
+                                         maxlength="100"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>Data: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="dataVisita"
+                                         value="#{rotina002PerfilEducadoresBean.rotina.dataAplicacao}"
+                                         size="10"
+                                         maxlength="10"
+                                         onkeyup="mascara_data(this,event)"
+                                         onblur="CheckDate(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="3">
+                                    <p>Componente Curricular:
+                            <h:message for="listComponenteCurricular" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectManyCheckbox  id="listComponenteCurricular"
+                                                   value="#{rotina002PerfilEducadoresBean.rotina.listComponenteCurricular}"
+                                                   layout="pageDirection"
+                                                   required="false">
+                                <f:selectItem itemLabel="Língua Portuguesa."            itemValue="componenteCurricularLinguaPortuguesa"/>
+                                <f:selectItem itemLabel="Matemática."                   itemValue="componenteCurricularMatematica"/>
+                                <f:selectItem itemLabel="Ciências da Natureza."         itemValue="componenteCurricularCienciasNatureza"/>
+                                <f:selectItem itemLabel="Qualificação Profissional."    itemValue="componenteCurricularQualificacaoProfissional"/>
+                                <f:selectItem itemLabel="Língua Estrangeira."           itemValue="componenteCurricularLinguaEstrangeira"/>
+                                <f:selectItem itemLabel="Ciências Humanas."             itemValue="componenteCurricularCienciasHumanas"/>
+                                <f:selectItem itemLabel="Participação Cidadã."          itemValue="componenteCurricularParticipacaoCidada"/>
+                            </h:selectManyCheckbox ></p>
+                            </td>
+
+                            </tr>
+
+                        </table>
+
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <p>1 – Sexo:
+                            <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q1"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q1}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Masculino." itemValue="masculino"/>
+                                <f:selectItem itemLabel="Feminino."  itemValue="feminino"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>2 – Faixa Etária:
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q2"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q2}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="30 anos ou menos." itemValue="30menos"/>
+                                <f:selectItem itemLabel="De 31 a 40 anos." itemValue="31a40"/>
+                                <f:selectItem itemLabel="De 41 a 50 anos." itemValue="41a50"/>
+                                <f:selectItem itemLabel="De 51 a 60 anos." itemValue="51a60"/>
+                                <f:selectItem itemLabel="Mais de 60 anos." itemValue="mais60"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>3 – Cor:
+                            <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q3"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q3}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Branco(a)." itemValue="Branco"/>
+                                <f:selectItem itemLabel="Pardo(a)." itemValue="Pardo"/>
+                                <f:selectItem itemLabel="Negro(a)." itemValue="Negro"/>
+                                <f:selectItem itemLabel="Amarelo(a)." itemValue="Amarelo"/>
+                                <f:selectItem itemLabel="Indígena." itemValue="Indígena"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>4 – Assinale a opção que corresponde ao seu nível máximo de escolaridade. (Marque APENAS uma opção)
+                            <h:message for="q4" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q4"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q4}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Ensino fundamental." itemValue="fundamental"/>
+                                <f:selectItem itemLabel="Ensino médio/técnico." itemValue="medio/tecnico"/>
+                                <f:selectItem itemLabel="Ensino médio/magistério" itemValue="medio/magisterio"/>
+                                <f:selectItem itemLabel="Ensino superior incompleto." itemValue="superiorIncompleto"/>
+                                <f:selectItem itemLabel="Ensino superior completo tecnológico." itemValue="superiorCompletoTecnologico"/>
+                                <f:selectItem itemLabel="Ensino superior completo licenciatura." itemValue="superiorCompletoLicenciatura"/>
+                                <f:selectItem itemLabel="Ensino superior completo bacharelado." itemValue="superiorCompletoBacharelado"/>
+                                <f:selectItem itemLabel="Especialização (lato sensu)." itemValue="latoSensu"/>
+                                <f:selectItem itemLabel="Mestrado." itemValue="Mestrado"/>
+                                <f:selectItem itemLabel="Doutorado ou posterior." itemValue="Doutorado"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>5 – Há quantos anos você concluiu a Graduação?
+                            <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q5"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q5}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                                <f:selectItem itemLabel="Menos que 5 anos." itemValue="menos5"/>
+                                <f:selectItem itemLabel="De 5 a 10 anos." itemValue="5a10"/>
+                                <f:selectItem itemLabel="De 11 a 20 anos." itemValue="11a20"/>
+                                <f:selectItem itemLabel="Mais de 20 anos." itemValue="mais20"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>6 – Das opções abaixo, assinale a que melhor descreve a sua área de Graduação:
+                            <h:message for="q6" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q6"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q6}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                                <f:selectItem itemLabel="Tecnólogo." itemValue="Tecnologo"/>
+                                <f:selectItem itemLabel="Educação (Pedagogia, Normal Superior ou similar)." itemValue="Educacao"/>
+                                <f:selectItem itemLabel="Letras ou similar." itemValue="Letras"/>
+                                <f:selectItem itemLabel="Ciências Humanas (História, Geografia ou similar)." itemValue="Humanas"/>
+                                <f:selectItem itemLabel="Ciências Exatas (Matemática, Física, Química ou similar)." itemValue="Exatas"/>
+                                <f:selectItem itemLabel="Ciências Biológicas (Ciências, Biologia ou similar)." itemValue="Biologicas"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>7 – Há quantos anos você leciona?
+                            <h:message for="q7" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q7"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q7}"
+                                              layout="pageDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Nunca lecionei antes." itemValue="NuncaLecionei"/>
+                                <f:selectItem itemLabel="3 anos ou menos."      itemValue="3menos"/>
+                                <f:selectItem itemLabel="De 4 a 7 anos."        itemValue="4a7"/>
+                                <f:selectItem itemLabel="De 8 a 11 anos. "      itemValue="8a11"/>
+                                <f:selectItem itemLabel="De 12 a 15 anos. "     itemValue="12a15"/>
+                                <f:selectItem itemLabel="Há mais de 15 anos. "  itemValue="mais15"/>
+                            </h:selectOneRadio></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>8 - Em quais níveis/modalidades de ensino você já lecionou por pelo menos um ano? (Marque TODAS as opções que julgar adequadas) :
+                            <h:message for="listQ8" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectManyCheckbox  id="listQ8"
+                                                   value="#{rotina002PerfilEducadoresBean.rotina.listQ8}"
+                                                   layout="pageDirection"
+                                                   required="false">
+                                <f:selectItem itemLabel="Nunca lecionei antes."             itemValue="Q8NuncaLecionei"/>
+                                <f:selectItem itemLabel="Educação Infantil."                itemValue="Q8EducacaoInfantil"/>
+                                <f:selectItem itemLabel="Ensino Fundamental."               itemValue="Q8EnsinoFundamental"/>
+                                <f:selectItem itemLabel="Ensino Médio."                     itemValue="Q8EnsinoMedio"/>
+                                <f:selectItem itemLabel="Educação de Jovens e Adultos."     itemValue="Q8EducacaoJovensAdultos"/>
+                                <f:selectItem itemLabel="EnsinoTécnico/Profissionalizante." itemValue="Q8EnsinoTecnicoProfissionalizante"/>
+                                <f:selectItem itemLabel="Ensino Superior."                  itemValue="Q8EnsinoSuperior"/>
+                                <f:selectItem itemLabel="Outros."                           itemValue="Q8Outros"/>
+                            </h:selectManyCheckbox >
+                            <h:inputText id="q8OutrosComplemento" value="#{rotina002PerfilEducadoresBean.rotina.q8OutrosComplemento}"/></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>9 - No quadro abaixo, marque as opções que melhor caracterizam o seu conhecimento em informática:
+                                    </p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p>Softwares de texto
+                                        <h:message for="q9SoftwaresTexto" style="color:#c70000; font-size:18px;"/></p>
+                                </td>
+                                <td>
+                            <h:selectOneRadio id="q9SoftwaresTexto"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q9SoftwaresTexto}"
+                                              layout="lineDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Confecção planilhas
+                            <h:message for="q9ConfeccaoPlanilhas" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneRadio id="q9ConfeccaoPlanilhas"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q9ConfeccaoPlanilhas}"
+                                              layout="lineDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Internet
+                            <h:message for="q9Internet" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneRadio id="q9Internet"
+                                              value="#{rotina002PerfilEducadoresBean.rotina.q9Internet}"
+                                              layout="lineDirection"
+                                              required="false">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>10 – Qual o seu vínculo com o ProJovem Urbano?
+                        <h:message for="q10" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q10"
+                                          value="#{rotina002PerfilEducadoresBean.rotina.q10}"
+                                          layout="pageDirection"
+                                          required="false">
+                            <f:selectItem itemLabel="Contrato celetista."        itemValue="celetista"/>
+                            <f:selectItem itemLabel="Professor da rede pública." itemValue="Professor"/>
+                            <f:selectItem itemLabel="Autônomo. "                 itemValue="Autonomo"/>
+                            <f:selectItem itemLabel="Ainda não tenho vínculo. "  itemValue="naoTenhoVinculo"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>11 - Como  foi seu processo seletivo para admissão no ProJovem Urbano? (Você pode marcar mais de uma alternativa)
+                        <h:message for="listQ11" style="color:#c70000; font-size:18px;"/></p>
+                        <h:selectManyCheckbox  id="listQ11"
+                                               value="#{rotina002PerfilEducadoresBean.rotina.listQ11}"
+                                               layout="pageDirection"
+                                               required="false">
+                            <f:selectItem itemLabel="Convite."                                    itemValue="Q11Convite"/>
+                            <f:selectItem itemLabel="Avaliação de currículo."                     itemValue="Q11AvaliacaoCurrículo"/>
+                            <f:selectItem itemLabel="Entrevista. "                                itemValue="Q11Entrevista"/>
+                            <f:selectItem itemLabel="Prova escrita."                              itemValue="Q11ProvaEscrita"/>
+                            <f:selectItem itemLabel="Desempenho na formação inicial do Programa " itemValue="Q11Desempenho"/>
+                        </h:selectManyCheckbox >
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>12 – Para qual regime de trabalho você foi/será selecionado para o ProJovem Urbano?
+                        <h:message for="q12" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q12"
+                                          value="#{rotina002PerfilEducadoresBean.rotina.q12}"
+                                          layout="pageDirection"
+                                          required="false">
+                            <f:selectItem itemLabel="Autônomo"      itemValue="Autonomo"/>
+                            <f:selectItem itemLabel="CLT 20 Horas"  itemValue="CLT20Horas"/>
+                            <f:selectItem itemLabel="CLT 30 horas"  itemValue="CLT30Horas"/>
+                            <f:selectItem itemLabel="CLT 40 horas"  itemValue="CLT40Horas"/>
+                            <f:selectItem itemLabel="Complementação e/ou ampliação de carga horária"  itemValue="Complementacao"/>
+                            <f:selectItem itemLabel="Não sei"       itemValue="naoSei"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>13 - Marque as atividades desenvolvidas na formação inicial: (Você pode marcar mais de uma alternativa)
+                        <h:message for="listQ13" style="color:#c70000; font-size:18px;"/></p>
+                        <h:selectManyCheckbox  id="listQ13"
+                                               value="#{rotina002PerfilEducadoresBean.rotina.listQ13}"
+                                               layout="pageDirection"
+                                               required="false">
+                            <f:selectItem itemLabel="Palestras sobre o conteúdo de sua área de conhecimento."                               itemValue="a"/>
+                            <f:selectItem itemLabel="Oficinas sobre situações problema da prática como docente. "                           itemValue="b"/>
+                            <f:selectItem itemLabel="Palestras sobre os procedimentos para avaliação e recebimento de bolsas dos alunos. "  itemValue="c"/>
+                            <f:selectItem itemLabel="Palestras sobre o material impresso e o guia do educador do PROJOVEM."                 itemValue="d"/>
+                            <f:selectItem itemLabel="Oficinas sobre o desenvolvimento de atividades em sala de aula.  "                     itemValue="e"/>
+                        </h:selectManyCheckbox >
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>14 - A partir da formação inicial que você está recebendo, que material, específico do ProJovem Urbano, você já conhece?  (Você pode marcar mais de uma alternativa)
+                        <h:message for="listQ14" style="color:#c70000; font-size:18px;"/></p>
+                        <h:selectManyCheckbox  id="listQ14"
+                                               value="#{rotina002PerfilEducadoresBean.rotina.listQ14}"
+                                               layout="pageDirection"
+                                               required="false">
+                            <f:selectItem itemLabel="Manual do Educador "                                   itemValue="a"/>
+                            <f:selectItem itemLabel="Agenda do Estudante "                                  itemValue="b"/>
+                            <f:selectItem itemLabel="Caderno do Projeto de Orientação Profissional (POP) "  itemValue="c"/>
+                            <f:selectItem itemLabel="Caderno do Plano de Ação Comunitária (PLA) "           itemValue="d"/>
+                            <f:selectItem itemLabel="Guia de Estudo da Unidade Formativa I  "               itemValue="e"/>
+                            <f:selectItem itemLabel="Manual do Educador da Unidade Formativa I "            itemValue="f"/>
+                            <f:selectItem itemLabel="Caderno de Registro e Avaliação I (CRA I) "            itemValue="g"/>
+                            <f:selectItem itemLabel="Plano Nacional de Formação "                           itemValue="h"/>
+                            <f:selectItem itemLabel="Nenhuma das respostas acima "                          itemValue="i"/>
+                        </h:selectManyCheckbox >
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>15 – Avalie a formação que o ProJovem Urbano ofereceu a você:
+                        <h:message for="q15" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q15"
+                                          value="#{rotina002PerfilEducadoresBean.rotina.q15}"
+                                          layout="pageDirection"
+                                          required="false">
+                            <f:selectItem itemLabel="Boa"       itemValue="boa"/>
+                            <f:selectItem itemLabel="Regular"   itemValue="regular"/>
+                            <f:selectItem itemLabel="Ruim"      itemValue="ruim"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        </table>
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotina002PerfilEducadoresBean.salvarRotina}" reRender="form" onclick="javascript:scroll(0,0);" status="aguarde">
+                            <f:setPropertyActionListener value="#{nucleoBean.ufEscolhida}" target="#{rotina002PerfilEducadoresBean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.coordenacaoEscolhida}" target="#{rotina002PerfilEducadoresBean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.municipioEscolhida}" target="#{rotina002PerfilEducadoresBean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.entradaEscolhida}" target="#{rotina002PerfilEducadoresBean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{rotina002PerfilEducadoresBean.rotina}" target="#{rotinasLancadasBean.rotina002PerfilEducadores}" />
+                        </a4j:commandButton>
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

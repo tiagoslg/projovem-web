@@ -1,0 +1,689 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+         <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+        <h4>ROTINA DE FORMAÇÃO INICIAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = 002"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotinasLancadasBean"/>
+                <a4j:keepAlive beanName="nucleoBean"/>
+                <h:form id="form">
+
+                    <p><h:messages /></p>
+                    <br />
+                    <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.rotina002.id}" /></strong></p>
+
+                    <p>UF: <h:outputText value=" #{rotinasLancadasBean.rotina002.identificaEntradaUf}" /></p>
+                    <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.rotina002.identificaEntradaCoordenacao}" /></p>
+                    <p>Município: <h:outputText value=" #{rotinasLancadasBean.rotina002.identificaEntradaMunicipio}" /></p>
+                    <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.rotina002.identificaEntradaEntrada}" /></p>
+                    <br/>
+                    <br/>
+
+                    <p>Nome Local: <h:outputText value=" #{rotinasLancadasBean.rotina002.nomeLocal}" /></p>
+                    <p>Endereço: <h:outputText value=" #{rotinasLancadasBean.rotina002.enderecoLocal}" /></p>
+                    <p>Numero: <h:outputText value=" #{rotinasLancadasBean.rotina002.numeroLocal}" /></p>
+                    <p>Complemento: <h:outputText value=" #{rotinasLancadasBean.rotina002.complementoLocal}" /></p>
+                    <p>Bairro: <h:outputText value=" #{rotinasLancadasBean.rotina002.bairroLocal}" /></p>
+                    <p>CEP: <h:outputText value=" #{rotinasLancadasBean.rotina002.cepLocal}" /></p>
+                    <p>Telefone: <h:outputText value=" #{rotinasLancadasBean.rotina002.telefoneLocal}" /></p>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+
+                                <p>A formação inicial foi/será realizada?</p>
+                        <h:selectOneRadio id="realizada"
+                                          value="#{rotinasLancadasBean.rotina002.realizada}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim"                          itemValue="sim"/>
+                            <f:selectItem itemLabel="Não"                          itemValue="nao"/>
+                        </h:selectOneRadio>
+
+                        <table id="realizadaComplemento" style="display:none">
+                            <tr>
+                                <td>
+                                    <p>Neste caso, justifique no campo abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.realizadaComplemento}"
+                                             disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>Classificação do local:
+                        <h:message for="classificacaoLocal" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="classificacaoLocal"
+                                          value="#{rotinasLancadasBean.rotina002.classificacaoLocal}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Escola ou Instituição de Ensino."                          itemValue="1"/>
+                            <f:selectItem itemLabel="Igreja ou Instituição Religiosa."                          itemValue="2"/>
+                            <f:selectItem itemLabel="Outros Serviços Públicos (Posto de Saúde, CRAS...)."       itemValue="3"/>
+                            <f:selectItem itemLabel="Associação Civil (Assoc. de Moradores, Sindicato,...)."    itemValue="4"/>
+                            <f:selectItem itemLabel="Organização não governamental (ONG)."                      itemValue="5"/>
+                            <f:selectItem itemLabel="Coordenação Municipal ou Estadual do ProJovem Urbano."     itemValue="6"/>
+                            <f:selectItem itemLabel="Outro. "      itemValue="7"/>
+
+                            <a4j:support event="onchange" action="#{rotina002Bean.classificacaoLocalSelecionado}"
+                                         ajaxSingle="true" reRender="form" status="aguarde"/>
+
+                        </h:selectOneRadio>
+                        <table id="classificacaoLocalComplemento" >
+                            <tr>
+                                <td>
+                                    <p>Neste caso, especifique qual no campo abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.classificacaoLocalComplemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td width="150">
+                                <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText  id="dataVisita"
+                                      value="#{rotinasLancadasBean.rotina002.dataVisita}"
+                                      size="10"
+                                      maxlength="10"
+                                      disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Hora de início da observação: (notação 24 horas)
+                        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="horaInicioVisita"
+                                     value="#{rotinasLancadasBean.rotina002.horaInicioVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        <td>
+                            <p>Hora de término da observação: (notação 24 horas)
+                        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="horaTerminoVisita"
+                                     value="#{rotinasLancadasBean.rotina002.horaTerminoVisita}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>1 – Nome do Coordenador(a):
+                        <h:message for="nomeCoordenador" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="nomeCoordenador"
+                                     value="#{rotinasLancadasBean.rotina002.nomeCoordenador}"
+                                     size="60"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        <td>
+                            <p>2 – CPF do Coordenador(a):
+
+                        <h:message for="cpfCoordenador" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="cpfCoordenador"
+                                     value="#{rotinasLancadasBean.rotina002.cpfCoordenador}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>3 - Data de início da formação inicial:     (dd/mm/aaaa)
+                        <h:message for="dataInicioFormacao" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText  id="dataInicioFormacao"
+                                      value="#{rotinasLancadasBean.rotina002.dataInicioFormacao}"
+                                      size="10"
+                                      maxlength="10"
+                                      disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>4 - Data de término da formação inicial:     (dd/mm/aaaa)
+                        <h:message for="dataTerminoFormacao" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText  id="dataTerminoFormacao"
+                                      value="#{rotinasLancadasBean.rotina002.dataTerminoFormacao}"
+                                      size="10"
+                                      maxlength="10"
+                                      disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <p>5 – Número de educadores inscritos para a formação inicial (segundo Coordenador(a)):
+                        <h:message for="numeroEducadoresInscritos" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText id="numeroEducadoresInscritos"
+                                     value="#{rotinasLancadasBean.rotina002.numeroEducadoresInscritos}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <p>6 – Número de educadores presentes no horário da observação:
+                        <h:message for="numeroEducadoresPresentes" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText id="numeroEducadoresPresentes"
+                                     value="#{rotinasLancadasBean.rotina002.numeroEducadoresPresentes}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <p>7 – Número de formadores contratados para a formação inicial (segundo coordenador(a)):
+                        <h:message for="numeroFormadoresInscritos" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText id="numeroFormadoresInscritos"
+                                     value="#{rotinasLancadasBean.rotina002.numeroFormadoresInscritos}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <p>8 – Número de formadores presentes no horário da observação:
+                        <h:message for="numeroFormadoresPresentes" style="color:#c70000; font-size:18px;"/>
+                        </p>
+                        </td>
+                        <td>
+                        <h:inputText id="numeroFormadoresPresentes"
+                                     value="#{rotinasLancadasBean.rotina002.numeroFormadoresPresentes}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>9 - Horário de início da formação inicial no dia anterior:
+                        <h:message for="horaInicioFormacao" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="horaInicioFormacao"
+                                     value="#{rotinasLancadasBean.rotina002.horaInicioFormacao}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        <td>
+                            <p>9 - Horário de término da formação inicial no dia anterior:
+                        <h:message for="horaTerminoFormacao" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:inputText id="horaTerminoFormacao"
+                                     value="#{rotinasLancadasBean.rotina002.horaTerminoFormacao}"
+                                     size="5"
+                                     maxlength="5"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>10 - Os horários acima descritos se repetiram todos os dias desde o início do curso?
+                        <h:message for="q10" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q10"
+                                          value="#{rotinasLancadasBean.rotina002.q10}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="Nao"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>11 - O Guia do Educador foi utilizado?
+                        <h:message for="q11" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q11"
+                                          value="#{rotinasLancadasBean.rotina002.q11}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="Nao"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>12 - O manual do aluno foi utilizado?
+                        <h:message for="q12" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q12"
+                                          value="#{rotinasLancadasBean.rotina002.q12}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="Nao"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>13 – Você tem observações sobre as condições de iluminação do local?
+                        <h:message for="q13" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q13"
+                                          value="#{rotinasLancadasBean.rotina002.q13}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        <table id="q13complemento" >
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.q13Complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>14 – Você tem observações sobre as condições acústicas do local?
+                        <h:message for="q14" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q14"
+                                          value="#{rotinasLancadasBean.rotina002.q14}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        <table id="q14complemento" >
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.q14Complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>15 – Você tem observações sobre o espaço físico do local?
+                        <h:message for="q15" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q15"
+                                          value="#{rotinasLancadasBean.rotina002.q15}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        <table id="q15complemento" >
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.q15Complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>16 – Você tem observações sobre os equipamentos disponibilizados na formação inicial?
+                        <h:message for="q16" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q16"
+                                          value="#{rotinasLancadasBean.rotina002.q16}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        <table id="q16complemento" >
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.q16Complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>17 – Você deseja fazer outras observações sobre a formação inicial?
+                        <h:message for="q17" style="color:#c70000; font-size:18px;"/>
+                        <br/>
+                        <h:selectOneRadio id="q17"
+                                          value="#{rotinasLancadasBean.rotina002.q17}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        <table id="q17complemento" >
+                            <tr>
+                                <td>
+                                    <p>Caso sim, registre no espaço abaixo:<br/>
+                            <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina002.q17Complemento}" disabled  ="#{rotinasLancadasBean.disabled}"/></p>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>18 – A quantidade de educadores com cada um dos níveis de escolaridade abaixo descritos:
+
+                                    <br/></p>
+                                <table style="margin:10px;width:430px;">
+                                    <tr>
+                                        <td>
+                                            <p>Ensino Fundamental
+                                    <h:message for="q18QuantidadeEnsinoFundamental" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                        <h:inputText id="q18QuantidadeEnsinoFundamental"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoFundamental}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino médio/técnico
+                        <h:message for="q18QuantidadeEnsinoMedioTecnico" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoMedioTecnico"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoMedioTecnico}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino médio/magistério
+                        <h:message for="q18QuantidadeEnsinoMedioMagisterio" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoMedioMagisterio"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoMedioMagisterio}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino superior incompleto
+                        <h:message for="q18QuantidadeEnsinoSuperiorIncompleto" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoSuperiorIncompleto"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoSuperiorIncompleto}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino superior completo tecnológico
+                        <h:message for="q18QuantidadeEnsinoSuperiorCompletoTecnologico" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoSuperiorCompletoTecnologico"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoSuperiorCompletoTecnologico}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino superior completo licenciatura
+                        <h:message for="q18QuantidadeEnsinoSuperiorCompletoLicenciatura" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoSuperiorCompletoLicenciatura"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoSuperiorCompletoLicenciatura}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ensino superior completo bacharelado
+                        <h:message for="q18QuantidadeEnsinoSuperiorCompletoBacharelado" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEnsinoSuperiorCompletoBacharelado"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEnsinoSuperiorCompletoBacharelado}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Especialização
+                        <h:message for="q18QuantidadeEspecializacao" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeEspecializacao"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeEspecializacao}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Mestrado
+                        <h:message for="q18QuantidadeMestrado" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeMestrado"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeMestrado}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Doutorado ou posterior
+                        <h:message for="q18QuantidadeDoutorado" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q18QuantidadeDoutorado"
+                                     value="#{rotinasLancadasBean.rotina002.q18QuantidadeDoutorado}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                    </table>
+                    </td>
+                    </tr>
+                    </table>
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>19 – A quantidade de educadores que se encaixam em cada uma das seguintes áreas de formação superior:<br/></p>
+                                <table style="margin:10px;width:430px;">
+                                    <tr>
+                                        <td>
+                                            <p>Não concluiu o Ensino Superior.
+                                    <h:message for="q19QuantidadeSuperior" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                        <h:inputText id="q19QuantidadeSuperior"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeSuperior}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Tecnólogo (nível superior)
+                        <h:message for="q19QuantidadeTecnologo" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeTecnologo"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeTecnologo}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Educação (Pedagogia, Normal Superior ou similar)
+                        <h:message for="q19QuantidadeEducacao" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeEducacao"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeEducacao}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Letras ou similar
+                        <h:message for="q19QuantidadeLetras" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeLetras"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeLetras}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ciências Humanas (História, Geografia ou similar)
+                        <h:message for="q19QuantidadeHumanas" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeHumanas"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeHumanas}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ciências Exatas (Matemática, Física, Química ou similar)
+                        <h:message for="q19QuantidadeExatas" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeExatas"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeExatas}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ciências Biológicas (Ciências, Biologia ou similar)
+                        <h:message for="q19QuantidadeBiologicas" style="color:#c70000; font-size:18px;"/></p>
+                        </td>
+                        <td>
+                        <h:inputText id="q19QuantidadeBiologicas"
+                                     value="#{rotinasLancadasBean.rotina002.q19QuantidadeBiologicas}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </td>
+                        </tr>
+                    </table>
+                    </td>
+                    </tr>
+                    </table>
+
+                    <br/>
+
+                    <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotinasLancadasBean.salvar}" reRender="form" onclick="javascript:scroll(0,0);" status="aguarde">
+                    <f:setPropertyActionListener value="#{rotinasLancadasBean.rotina002}" target="#{rotina002Bean.rotina}" />
+                    </a4j:commandButton>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

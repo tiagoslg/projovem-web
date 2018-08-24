@@ -1,0 +1,116 @@
+
+A:link {text-decoration:none}
+A:visited {text-decoration:none}
+A:active {text-decoration:none}
+A:hover {text-decoration:none}
+a img {
+border-width:0;
+}
+.h1{
+color:#000000;
+font-size:20px;
+font-weight:lighter;
+padding-left:10px;
+padding-right:10px;
+text-align:center;
+}
+
+.h2{
+    color:#000000;
+    font-size: 15px;
+    text-align:center;
+}
+.informativo{
+    color:#000000;
+    font-size:15px;
+    text-align:justify;
+}
+
+.labelCampo{
+    color:#000000;
+    font-size:15px;
+}
+.label{
+    color:#000000;
+    font-size:15px;
+}
+.labelDado{
+    font-size:12px;
+}
+.labelResultado{
+    color:#708090;
+    font-size:15px;
+}
+
+.titulo-questao{
+    font-weight:bold;
+    font-size:16px;
+}
+.orientacao-questao{
+    font-weight:bold;
+    font-size:16px;
+    
+}
+.pergunta-questao{
+    font-size:14px;
+}
+.resposta-questao{
+    font-size:13px;
+}
+.pergunta-resumo{
+    font-size:14px;
+}
+.label{
+    font-size:12px;
+    font-weight:bold;
+}
+
+#center{
+    display:table;
+}
+
+
+/* Definição de estilos para toda a tabela*/
+.coluna{
+     background-color:#EFEAD7;
+    border:1px solid #C0C0C0;
+}
+.titulo-questao-resumo{
+    color:#1d2d44;
+    font-family:verdana,arial,helvetica,sans-serif;
+    font-size:11px;
+    font-weight:bold;
+}
+.inner-table-resumo{
+    background-color:#FFFFFF;
+    border:1px solid #C0C0C0;
+    margin:2px;
+    padding:5px;
+}
+.tabela {
+    margin-left:20px;
+    margin-right:20px;
+     /*background-color:#000000;*/
+}
+
+.no-background-color{background-color:#fff}
+.no-margin{margin:0}
+#idSiteMeterHREF{width:0}
+
+.nucleos tr td a{color:#565656;
+font-family:Georgia,"Times New Roman",Times,serif;
+font-size:11px;
+text-decoration:none; }
+
+.selecionado{background-color:#C9F8C7}
+
+.coluna1 {
+    text-align:left;
+    font-size:10px;
+}
+
+.coluna2 {
+    text-align:center;
+    font-size:10px;
+    font-weight:bold;
+}

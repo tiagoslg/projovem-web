@@ -1,0 +1,322 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>ROTINA PARA VERIFICAÇÃO DOCUMENTAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="CÓDIGO DO INSTRUMENTO = CE004"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotina003Bean"/>
+                <h:form id="form">
+                    <a4j:include viewId="/include/identificaEntradaSemNucleoRotina004CE.xhtml"/>
+
+
+
+
+                    <a4j:region id="camposClassificacaoLocal" rendered="#{nucleoBean.renderedIdentificaLocalReferencia}">
+
+
+                        <a4j:include viewId="/include/identificaLocalReferencia.xhtml"
+                                     rendered="#{nucleoBean.renderedIdentificaLocalReferencia}"/>
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <p>Data da visita: <br/>    (dd/mm/aaaa)
+                            <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="dataVisita"
+                                         value="#{rotina003Bean.rotina.dataVisita}"
+                                         size="10"
+                                         maxlength="10"
+                                         onkeyup="mascara_data(this,event)"
+                                         onblur="CheckDate(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de início: (notação 24 horas)
+                            <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="horaInicioVisita"
+                                         value="#{rotina003Bean.rotina.horaInicioVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            <td>
+                                <p>Hora de término: (notação 24 horas)
+                            <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="horaTerminoVisita"
+                                         value="#{rotina003Bean.rotina.horaTerminoVisita}"
+                                         size="5"
+                                         maxlength="5"
+                                         onkeyup="mascara_hora(this,event)"
+                                         onblur="Verifica_Hora(this)"
+                                         required="false"/>
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td colspan="3">
+                                    <p>Classificação do local:
+                            <h:message for="classificacaoLocal" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="classificacaoLocal"
+                                              value="#{rotina003Bean.rotina.classificacaoLocal}"
+                                              layout="pageDirection"
+                                              onclick="habilitarCampoComplementar(this,'classificacaoLocalComplemento','7')"
+                                              required="false">
+                                <f:selectItem itemLabel="Escola ou Instituição de Ensino."                          itemValue="1"/>
+                                <f:selectItem itemLabel="Igreja ou Instituição Religiosa."                          itemValue="2"/>
+                                <f:selectItem itemLabel="Outros Serviços Públicos (Posto de Saúde, CRAS...)."       itemValue="3"/>
+                                <f:selectItem itemLabel="Associação Civil (Assoc. de Moradores, Sindicato,...)."    itemValue="4"/>
+                                <f:selectItem itemLabel="Organização não governamental (ONG)."                      itemValue="5"/>
+                                <f:selectItem itemLabel="Coordenação Municipal ou Estadual do ProJovem Urbano."     itemValue="6"/>
+                                <f:selectItem itemLabel="Outro. "      itemValue="7"/>
+                            </h:selectOneRadio>
+                            <table id="classificacaoLocalComplemento" style="display:none">
+                                <tr>
+                                    <td>
+                                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                                <h:inputTextarea rows="4" cols="70" value="#{rotina002Bean.rotina.classificacaoLocalComplemento}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+                            </p>
+
+                            </td>
+                            </tr>
+                        </table>
+
+
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                                    <p>1 – Informe a forma de armazenamento das fichas (selecione uma única opção):
+                            <h:message for="formaArmazenamentoFichas" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="formaArmazenamentoFichas"
+                                              value="#{rotina003Bean.rotina.formaArmazenamentoFichas}"
+                                              layout="pageDirection"
+                                              onclick="habilitarCampoComplementar(this,'formaArmazenamentoFichasComplemento','outro')"
+                                              required="false">
+                                <f:selectItem itemLabel="Em armários / arquivo."                                    itemValue="armarios/arquivo"/>
+                                <f:selectItem itemLabel="Em caixas."                                                itemValue="caixas"/>
+                                <f:selectItem itemLabel="Em pastas."                                                itemValue="pastas"/>
+                                <f:selectItem itemLabel="Outro."                                                    itemValue="outro"/>
+                            </h:selectOneRadio>
+                            <table id="formaArmazenamentoFichasComplemento" style="display:none">
+                                <tr>
+                                    <td>
+                                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                                <h:inputTextarea rows="4" cols="70" value="#{rotina003Bean.rotina.formaArmazenamentoFichasComplemento}"/></p>
+                                </td>
+                                </tr>
+                            </table>
+                            </p>
+                            </td>
+                            </tr>
+                        </table>
+
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;text-align:justify;">
+                            <tr>
+                                <td>
+                                    <p>2 - TABELA DE VERIFICAÇÃO DOCUMENTAL</p>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+
+                                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Nº<br/>
+                                        <h:inputText value="#{rotina003Bean.ficha.numero}"  size="1" maxlength="4" /></p>
+                                </td>
+                                <td>
+                                    <p>Nome do Participante<br/>
+                            <h:inputText value="#{rotina003Bean.ficha.nomeParticipante}"  size="50" maxlength="100" /></p>
+                            </td>
+                            <td>
+                                <p>
+                            <h:selectManyCheckbox value="#{rotina003Bean.ficha.atributos}" layout="pageDirection" styleClass="opcoes">
+                                <f:selectItem itemLabel="Cópia da Carteira de Identidade" itemValue="temCarteiraIdentidade"/>
+                                <f:selectItem itemLabel="Cópia do Comprovante Residência" itemValue="temComprovanteResidencia"/>
+                                <f:selectItem itemLabel="Cópia da Registro escolar" itemValue="temRegistroEscolar"/>
+                                <f:selectItem itemLabel="Teste" itemValue="temTeste"/>
+                            </h:selectManyCheckbox>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <center>
+                                        <a4j:commandButton value="Adicionar nova linha."
+                                                           action="#{rotina003Bean.adicionarLinha}" reRender="form"/>
+                                    </center>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td>
+                            <rich:dataTable
+                                onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                                cellpadding="0" cellspacing="0"
+                                border="0" var="ficha" value="#{rotina003Bean.rotina.listaFichas}">
+
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="N°"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.numero}"/>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Nome do Participante" style="display:block;white-space:normal;width:200px;"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.nomeParticipante}"/>
+                                </rich:column>
+                                <rich:column style="text-align:center;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Cópia da Carteira de Identidade" style="display:block;white-space:normal;width:70px;"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.temCarteiraIdentidade}" />
+                                </rich:column>
+                                <rich:column style="text-align:center;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Cópia do Comprovante Residência" style="display:block;white-space:normal;width:70px;"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.temComprovanteResidencia}" />
+                                </rich:column>
+                                <rich:column style="text-align:center;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Cópia do Registro escolar" style="display:block;white-space:normal;width:70px;"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.temRegistroEscolar}" />
+                                </rich:column>
+                                <rich:column style="text-align:center;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Teste" style="display:block;white-space:normal;width:70px;"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ficha.temTeste}" />
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Editar"/>
+                                    </f:facet>
+                                    <a4j:commandLink value="Editar" reRender="form"
+                                                     action="#{rotina003Bean.editarFicha}" status="aguarde">
+                                        <f:setPropertyActionListener value="#{ficha}" target="#{rotina003Bean.ficha}" />
+                                    </a4j:commandLink>
+                                </rich:column>
+                                <rich:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Excluir"/>
+                                    </f:facet>
+                                    <a4j:commandLink value="Excluir" reRender="form"
+                                                     action="#{rotina003Bean.excluirFicha}" status="aguarde">
+                                        <f:setPropertyActionListener value="#{ficha}" target="#{rotina003Bean.ficha}" />
+                                    </a4j:commandLink>
+                                </rich:column>
+                            </rich:dataTable>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina"
+                                           styleClass="buttons"
+                                           action="#{rotina003Bean.salvarRotina}" status="aguarde"
+                                           reRender="form"
+                                           onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.local}" target="#{rotina003Bean.local}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.ufEscolhida}" target="#{rotina003Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.coordenacaoEscolhida}" target="#{rotina003Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.municipioEscolhida}" target="#{rotina003Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.entradaEscolhida}" target="#{rotina003Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{rotina003Bean.rotina}" target="#{rotinasLancadasBean.rotina003}" />
+                        </a4j:commandButton>
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

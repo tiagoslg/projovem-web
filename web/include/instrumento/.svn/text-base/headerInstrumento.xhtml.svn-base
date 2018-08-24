@@ -1,0 +1,46 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+
+
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <!--p><h:graphicImage value="/imagens/logo-projovem.JPG"
+                            style="width:150px; float:left; height:45px;"/></p-->
+                        </td>
+                        <td>
+                            <center>
+                                <span class="h1">
+                                    <h:outputText value="#{instrumentoBean.instrumento.nome}" />
+                                </span>
+                            </center>
+                        </td>
+                        <td>
+                            <!--p><h:graphicImage value="/imagens/brasil_gd.jpg"
+                            style="width:150px; float:right; height:45px;"/><p-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText class="h2" value=""></h:outputText>
+                        </td>
+                        <td>
+                            <center>
+                                <span class="h2">
+                                <h:outputText value="Código do Instrumento = 00#{instrumentoBean.instrumento.codigo}" />
+                                </span>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+                
+    
+</ui:composition>

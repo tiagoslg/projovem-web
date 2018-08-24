@@ -1,0 +1,152 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+        
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <h4>Rotinas</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="Selecione a Rotina desejada"/></h2>
+            <div class="text-home">
+                <h:form>
+                    <a4j:region rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 4}" >
+                        <p>Rotinas Municipais</p>
+                        <p>
+                        <h:commandLink action="rotina001" reRender="body">
+                            <h:outputText value="Rotina 1 - Rotina para Observação da Matrícula"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina002" reRender="body">
+                            <h:outputText value="Rotina 2 - Rotina de Formação Inicial"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina002PerfilFormadores" reRender="body">
+                            <h:outputText value="Rotina 2 - Rotina de Formação Inicial - Perfil dos Formadores"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina002PerfilEducadores" reRender="body">
+                            <h:outputText value="Rotina 2 - Rotina de Formação Inicial - Perfil dos Educadores"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina003" reRender="body">
+                            <h:outputText value="Rotina 3 - Rotina de Verificação Documental"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina004" reRender="body">
+                            <h:outputText value="Rotina 4 - Rotina de Supervisão das Condições de Oferta "/>
+                        </h:commandLink>
+                        </p>
+
+
+
+                        <p>
+                        <h:commandLink action="rotina005" reRender="body">
+                            <h:outputText value="Rotina 5 - Rotina para observação da Frequência"/>
+                        </h:commandLink>
+                        </p>
+
+
+
+                        <p>
+                        <h:commandLink action="rotina006" reRender="body">
+                            <h:outputText value="Rotina 6 - Rotina Qualificação Profissional - Formulário Cordenação Local"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="rotina006ArcosOcupacionais" reRender="body">
+                            <h:outputText value="Rotina 6 - Rotina Qualificação Profissional - Formulário de Local Arcos Ocupacionais" />
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+<<<<<<< .mine
+                        <h:commandLink action="rotina007" reRender="body">
+                            <f:setPropertyActionListener value="3" target="#{rotina007Bean.rotina.versaoFormulario}" />
+                            <h:outputText value="Rotina 7 - Rotina de Formação Continuada"/>
+                        </h:commandLink>
+=======
+                        <!--<h:commandLink action="rotina007" reRender="body">-->
+                            <h:outputText value="Rotina 7 - Rotina de Formação Continuada (esta rotina estará fora do ar até o dia 25/08 para reformulação do formulário)"/>
+                        <!--</h:commandLink>-->
+>>>>>>> .r145
+                        </p>
+
+                        <p>Rotinas Estaduais</p>
+                        <p>
+                        <h:commandLink action="CeRotina001" reRender="body">
+                            <h:outputText value="Rotina CE 1 - Rotina Geral dos Núcleos"/>
+                        </h:commandLink>
+                        </p>
+                        <p>
+                        <h:commandLink action="CeRotina002" reRender="body">
+                            <h:outputText value="Rotina CE 2 - Perfil dos Educadores"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="CeRotina003" reRender="body">
+                            <h:outputText value="Rotina CE 3 - Qualificação Profissional"/>
+                        </h:commandLink>
+                        </p>
+
+                        <p>
+                        <h:commandLink action="CeRotina004" reRender="body">
+                            <h:outputText value="Rotina CE 4 - Verificação Documental"/>
+                        </h:commandLink>
+                        </p>
+                    </a4j:region>
+
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >    
+
+</ui:composition>

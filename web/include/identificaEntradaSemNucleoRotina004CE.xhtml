@@ -1,0 +1,105 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+
+    <a4j:keepAlive beanName="nucleoBean"/>
+
+    <a4j:region id="identificaLocal">
+
+
+        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+            <tr>
+                <td colspan="3">
+                    <p>Informe o CEP do Local onde ocorreu a formação.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+            <h:messages />
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>CEP:
+            <h:message for="cep" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="cep"
+                         value="#{nucleoBean.local.cepLocal}"
+                         onkeyup="mascara_cep(this,event)"
+                         required="true"
+                         size="9"
+                         maxlength="9">
+                <a4j:support event="onchange" action="#{nucleoBean.cepInformado}"
+                             ajaxSingle="true" reRender="form" status="aguarde">
+                    <f:setPropertyActionListener value="ESTADUAL" target="#{nucleoBean.tipoFormulario}" />
+                    <f:setPropertyActionListener value="Rotina004" target="#{nucleoBean.rotinaEscolhida}" />
+                </a4j:support>
+            </h:inputText>
+            <h:commandButton action="#{nucleoBean.cepInformado}"
+                             reRender="identificaLocal" status="aguarde" value="Buscar Cep">
+                <f:setPropertyActionListener value="ESTADUAL" target="#{nucleoBean.tipoFormulario}" />
+                <f:setPropertyActionListener value="Rotina004" target="#{nucleoBean.rotinaEscolhida}" />
+            </h:commandButton>
+            </p>
+            
+            </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p style="color:red;"><b>
+                    <h:outputText value="O CEP Informado pertence a uma cidade inserida em uma Coordenação Municipal.
+                                  Você tem certeza que os documentos estão no local indicado por esse CEP?"
+                                  rendered="#{nucleoBean.rotinaEscolhida == 'Rotina004D'}"/>
+                     </b></p>
+            <p>
+            <h:selectOneMenu id="comboEstado" value="#{nucleoBean.ufEscolhida}"
+                             rendered="#{nucleoBean.renderedCepInformado}"
+                             disabled  ="true">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.ufPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemCoordenacoes}"
+                             ajaxSingle="true" reRender="identificaLocal" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+            <p>
+            <h:selectOneMenu value="#{nucleoBean.coordenacaoEscolhida}"
+                             rendered="#{nucleoBean.renderedCepInformado}"
+                             disabled  ="true">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.coordenacoesPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemMunicipios}"
+                             ajaxSingle="true" reRender="identificaLocal" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+            <p>
+            <h:selectOneMenu value="#{nucleoBean.municipioEscolhida}"
+                             rendered="#{nucleoBean.renderedCepInformado}"
+                             disabled  ="#{nucleoBean.disableMunicipios}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.municipiosPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.obtemEntradas}"
+                             ajaxSingle="true" reRender="identificaLocal" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+            <p>
+            <h:selectOneMenu value="#{nucleoBean.entradaEscolhida}"
+                             rendered="#{nucleoBean.renderedCepInformado}">
+                <f:selectItem itemLabel="Selecione" itemValue="" />
+                <f:selectItems value="#{nucleoBean.entradasPossiveis}" />
+                <a4j:support event="onchange" action="#{nucleoBean.entradaSelecionada}"
+                             ajaxSingle="true" reRender="form" status="aguarde"/>
+            </h:selectOneMenu>
+            </p>
+            </td>
+            </tr>
+
+        </table>
+    </a4j:region>
+
+</ui:composition>

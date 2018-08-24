@@ -1,0 +1,666 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                 <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <div class="inner">
+            <span class="h1">
+                <center>
+                    <b style="float: left; margin-top: 30px; margin-left: 310px;">Comprovante de inserção dos Dados</b>
+                    <a style="float: left;" target="_self" HREF="javaScript:window.print()">
+                        <img alt="Imprimir" border="0" width="60px" height="40px" src="http://projovem.fae.ufmg.br/projovem/imagens/impressora.gif" />
+                    </a>
+                </center>
+
+
+            </span>
+            <br/>
+            <p style="display:inline-block;">
+            <h:outputText  value="O supervisor(a)  "/>
+            <h:outputText  value="#{currentUser.nome}"/>
+            <h:outputText  value=", CPF: "/>
+            <h:outputText  value="#{currentUser.cpf}"/>
+            <h:outputText  value=" realizou a inserção de dados para a rotina
+                           para observação da matrícula (Rotina 001) no dia "/>
+            <h:outputText  value="#{currentUser.dataAtual} às "/>
+            <h:outputText  value="#{currentUser.horaAtual}."/>
+            </p>
+            <br/>
+            <br/>
+            <h4>ROTINA PARA OBSERVAÇÃO DA MATRÍCULA</h4>
+            <p><strong>Nº de Identificação: <h:outputText value=" #{rotina001Bean.rotina.id}" /></strong></p>
+            <p>UF: <h:outputText value=" #{rotina001Bean.rotina.identificaEntradaUf}" /></p>
+            <p>Coordenação: <h:outputText value=" #{rotina001Bean.rotina.identificaEntradaCoordenacao}" /></p>
+            <p>Município: <h:outputText value=" #{rotina001Bean.rotina.identificaEntradaMunicipio}" /></p>
+            <p>Entrada: <h:outputText value=" #{rotina001Bean.rotina.identificaEntradaEntrada}" /></p>
+            <br/>
+            <br/>
+
+            <p>Nome Local: <h:outputText value=" #{rotina001Bean.rotina.nomeLocal}" /></p>
+            <p>Endereço: <h:outputText value=" #{rotina001Bean.rotina.enderecoLocal}" /></p>
+            <p>Numero: <h:outputText value=" #{rotina001Bean.rotina.numeroLocal}" /></p>
+            <p>Complemento: <h:outputText value=" #{rotina001Bean.rotina.complementoLocal}" /></p>
+            <p>Bairro: <h:outputText value=" #{rotina001Bean.rotina.bairroLocal}" /></p>
+            <p>CEP: <h:outputText value=" #{rotina001Bean.rotina.cepLocal}" /></p>
+            <p>Telefone: <h:outputText value=" #{rotina001Bean.rotina.telefoneLocal}" /></p>
+
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td colspan="3">
+                        <p>
+                            Classificação do local:
+                <h:message for="classificacaoLocal" style="color:#c70000; font-size:18px;"></h:message>
+                </p>
+                <br/>
+                <h:selectOneRadio id="classificacaoLocal"
+                                  value="#{rotina001Bean.rotina.classificacaoLocal}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Escola ou Instituição de Ensino."                          itemValue="1"/>
+                    <f:selectItem itemLabel="Igreja ou Instituição Religiosa."                          itemValue="2"/>
+                    <f:selectItem itemLabel="Outros Serviços Públicos (Posto de Saúde, CRAS...)."       itemValue="3"/>
+                    <f:selectItem itemLabel="Associação Civil (Assoc. de Moradores, Sindicato,...)."    itemValue="4"/>
+                    <f:selectItem itemLabel="Organização não governamental (ONG)."                      itemValue="5"/>
+                    <f:selectItem itemLabel="Coordenação Municipal ou Estadual do ProJovem Urbano."     itemValue="6"/>
+                    <f:selectItem itemLabel="Outro. "      itemValue="7"/>
+
+
+
+                </h:selectOneRadio>
+                <table id="classificacaoLocalComplemento" >
+                    <tr>
+                        <td>
+                            <p>Neste caso, especifique qual no campo abaixo:</p>
+                            <br/>
+                    <h:inputTextarea rows="4"
+                                     cols="70"
+                                     value="#{rotina001Bean.rotina.classificacaoLocalComplemento}"
+                                     disabled  ="true"
+                                     />
+                    </td>
+                    </tr>
+                </table>
+                </td>
+                </tr>
+            </table>
+
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td>
+                        <p>Neste local funcionam os procedimentos de matrícula instalados anteriormente em outro local?
+                <h:message for="q0" style="color:#c70000; font-size:18px;"/>
+                </p>
+                <br/>
+                <h:selectOneRadio id="q0"
+                                  value="#{rotina001Bean.rotina.funcionavaAnteriormenteEmOutroLocal}"
+                                  layout="pageDirection"
+                                  disabled  ="true">
+                    <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                    <f:selectItem itemLabel="Não." itemValue="nao"/>
+                </h:selectOneRadio>
+
+                <table id="q0complemento" style="display:none">
+                    <tr>
+                        <td>
+                            <p>
+                                Caso sim, registre no espaço abaixo o código do local anterior:
+                                <br/>
+                    <h:inputTextarea rows="4" cols="70"  value="#{rotina001Bean.rotina.funcionavaAnteriormenteEmOutroLocalComplemento}"
+                                     maxlength="15"
+                                     disabled  ="true"/>
+                    </p>
+                    </td>
+                    </tr>
+                </table>
+                </td>
+                </tr>
+            </table>
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td width="150">
+                        <p>Data da Visita: <br/>    (dd/mm/aaaa)
+                <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText  id="dataVisita"
+                              value="#{rotina001Bean.rotina.dataVisita}"
+                              size="10"
+                              maxlength="10"
+                              disabled  ="true"/>
+                </p>
+                </td>
+                <td>
+                    <p>Hora de início da observação: (notação 24 horas)
+                <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText id="horaInicioVisita"
+                             value="#{rotina001Bean.rotina.horaInicioVisita}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/></p>
+                </td>
+                <td>
+                    <p>Hora de término da observação: (notação 24 horas)
+                <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/>
+                <br/>
+                <h:inputText id="horaTerminoVisita"
+                             value="#{rotina001Bean.rotina.horaTerminoVisita}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+
+
+            <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                <tr>
+                    <td width="150">
+                        <p>1 - Indique o horário de funcionamento regular do
+                            local da matrícula:
+                            <br/>
+                            (Pergunte a um funcionário e utilize as linhas “b” e “c” apenas
+                            se houver interrupções no funcionamento ao longo do dia)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>1.a.abertura</p>
+                                </td>
+                                <td>
+                            <h:inputText id="Q1Aabertura"
+                                         value="#{rotina001Bean.rotina.q1Aabertura}"
+                                         size="5"
+                                         maxlength="5"
+                                         disabled  ="true"/>
+                            <h:message for="Q1Aabertura" style="color:#c70000; font-size:18px;"/>
+                    </td>
+                    <td>
+                        <p>fechamento</p>
+                    </td>
+                    <td>
+                <h:inputText id="Q1Afechamento"
+                             value="#{rotina001Bean.rotina.q1Afechamento}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                <h:message for="Q1Afechamento" style="color:#c70000; font-size:18px;"/>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>1.b.abertura</p>
+                    </td>
+                    <td>
+                <h:inputText id="Q1Babertura"
+                             value="#{rotina001Bean.rotina.q1Babertura}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                </td>
+                <td>
+                    <p>fechamento</p>
+                </td>
+                <td>
+                <h:inputText id="Q1Bfechamento"
+                             value="#{rotina001Bean.rotina.q1Bfechamento}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>1.c.abertura</p>
+                    </td>
+                    <td>
+                <h:inputText id="Q1Cabertura"
+                             value="#{rotina001Bean.rotina.q1Cabertura}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                </td>
+                <td>
+                    <p>fechamento</p>
+                </td>
+                <td>
+                <h:inputText id="Q1Cfechamento"
+                             value="#{rotina001Bean.rotina.q1Cfechamento}"
+                             size="5"
+                             maxlength="5"
+                             disabled  ="true"/>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>2 - Indique o número de funcionários presentes no turno observado:
+            <h:inputText id="q2"
+                         value="#{rotina001Bean.rotina.q2}"
+                         onkeyup="somente_numero(this)"
+                         disabled  ="true"/>
+            <h:message for="q2" style="color:#c70000; font-size:18px;"/>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>3 - Qual foi o tempo médio que os jovens esperaram para receber atendimento?
+
+            <h:message for="q3" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q3"
+                              value="#{rotina001Bean.rotina.q3}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Menos de 15 minutos." itemValue="menos15"/>
+                <f:selectItem itemLabel="Entre 16 e 30 minutos." itemValue="16e30"/>
+                <f:selectItem itemLabel="Mais de 31 minutos." itemValue="mais31"/>
+                <f:selectItem itemLabel="Não foram observados atendimentos." itemValue="nObs"/>
+            </h:selectOneRadio>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>4 - Qual(is) forma(s) de acesso on-line estavam disponíveis no local de matrícula?
+                        <br/>
+                        (Marque todas as opções que julgar adequadas.)</p>
+
+
+                    <p><h:outputText value="Internet banda larga."               rendered="#{rotina001Bean.rotina.q4InternetBandaLarga eq 'Sim'}"/></p>
+            <p><h:outputText value="Internet discada."                   rendered="#{rotina001Bean.rotina.q4InternetDiscada eq 'Sim'}"/></p>
+            <p><h:outputText value="Outras formas de acesso a internet." rendered="#{rotina001Bean.rotina.q4OutrasFormas eq 'Sim'}"/></p>
+            <p><h:outputText value="Não havia acesso à internet."        rendered="#{rotina001Bean.rotina.q4NaoHavia eq 'Sim'}"/></p>
+            <p><h:outputText value="O Local de Matrícula estava fechado."        rendered="#{rotinasLancadasBean.rotina001.q4NaoHavia eq 'nObs'}"/></p>
+
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>5 - Quantos jovens foram observados?
+            <h:inputText id="q5"
+                         value="#{rotina001Bean.rotina.q5}"
+                         disabled  ="true"/>
+            <h:message for="q5" style="color:#c70000; font-size:18px;"/>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>6 - Em relação aos jovens observados:<p/>
+                    <table>
+                        <tr>
+                            <td>
+                                <p> 6.a Quantos jovens realizaram o teste ou apresentaram registro escolar?</p>
+                            </td>
+                            <td>
+                        <h:inputText id="q6a"
+                                     value="#{rotina001Bean.rotina.q6a}"
+                                     disabled  ="true"/>
+                        <h:message for="q6a" style="color:#c70000; font-size:18px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 6.b Quantos apenas apresentaram o registro escolar?</p>
+                </td>
+                <td>
+            <h:inputText id="q6b"
+                         value="#{rotina001Bean.rotina.q6b}"
+                         disabled  ="true"/>
+            <h:message for="q6b" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 6.c Quantos apenas realizaram o teste?
+
+                    </p>
+                </td>
+                <td>
+            <h:inputText id="q6c"
+                         value="#{rotina001Bean.rotina.q6c}"
+                         disabled  ="true"/>
+            <h:message for="q6c" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            </table>
+
+
+
+
+
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>7 - Em relação aos jovens que procuraram o local de
+                        matrícula, mas não levaram os documentos, quantos:
+                    <p/>
+
+
+                    <table>
+                        <tr>
+                            <td>
+                                <p> 7.a Não levaram documento de identificação?</p>
+                            </td>
+                            <td>
+                        <h:inputText id="q7a"
+                                     value="#{rotina001Bean.rotina.q7a}"
+                                     disabled  ="true"/>
+                        <h:message for="q7a" style="color:#c70000; font-size:18px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 7.b Não levaram comprovante de residência?</p>
+                </td>
+                <td>
+            <h:inputText id="q7b"
+                         value="#{rotina001Bean.rotina.q7b}"
+                         disabled  ="true"/>
+            <h:message for="q7b" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 7.c Tiveram suas fichas preenchidas?</p>
+                </td>
+                <td>
+            <h:inputText id="q7c"
+                         value="#{rotina001Bean.rotina.q7c}"
+                         disabled  ="true"/>
+            <h:message for="q7c" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 7.d Receberam orientações para retornar?</p>
+                </td>
+                <td>
+            <h:inputText id="q7d"
+                         value="#{rotina001Bean.rotina.q7d}"
+                         disabled  ="true"/>
+            <h:message for="q7d" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            </table>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>8 - Dos jovens observados:<p/>
+
+
+                    <table>
+                        <tr>
+                            <td>
+                                <p> 8.a Quantos preencheram todos os requisitos e efetivaram sua matrícula?</p>
+                            </td>
+                            <td>
+                        <h:inputText id="q8a"
+                                     value="#{rotina001Bean.rotina.q8a}"
+                                     disabled  ="true"/>
+                        <h:message for="q8a" style="color:#c70000; font-size:18px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p> 8.b Quantos tiveram suas matrículas confirmadas on-line naquele momento?</p>
+                </td>
+                <td>
+
+            <h:inputText id="q8b"
+                         value="#{rotina001Bean.rotina.q8b}"
+                         disabled  ="true"/>
+            <h:message for="q8b" style="color:#c70000; font-size:18px;"/>
+            </td>
+            </tr>
+            </table>
+
+
+
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>9 - Os jovens matriculados foram informados do local das aulas?
+            <h:message for="q9" style="color:#c70000; font-size:18px;"/>
+            </p>
+            <br/>
+            <h:selectOneRadio id="q9"
+                              value="#{rotina001Bean.rotina.q9}"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>10 - Os jovens matriculados foram informados da data do início das aulas?
+            <h:message for="q10" style="color:#c70000; font-size:18px;"/>
+            </p>
+            <br/>
+            <h:selectOneRadio id="q10"
+                              value="#{rotina001Bean.rotina.q10}"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>11 – Você tem observações sobre outras estratégias de matrícula utilizadas pelo posto observado?
+            <h:message for="q11" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q11"
+                              value="#{rotina001Bean.rotina.q11}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q11complemento" >
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q11Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>12 – Você gostaria de fazer comentários sobre a organização dos procedimentos de matrícula do PROJOVEM?
+            <h:message for="q12" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q12"
+                              value="#{rotina001Bean.rotina.q12}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q12complemento" >
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q12Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>13 – Você gostaria de fazer comentários sobre o processo de divulgação das matrículas para o PROJOVEM?
+            <h:message for="q13" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q13"
+                              value="#{rotina001Bean.rotina.q13}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q13complemento" >
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q13Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>14 – Você tem sugestões e elogios ao processo de matrícula?
+            <h:message for="q14" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q14"
+                              value="#{rotina001Bean.rotina.q14}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q14complemento">
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q14Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>15 – Você observou irregularidades durante o processo de matrícula?
+            <h:message for="q15" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q15"
+                              value="#{rotina001Bean.rotina.q15}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q15complemento" >
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q15Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>16 – Você tem críticas ao processo de matrícula?
+            <h:message for="q16" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q16"
+                              value="#{rotina001Bean.rotina.q16}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q16complemento">
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q16Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>17 – Você gostariad de fazer observações e comentários gerais?
+            <h:message for="q17" style="color:#c70000; font-size:18px;"/>
+            <br/>
+            <h:selectOneRadio id="q17"
+                              value="#{rotina001Bean.rotina.q17}"
+                              layout="pageDirection"
+                              disabled  ="true">
+                <f:selectItem itemLabel="Sim." itemValue="Sim"/>
+                <f:selectItem itemLabel="Não." itemValue="nao"/>
+            </h:selectOneRadio>
+            </p>
+            <table id="q17complemento" >
+                <tr>
+                    <td>
+                        <p>Caso sim, registre no espaço abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina001Bean.rotina.q17Complemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            </table>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

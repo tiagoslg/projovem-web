@@ -1,0 +1,83 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="rotina.jsf" >Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="relatorio.jsf" class="active">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <h4>Minhas Rotinas</h4>
+        <a4j:keepAlive beanName="globalRotinaBean"/>
+        <div class="portfolio portfolio-big">
+            <div class="text-home text-home-big">
+
+                <a4j:form id="minhasRotinas">
+
+                    <h:commandButton action="#{globalRotinaBean.gerar}" reRender="minhasRotinas"/>
+                    <h:dataTable value="#{globalRotinaBean.relatorios}" var="relatorio"
+                                 styleClass="tabela" columnClasses="coluna" cellspacing="5" >
+                        <h:column>
+                            <b><h:outputText styleClass="pergunta-resumo" value="#{relatorio.questao.numero} - "/></b>
+                            <h:outputText styleClass="pergunta-resumo" value="#{relatorio.questao.pergunta}"/>
+                            <b><h:outputText styleClass="pergunta-resumo" value="#{relatorio.questao.titulo}"/></b>
+
+                            <h:dataTable value="#{relatorio.resposta}" var="resposta"
+                                         styleClass="tabela" columnClasses="coluna" cellspacing="5" >
+                                <h:column rendered="#{relatorio.questao.tipoResposta eq tipoQuestao.monovalorada}">
+                                    <p><h:outputText value="#{resposta.resposta}"/></p>
+                                </h:column>
+                                <h:column rendered="#{relatorio.questao.tipoResposta eq tipoQuestao.textual}">
+                                    <p><h:outputText value="#{resposta.respostaTextual}"/></p>
+                                </h:column>
+                            </h:dataTable>
+                            <h:dataTable value="#{relatorio.respostaDada}" var="resposta"
+                                         styleClass="tabela" columnClasses="coluna" cellspacing="5" >
+                                <h:column rendered="#{relatorio.questao.tipoResposta eq tipoQuestao.textual}">
+                                    <p><h:outputText value="#{resposta.valor}"/></p>
+                                </h:column>
+                                <h:column rendered="#{relatorio.questao.tipoResposta eq tipoQuestao.monovalorada}">
+                                    <p><h:outputText value="#{resposta.resposta.resposta}"/></p>
+                                </h:column>
+                            </h:dataTable>
+
+                        </h:column>
+                    </h:dataTable>
+
+                </a4j:form>
+            </div>
+        </div>
+
+        <div class="clr"></div>
+    </ui:define >    
+
+</ui:composition>

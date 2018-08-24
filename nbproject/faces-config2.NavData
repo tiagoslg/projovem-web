@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="../include/instrumento4/questao31inicioInstrumento4.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/questao37inicioInstrumento4.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao34inicioInstrumento4.xhtml" x="1150" y="1200" zoom="true"/>
+        <Node id="../include/instrumento4/questao58inicioInstrumento4.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao38inicioInstrumento4.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao49inicioInstrumento4.xhtml" x="1650" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao25inicioInstrumento4.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao5inicioInstrumento4.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao55inicioInstrumento4.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao7inicioInstrumento4.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao47inicioInstrumento4.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao61inicioInstrumento4.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao28inicioInstrumento4.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao1inicioInstrumento4.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao62inicioInstrumento4.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao23inicioInstrumento4.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao2inicioInstrumento4.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao22inicioInstrumento4.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="../include/instrumento4/questao20inicioInstrumento4.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="pages/instrumento4.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao43inicioInstrumento4.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="../include/instrumento4/questao16inicioInstrumento4.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="include/instrumento4/questao1inicioInstrumento4.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao39inicioInstrumento4.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao32inicioInstrumento4.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao29inicioInstrumento4.xhtml" x="2650" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao13inicioInstrumento4.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao41inicioInstrumento4.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao36inicioInstrumento4.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/questao51inicioInstrumento4.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="../include/instrumento4/questao9inicioInstrumento4.xhtml" x="650" y="1350" zoom="true"/>
+        <Node id="../include/instrumento4/questao18inicioInstrumento4.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao53inicioInstrumento4.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao30inicioInstrumento4.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao60inicioInstrumento4.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao57inicioInstrumento4.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao50inicioInstrumento4.xhtml" x="1900" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao54inicioInstrumento4.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="../include/instrumento4/questao40inicioInstrumento4.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao26inicioInstrumento4.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao35inicioInstrumento4.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao64inicioInstrumento4.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao27inicioInstrumento4.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="../include/instrumento4/questao17inicioInstrumento4.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/identificaLocalInstrumento4.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="include/instrumento4/inicioInstrumento4.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao21inicioInstrumento4.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="include/instrumento4/identificaLocalInstrumento4.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao59inicioInstrumento4.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="include/instrumento4/questao2inicioInstrumento4.xhtml" x="2900" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao46inicioInstrumento4.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/questao56inicioInstrumento4.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao63inicioInstrumento4.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="../include/instrumento4/questao44inicioInstrumento4.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao45inicioInstrumento4.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao11inicioInstrumento4.xhtml" x="1900" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao42inicioInstrumento4.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="../include/instrumento4/questao65inicioInstrumento4.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="include/instrumento4/navegacaoInstrumento4.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/questao48inicioInstrumento4.xhtml" x="1650" y="900" zoom="true"/>
+        <Node id="../include/instrumento4/questao15inicioInstrumento4.xhtml" x="2400" y="450" zoom="true"/>
+        <Node id="../include/instrumento4/questao14inicioInstrumento4.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao6inicioInstrumento4.xhtml" x="2150" y="600" zoom="true"/>
+        <Node id="../include/instrumento4/questao52inicioInstrumento4.xhtml" x="900" y="1350" zoom="true"/>
+        <Node id="../include/instrumento4/questao33inicioInstrumento4.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="forward.jsp" x="650" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao19inicioInstrumento4.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="include/instrumento4/headerInstrumento4.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao3inicioInstrumento4.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao12inicioInstrumento4.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="../include/instrumento4/questao10inicioInstrumento4.xhtml" x="1400" y="1050" zoom="true"/>
+        <Node id="../include/instrumento4/questao8inicioInstrumento4.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="../include/instrumento4/questao24inicioInstrumento4.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="../include/instrumento4/questao4inicioInstrumento4.xhtml" x="1900" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

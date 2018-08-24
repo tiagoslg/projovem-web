@@ -1,0 +1,286 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+         <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+        <h4>ROTINA DE FORMAÇÃO INICIAL</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value="PERFIL DOS FORMADORES"/></h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="rotinasLancadasBean"/>
+                <a4j:keepAlive beanName="nucleoBean"/>
+                <h:form id="form">
+
+                    <p><h:messages /></p>
+                    <br />
+                    <p><strong>Nº de Identificação: <h:outputText value=" #{rotinasLancadasBean.rotina002PerfilFormadores.id}" /></strong></p>
+
+                    <p>UF: <h:outputText value=" #{rotinasLancadasBean.rotina002PerfilFormadores.identificaEntradaUf}" /></p>
+                    <p>Coordenação: <h:outputText value=" #{rotinasLancadasBean.rotina002PerfilFormadores.identificaEntradaCoordenacao}" /></p>
+                    <p>Município: <h:outputText value=" #{rotinasLancadasBean.rotina002PerfilFormadores.identificaEntradaMunicipio}" /></p>
+                    <p>Entrada: <h:outputText value=" #{rotinasLancadasBean.rotina002PerfilFormadores.identificaEntradaEntrada}" /></p>
+                    <br/>
+                    <br/>
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td colspan="3">
+                                <p>Nome:
+                        <h:message for="nome" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="nome"
+                                     value="#{rotinasLancadasBean.rotina002PerfilFormadores.nome}"
+                                     size="95"
+                                     maxlength="100"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>Data: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="dataVisita"
+                                     value="#{rotinasLancadasBean.rotina002PerfilFormadores.dia}"
+                                     size="10"
+                                     maxlength="10"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>Instituição Formadora:
+                        <h:message for="instituicaoFormadora" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="instituicaoFormadora"
+                                     value="#{rotinasLancadasBean.rotina002PerfilFormadores.instituicaoFormadora}"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Data de Início: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataInicio" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="dataInicio"
+                                     value="#{rotinasLancadasBean.rotina002PerfilFormadores.dataInicio}"
+                                     size="10"
+                                     maxlength="10"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        <td>
+                            <p>Data de Término: <br/>    (dd/mm/aaaa)
+                        <h:message for="dataTermino" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:inputText id="dataTermino"
+                                     value="#{rotinasLancadasBean.rotina002PerfilFormadores.dataTermino}"
+                                     size="10"
+                                     maxlength="10"
+                                     disabled  ="#{rotinasLancadasBean.disabled}"/>
+                        </p>
+                        </td>
+                        </tr>
+
+                    </table>
+
+
+
+
+                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                        <tr>
+                            <td>
+                                <p>1 – Sexo:
+                        <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q1"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q1}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Masculino." itemValue="masculino"/>
+                            <f:selectItem itemLabel="Feminino."  itemValue="feminino"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>2 – Faixa Etária:
+                        <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q2"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q2}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="30 anos ou menos." itemValue="30menos"/>
+                            <f:selectItem itemLabel="De 31 a 40 anos." itemValue="31a40"/>
+                            <f:selectItem itemLabel="De 41 a 50 anos." itemValue="41a50"/>
+                            <f:selectItem itemLabel="De 51 a 60 anos." itemValue="51a60"/>
+                            <f:selectItem itemLabel="Mais de 60 anos." itemValue="mais60"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>3 – Cor:
+                        <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q3"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q3}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Branco(a)." itemValue="Branco"/>
+                            <f:selectItem itemLabel="Pardo(a)." itemValue="Pardo"/>
+                            <f:selectItem itemLabel="Negro(a)." itemValue="Negro"/>
+                            <f:selectItem itemLabel="Amarelo(a)." itemValue="Amarelo"/>
+                            <f:selectItem itemLabel="Indígena." itemValue="Indígena"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>4 – Assinale a opção que corresponde ao seu nível máximo de escolaridade. (Marque APENAS uma opção)
+                        <h:message for="q4" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q4"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q4}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Ensino fundamental." itemValue="fundamental"/>
+                            <f:selectItem itemLabel="Ensino médio/técnico." itemValue="medio/tecnico"/>
+                            <f:selectItem itemLabel="Ensino médio/magistério" itemValue="medio/magisterio"/>
+                            <f:selectItem itemLabel="Ensino superior incompleto." itemValue="superiorIncompleto"/>
+                            <f:selectItem itemLabel="Ensino superior completo tecnológico." itemValue="superiorCompletoTecnologico"/>
+                            <f:selectItem itemLabel="Ensino superior completo licenciatura." itemValue="superiorCompletoLicenciatura"/>
+                            <f:selectItem itemLabel="Ensino superior completo bacharelado." itemValue="superiorCompletoBacharelado"/>
+                            <f:selectItem itemLabel="Especialização (lato sensu)." itemValue="latoSensu"/>
+                            <f:selectItem itemLabel="Mestrado." itemValue="Mestrado"/>
+                            <f:selectItem itemLabel="Doutorado ou posterior." itemValue="Doutorado"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>5 – Há quantos anos você concluiu a Graduação?
+                        <h:message for="q5" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q5"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q5}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                            <f:selectItem itemLabel="Menos que 5 anos." itemValue="menos5"/>
+                            <f:selectItem itemLabel="De 5 a 10 anos." itemValue="5a10"/>
+                            <f:selectItem itemLabel="De 11 a 20 anos." itemValue="11a20"/>
+                            <f:selectItem itemLabel="Mais de 20 anos." itemValue="mais20"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>6 – Das opções abaixo, assinale a que melhor descreve a sua área de Graduação:
+                        <h:message for="q6" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q6"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q6}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                            <f:selectItem itemLabel="Tecnólogo." itemValue="Tecnologo"/>
+                            <f:selectItem itemLabel="Educação (Pedagogia, Normal Superior ou similar)." itemValue="Educacao"/>
+                            <f:selectItem itemLabel="Letras ou similar." itemValue="Letras"/>
+                            <f:selectItem itemLabel="Ciências Humanas (História, Geografia ou similar)." itemValue="Humanas"/>
+                            <f:selectItem itemLabel="Ciências Exatas (Matemática, Física, Química ou similar)." itemValue="Exatas"/>
+                            <f:selectItem itemLabel="Ciências Biológicas (Ciências, Biologia ou similar)." itemValue="Biologicas"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>7 – Você participou da Formação de Formadores?
+                        <h:message for="q7" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q7"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q7}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Sim." itemValue="sim"/>
+                            <f:selectItem itemLabel="Parcialmente." itemValue="Parcialmente"/>
+                            <f:selectItem itemLabel="Não." itemValue="nao"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>8 – Avalie o processo de formação do qual você participou para ser formador do ProJovem Urbano:
+                        <h:message for="q8" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q8"
+                                          value="#{rotinasLancadasBean.rotina002PerfilFormadores.q8}"
+                                          layout="pageDirection"
+                                          disabled  ="#{rotinasLancadasBean.disabled}">
+                            <f:selectItem itemLabel="Não participei da formação." itemValue="NaoParticipei"/>
+                            <f:selectItem itemLabel="Boa." itemValue="boa"/>
+                            <f:selectItem itemLabel="Regular." itemValue="regular"/>
+                            <f:selectItem itemLabel="Ruim." itemValue="ruim"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{rotinasLancadasBean.salvar}" reRender="form" onclick="javascript:scroll(0,0);" status="aguarde">
+                    <f:setPropertyActionListener value="#{rotinasLancadasBean.rotina002PerfilFormadores}" target="#{rotina002PerfilFormadoresBean.rotina}" />
+                    </a4j:commandButton>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

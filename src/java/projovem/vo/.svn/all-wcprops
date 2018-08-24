@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo
+END
+LocalVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo/LocalVO.java
+END
+UfVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/18/trunk/projovem/src/java/projovem/vo/UfVO.java
+END
+RespostasDadas.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/12/trunk/projovem/src/java/projovem/vo/RespostasDadas.java
+END
+Relatorio.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo/Relatorio.java
+END
+Navegacao.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/17/trunk/projovem/src/java/projovem/vo/Navegacao.java
+END
+RespostasPossiveis.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/12/trunk/projovem/src/java/projovem/vo/RespostasPossiveis.java
+END
+TipoQuestao.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo/TipoQuestao.java
+END
+ResumoRespostasSelectItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo/ResumoRespostasSelectItem.java
+END
+ResumoRespostas.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/21/trunk/projovem/src/java/projovem/vo/ResumoRespostas.java
+END

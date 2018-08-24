@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+  Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+                <p>Data da observação: <br/>    (dd/mm/aaaa)
+        <h:message for="dataVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="dataVisita"
+                     value="#{rotinasLancadasBean.rotina003.dataVisita}"
+                     size="10"
+                     maxlength="10"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de início da observação: (notação 24 horas)
+        <h:message for="horaInicioVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaInicioVisita"
+                     value="#{rotinasLancadasBean.rotina003.horaInicioVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        <td>
+            <p>Hora de término da observação: (notação 24 horas)
+        <h:message for="horaTerminoVisita" style="color:#c70000; font-size:18px;"/><br/>
+        <h:inputText id="horaTerminoVisita"
+                     value="#{rotinasLancadasBean.rotina003.horaTerminoVisita}"
+                     size="5"
+                     maxlength="5"
+                     disabled  ="true"/>
+        </p>
+        </td>
+        </tr>
+    </table>
+
+
+
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td colspan="3">
+                <p>Classificação do local:
+        <h:message for="classificacaoLocal" style="color:#c70000; font-size:18px;"/><br/>
+        <h:selectOneRadio id="classificacaoLocal"
+                          value="#{rotinasLancadasBean.rotina003.classificacaoLocal}"
+                          layout="pageDirection"
+                          disabled  ="true">
+            <f:selectItem itemLabel="Escola ou Instituição de Ensino."                          itemValue="1"/>
+            <f:selectItem itemLabel="Igreja ou Instituição Religiosa."                          itemValue="2"/>
+            <f:selectItem itemLabel="Outros Serviços Públicos (Posto de Saúde, CRAS...)."       itemValue="3"/>
+            <f:selectItem itemLabel="Associação Civil (Assoc. de Moradores, Sindicato,...)."    itemValue="4"/>
+            <f:selectItem itemLabel="Organização não governamental (ONG)."                      itemValue="5"/>
+            <f:selectItem itemLabel="Coordenação Municipal ou Estadual do ProJovem Urbano."     itemValue="6"/>
+            <f:selectItem itemLabel="Outro. "      itemValue="7"/>
+        </h:selectOneRadio>
+
+        <a4j:region rendered="#{rotinasLancadasBean.rotina003.classificacaoLocal eq '7'}">
+            <table id="classificacaoLocalComplemento" >
+                <tr>
+                    <td>
+                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotina002Bean.rotina.classificacaoLocalComplemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+        </a4j:region>
+        </p>
+
+        </td>
+        </tr>
+    </table>
+
+
+
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+                <p>1 – Informe a forma de armazenamento das fichas (selecione uma única opção):
+        <h:message for="formaArmazenamentoFichas" style="color:#c70000; font-size:18px;"/><br/>
+        <h:selectOneRadio id="formaArmazenamentoFichas"
+                          value="#{rotinasLancadasBean.rotina003.formaArmazenamentoFichas}"
+                          layout="pageDirection"
+                          disabled  ="true">
+            <f:selectItem itemLabel="Em armários / arquivo."                                    itemValue="armarios/arquivo"/>
+            <f:selectItem itemLabel="Em caixas."                                                itemValue="caixas"/>
+            <f:selectItem itemLabel="Em pastas."                                                itemValue="pastas"/>
+            <f:selectItem itemLabel="Outro."                                                    itemValue="outro"/>
+        </h:selectOneRadio>
+        <a4j:region rendered="#{rotinasLancadasBean.rotina003.formaArmazenamentoFichas eq 'outro'}">
+            <table id="formaArmazenamentoFichasComplemento" >
+                <tr>
+                    <td>
+                        <p>Neste caso, especifique qual no campo abaixo:<br/>
+                <h:inputTextarea rows="4" cols="70" value="#{rotinasLancadasBean.rotina003.formaArmazenamentoFichasComplemento}" disabled  ="true"/></p>
+                </td>
+                </tr>
+            </table>
+        </a4j:region>
+        </p>
+        </td>
+        </tr>
+    </table>
+
+
+
+    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+        <tr>
+            <td>
+        <rich:dataTable
+            onRowMouseOver="this.style.backgroundColor='#FCF6EE'"
+            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+            cellpadding="0" cellspacing="0"
+            border="0" var="ficha" value="#{rotinasLancadasBean.rotina003.listaFichas}">
+
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputText value="N°"/>
+                </f:facet>
+                <h:outputText value="#{ficha.numero}"/>
+            </rich:column>
+            <rich:column >
+                <f:facet name="header">
+                    <h:outputText value="Nome do Participante" style="display:block;white-space:normal;width:200px;"/>
+                </f:facet>
+                <h:outputText value="#{ficha.nomeParticipante}"/>
+            </rich:column>
+            <rich:column style="text-align:center;">
+                <f:facet name="header">
+                    <h:outputText value="Cópia da Carteira de Identidade" style="display:block;white-space:normal;width:70px;"/>
+                </f:facet>
+                <h:outputText value="#{ficha.temCarteiraIdentidade}" />
+            </rich:column>
+            <rich:column style="text-align:center;">
+                <f:facet name="header">
+                    <h:outputText value="Cópia do Comprovante Residência" style="display:block;white-space:normal;width:70px;"/>
+                </f:facet>
+                <h:outputText value="#{ficha.temComprovanteResidencia}" />
+            </rich:column>
+            <rich:column style="text-align:center;">
+                <f:facet name="header">
+                    <h:outputText value="Cópia do Registro escolar" style="display:block;white-space:normal;width:70px;"/>
+                </f:facet>
+                <h:outputText value="#{ficha.temRegistroEscolar}" />
+            </rich:column>
+            <rich:column style="text-align:center;">
+                <f:facet name="header">
+                    <h:outputText value="Teste" style="display:block;white-space:normal;width:70px;"/>
+                </f:facet>
+                <h:outputText value="#{ficha.temTeste}" />
+            </rich:column>
+        </rich:dataTable>
+        </td>
+        </tr>
+    </table>
+
+</ui:composition>

@@ -1,0 +1,155 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package projovem.rotinas.R001;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.transaction.UserTransaction;
+import projovem.controller.InstrumentoController;
+import projovem.dao.Rotina001DAO;
+import projovem.entity.Usuario;
+import projovem.rotinas.apoio.LocalReferenciaVO;
+
+/**
+ *
+ * @author admprojovem
+ */
+public class Rotina001Bean implements Serializable {
+
+    @Resource
+    private UserTransaction utx;
+    @PersistenceUnit(unitName = "projovemPU")
+    private EntityManagerFactory emf;
+    private InstrumentoController controller = new InstrumentoController();
+    private Rotina001 rotina = new Rotina001();
+    private Rotina001DAO rotinaDao = new Rotina001DAO();
+    private LocalReferenciaVO local;
+    private boolean renderedQuestionario = false;
+
+    /** Creates a new instance of Rotina006Bean */
+    public Rotina001Bean() {
+        List<String> listQ4 = new ArrayList<String>();
+        local = new LocalReferenciaVO();
+
+        rotina.setListQ4(listQ4);
+    }
+
+    public void classificacaoLocalSelecionado() {
+        renderedQuestionario = true;
+    }
+
+    public void validarDados(String dadosValidos, Integer idRotinaEscolhida, EntityManagerFactory emf, UserTransaction utx) {
+
+        rotina = rotinaDao.getById(idRotinaEscolhida, emf);
+
+        rotina.setUsrResponsavelValidacao(controller.obterUsuarioLogado().getId());
+        rotina.setDadosValidos(dadosValidos);
+        Usuario u = new Usuario();
+        rotina.setDataValidacao(u.getDataAtual());
+        rotina.setHoraValidacao(u.getHoraAtual());
+
+        rotinaDao.validarDados(rotina, emf, utx);
+    }
+
+    public String salvarRotina() {
+        Usuario currentUser = controller.obterUsuarioLogado();
+        rotina.setUsuario(currentUser);
+        rotina.setDadosValidos("0");
+
+        rotina.setQ4InternetBandaLarga("Nao");
+        rotina.setQ4InternetDiscada("Nao");
+        rotina.setQ4NaoHavia("Nao");
+        rotina.setQ4OutrasFormas("Nao");
+
+        if (rotina.getListQ4() != null && rotina.getListQ4().size() > 0) {
+            for (String q4 : rotina.getListQ4()) {
+                if (q4.equals("bandaLarga")) {
+                    rotina.setQ4InternetBandaLarga("Sim");
+                }
+                if (q4.equals("discada")) {
+                    rotina.setQ4InternetDiscada("Sim");
+                }
+                if (q4.equals("naoHavia")) {
+                    rotina.setQ4NaoHavia("Sim");
+                }
+                if (q4.equals("outras")) {
+                    rotina.setQ4OutrasFormas("Sim");
+                }
+
+            }
+        }
+
+        /*  FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        NucleoBean nucleoBean = (NucleoBean) session.getAttribute("nucleoBean");
+
+        local = nucleoBean.getLocal();
+         */
+        rotina = local.obterDadosLocal(rotina);
+
+
+
+        String retorno = "";
+        if (Validacao.validaRotina(rotina)) {
+            try {
+                rotinaDao.saveRotina001(rotina, emf, utx);
+                retorno = "Rotina001Salva";
+            } catch (Exception ex) {
+                String message = "Houve um erro na gravação dos dados. Sua rotia não foi salva. Por favor, tente novamente.";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+                ex.printStackTrace();
+                Logger.getLogger(Rotina001Bean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+
+        return retorno;
+    }
+
+    public Rotina001 getRotina() {
+        return rotina;
+    }
+
+    public void setRotina(Rotina001 rotina) {
+        this.rotina = rotina;
+    }
+
+    /**
+     * @return the local
+     */
+    public LocalReferenciaVO getLocal() {
+        return local;
+    }
+
+    /**
+     * @param local the local to set
+     */
+    public void setLocal(LocalReferenciaVO local) {
+        this.local = local;
+    }
+
+    /**
+     * @return the renderedQuestionario
+     */
+    public boolean isRenderedQuestionario() {
+        return renderedQuestionario;
+    }
+
+    /**
+     * @param renderedQuestionario the renderedQuestionario to set
+     */
+    public void setRenderedQuestionario(boolean renderedQuestionario) {
+        this.renderedQuestionario = renderedQuestionario;
+    }
+}

@@ -1,0 +1,97 @@
+
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <a4j:keepAlive beanName="nucleoBean"/>
+
+
+    <a4j:region id="formLocal">
+        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+           
+            <tr>
+                <td colspan="3">
+
+                    <p>Referência (Nome do local de funcionamento.):
+            <h:message for="nomeLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText  id="nomeLocal"
+                          value="#{nucleoBean.local.nomeLocal}"
+                          size="95"
+                          maxlength="100"/>
+            </p>
+
+            </td>
+            </tr>
+            <tr>
+                <td >
+
+                    <p>Endereço (Rua, Av...):
+            <h:message for="enderecoLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="enderecoLocal"
+                         value="#{nucleoBean.local.enderecoLocal}"
+                         size="34"
+                         maxlength="100"/>
+            </p>
+            </td>
+
+
+            <td>
+                <p>No:
+            <h:message for="numeroLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="numeroLocal"
+                         value="#{nucleoBean.local.numeroLocal}"/>
+            </p>
+            </td>
+            <td>
+                <p>Complemento:
+            <h:message for="complementoLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="complementoLocal"
+                         value="#{nucleoBean.local.complementoLocal}"/>
+            </p>
+            </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+
+                    <p>Cidade:
+            <h:message for="cidadeLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="cidadeLocal"
+                         value="#{nucleoBean.local.cidadeLocal}"
+                         size="34"
+                         maxlength="100"
+                         disabled  ="true"/>
+            </p>
+            </td>
+            </tr>
+            <tr>
+
+                <td colspan="2">
+                    <p>Bairro:
+            <h:message for="bairroLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="bairroLocal"
+                         value="#{nucleoBean.local.bairroLocal}"/>
+            </p>
+            </td>
+
+            <td>
+                <p>Telefone:
+            <h:message for="telefoneLocal" style="color:#c70000; font-size:18px;"/><br/>
+            <h:inputText id="telefoneLocal"
+                         value="#{nucleoBean.local.telefoneLocal}"
+                         size="13"
+                         maxlength="13"
+                         onkeyup="mascara_telefone(this,event)"/>
+
+            </p>
+            </td>
+
+            </tr>
+
+        </table>
+    </a4j:region>
+</ui:composition>

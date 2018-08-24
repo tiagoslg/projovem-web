@@ -1,0 +1,135 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><h:outputLink value="http://projovem.fae.ufmg.br/projovem/rotina.jsf" rendered="#{currentUser.perfil eq 1 || currentUser.perfil eq 4}"> <h:outputText value="Rotinas"/> <br />
+                        <span>lançar respostas</span> </h:outputLink> </li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  class="active">Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+
+        <h4>Utilitários</h4>
+
+        <div class="portfolio">
+            <h:form id="formPassword" name="formPassword">
+                <h2><h:outputText value="#{currentUser.nome}"/></h2>
+                <div class="text-home">
+                    <h:messages/>
+                    <a4j:region rendered="#{trocarSenhaBean.renderedCampos}">
+                        <div class="clr"></div>
+                        <table  id="tablePwdCheck">
+                            <tr>
+                                <td >
+                                    <p>Nome: </p>
+                                </td>
+                                <td colspan="2">
+                                    <p><h:inputText id="nome" value="#{trocarSenhaBean.nome}" style="width:300px"/></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    <p>Email </p>
+                                </td>
+                                <td colspan="2">
+                                    <p><h:inputText id="email" value="#{trocarSenhaBean.email}" style="width:300px" /></p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Senha atual: </p>
+                                </td>
+                                <td>
+                                    <p>
+                            <h:inputSecret id="senhaAtual" maxlength="16" autocomplete="off"
+                                           value="#{trocarSenhaBean.senhaAtual}" />
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Nova Senha: </p>
+                                </td>
+                                <td>
+                                    <p>
+                            <h:inputSecret id="passwordPwd" name="passwordPwd"
+                                           maxlength="16" autocomplete="off" onkeyup="chkPass(this.value)"
+                                           value="#{trocarSenhaBean.novaSenha}" />
+                            </p>
+
+
+                            </td>
+
+                            <td>
+                                <center><p>Força da senha:</p></center>
+
+                                <p>
+                                    <span id="scorebarBorder">
+                                        <span id="score">0%</span>
+                                        <span id="scorebar">&#160;</span>
+                                    </span>
+                                    <span id="complexity">Muito Curto</span>
+                                </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Confirmar nova senha: </p>
+                                </td>
+                                <td>
+                                    <p>
+                            <h:inputSecret id="confirmarNovaSenha" maxlength="16" autocomplete="off"
+                                           value="#{trocarSenhaBean.confirmaNovaSenha}" />
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <p><a4j:commandButton styleClass="buttons" reRender="formPassword" action="#{trocarSenhaBean.salvar}"
+                                                  value="Salvar" /></p>
+                            </td>
+                            </tr>
+                        </table>
+
+                        <a4j:include viewId="/include/forcasenha.xhtml"/>
+                    </a4j:region>
+                </div>
+            </h:form>
+        </div>
+
+        <div class="clr"></div>
+    </ui:define >    
+
+</ui:composition>

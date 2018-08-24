@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Portfilio</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+      <h2>Company Name</h2>
+      <div class="text">premium business templates</div>
+    </div>
+    <div class="search">
+      <form action="register.php" method="post">
+        <input name="" type="text"  class="keywords" />
+        <input name="" type="image" src="images/search.gif" />
+      </form>
+    </div>
+    <div class="clr"></div>
+    <div class="menu">
+      <ul>
+       <li><a href="index.html">Home page<br />
+          <span>home page</span></a></li>
+        <li><a href="about_us.html" >About us<br />
+          <span>company info</span></a></li>
+        <li><a href="#">Services<br />
+          <span>information</span></a></li>
+        <li><a href="Portfilio.html"  class="active">Portfilio<br />
+          <span>products</span></a></li>
+        <li><a href="Contacts_us.html">Contacts us<br />
+          <span>call is now</span></a></li>
+      </ul>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="body">
+    <h4>Portfolio</h4>
+    <div class="portfolio">
+      <h2>our portfolio</h2>
+      <div class="image">
+        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+         <div class="clr"></div>
+        <p><a href="#">read more</a></p>
+</div>
+      <div class="text">
+        <p><strong>There are many variations</strong></p>
+        <p> If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. </p>
+        <p><a href="#">details</a></p>
+      </div>
+      <div class="clr"></div>
+      <div class="image">
+        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+         <div class="clr"></div>
+        <p><a href="#">read more</a></p>
+              </div>
+      <div class="text">
+        <p><strong>There are many variations</strong></p>
+        <p> If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. </p>
+        <p><a href="#">details</a></p>
+      </div>
+      <div class="clr"></div>
+      <div class="image">
+        <p><img src="images/img_4.jpg" width="269" height="178" alt="picture" /></p>
+         <div class="clr"></div>
+        <p><a href="#">read more</a></p>
+      </div>
+      <div class="text">
+        <p><strong>There are many variations</strong></p>
+        <p> If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. </p>
+        <p><a href="#">details</a></p>
+      </div>
+       <div class="clr"></div>
+      <div class="list"><p><a href="#"><img src="images/1.gif" width="27" height="27" alt="picture" /></a><a href="#"><img src="images/2.gif" width="27" height="27" alt="picture" /></a>
+        <a href="#"><img src="images/3.gif" width="27" height="27" alt="picture" /></a></p>
+      </div>
+    </div>
+    <div class="Sub">
+      <h2>Sub navigation</h2>
+          <ul>
+           <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+             <li> <a href="#">Lorem Ipsum has been the industry's</a></li>
+             <li class="sub"> + It was popularised</li>
+             <li class="sub">+ Why do we use it?</li>
+             <li> <a href="#">It has survived not only five centuries</a></li>
+         </ul>
+         </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div class="clr"></div>
+<div class="footer"> © Copyright 2009. Your Site Name Dot Com. All Rights Reserved<br />
+  <a href="#">Home</a> | <a href="#">Contact</a> | <a href="#">RSS </a></div>
+</body>
+</html>

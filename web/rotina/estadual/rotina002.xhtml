@@ -1,0 +1,776 @@
+
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/basic.xhtml">
+
+    <ui:define  name="header">
+
+        <div class="logo">
+
+        </div>
+
+        <div class="clr"></div>
+        <div class="menu">
+            <h:form>
+                <ul>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/index.jsf" >Home<br />
+                            <span>página inicial</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/rotina.jsf" class="active">Rotinas<br />
+                            <span>lançar respostas</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/relatorio.jsf">Relatórios<br />
+                            <span>informações</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/utilitario.jsf"  >Utilitários<br />
+                            <span>meus dados</span></a></li>
+                    <li><a href="http://projovem.fae.ufmg.br/projovem/contato.jsf">Contato<br />
+                            <span>fale conosco</span></a></li>
+                    <li><h:commandLink action="#{loginBean.sair}">Sair<br />
+                        <span>sair do sistema</span></h:commandLink></li>
+                </ul>
+            </h:form>
+        </div>
+        <div class="clr"></div>
+    </ui:define>
+
+    <ui:define  name="body">
+        <a4j:status id="aguarde"
+                    onstart="javascript:Richfaces.showModalPanel('aguardeModal')"
+                    onstop="javascript:Richfaces.hideModalPanel('aguardeModal')"/>
+        <rich:modalPanel id="aguardeModal" height="70" width="240">
+            <f:facet name="header">
+                <h:outputText value="Aguarde" />
+            </f:facet>
+
+            <h:graphicImage value="/imagens/ajax-loader-bar.gif" />
+        </rich:modalPanel>
+
+        <h4>PERFIL DOS EDUCADORES</h4>
+
+        <div class="portfolio">
+            <h2><h:outputText value=""/>CÓDIGO DO INSTRUMENTO = CE 2</h2>
+            <div class="text-home">
+                <a4j:keepAlive beanName="CeRotina002Bean"/>
+                <h:form id="form">
+
+                    <h:inputHidden id="versaoFormulario" value="1"/>
+
+                    <div id="erros" style="width:300px;display:inline-block;">
+                        <h:messages/>
+                    </div>
+                    <p>Selecione a coordenação à qual o educador(a) esta vinculado.</p>
+                    <a4j:include viewId="/include/CeIdentificaNucleo.xhtml"/>
+
+                    <a4j:region  rendered="#{!nucleoBean.renderedIdentificaLocal}">
+                        <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                            <tr>
+                                <td colspan="3">
+                                    <p>Nome do educador:
+                            <h:message for="nome" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:inputText id="nome"
+                                         value="#{CeRotina002Bean.rotina.nome}"
+                                         size="95"
+                                         maxlength="100"/>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                        <tr>
+                                            <td colspan="3">
+                                                <p>Disciplina(s) que o Educador leciona no núcleo observado:
+                                        <h:message for="listComponenteCurricular" style="color:#c70000; font-size:18px;"/><br/>
+                                        <h:selectManyCheckbox  id="listComponenteCurricular"
+                                                               value="#{CeRotina002Bean.rotina.listComponenteCurricular}"
+                                                               layout="pageDirection">
+                                            <f:selectItem itemLabel="Língua Portuguesa."            itemValue="componenteCurricularLinguaPortuguesa"/>
+                                            <f:selectItem itemLabel="Língua Inglesa."           itemValue="componenteCurricularLinguaEstrangeira"/>
+                                            <f:selectItem itemLabel="Ciências Humanas."             itemValue="componenteCurricularCienciasHumanas"/>
+                                            <f:selectItem itemLabel="Ciências da Natureza."         itemValue="componenteCurricularCienciasNatureza"/>
+                                            <f:selectItem itemLabel="Matemática."                   itemValue="componenteCurricularMatematica"/>
+                                            <f:selectItem itemLabel="Qualificação Profissional."    itemValue="componenteCurricularQualificacaoProfissional"/>
+                                            <f:selectItem itemLabel="Participação Cidadã."          itemValue="componenteCurricularParticipacaoCidada"/>
+                                        </h:selectManyCheckbox >
+                                        </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <p>Caso este questionário não seja respondido, marque o motivo a seguir.
+                            <h:message for="motivo" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="motivo"
+                                              value="#{CeRotina002Bean.rotina.motivo}"
+                                              onclick="habilitarCampoComplementar(this,'classificacaoLocalComplemento','(outro,jaRespondeu)');
+                                                  desabilitarCampoComplementar(this,'q2Condicional','(jaRespondeu,outro,negou)')"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="O Educador respondeu o questionário" itemValue="respondeu"/>
+                                <f:selectItem itemLabel="O Educador se negou a responder" itemValue="negou"/>
+                                <f:selectItem itemLabel="O Educador já respondeu em outro núcleo" itemValue="jaRespondeu"/>
+                                <f:selectItem itemLabel="Outro motivo" itemValue="outro"/>
+                            </h:selectOneRadio>
+
+                            </p>
+                            <table id="classificacaoLocalComplemento" style="display:none">
+                                <tr>
+                                    <td>
+                                <h:inputText value="#{CeRotina002Bean.rotina.motivoComplemento}"/>
+                                </td>
+                                </tr>
+                            </table>
+
+                            </td>
+                            </tr>
+
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                        <table id="q2Condicional" style="display:none">
+                            <tr>
+                                <td>
+
+                                    <table style="border:1px solid #DBDCD3;margin:10px;width:640px;">
+                                        <tr>
+                                            <td>
+                                                <p>1 – Assinale a opção que corresponde ao seu nível máximo de escolaridade. (Marque APENAS uma opção)
+                                        <h:message for="q1" style="color:#c70000; font-size:18px;"/><br/>
+                                        <h:selectOneRadio id="q1"
+                                                          value="#{CeRotina002Bean.rotina.q1}"
+                                                          layout="pageDirection">
+                                            <f:selectItem itemLabel="Ensino fundamental." itemValue="fundamental"/>
+                                            <f:selectItem itemLabel="Ensino médio/técnico." itemValue="medio/tecnico"/>
+                                            <f:selectItem itemLabel="Ensino médio/magistério" itemValue="medio/magisterio"/>
+                                            <f:selectItem itemLabel="Ensino superior incompleto." itemValue="superiorIncompleto"/>
+                                            <f:selectItem itemLabel="Ensino superior completo tecnológico." itemValue="superiorCompletoTecnologico"/>
+                                            <f:selectItem itemLabel="Ensino superior completo licenciatura." itemValue="superiorCompletoLicenciatura"/>
+                                            <f:selectItem itemLabel="Ensino superior completo bacharelado." itemValue="superiorCompletoBacharelado"/>
+                                            <f:selectItem itemLabel="Especialização (lato sensu)." itemValue="latoSensu"/>
+                                            <f:selectItem itemLabel="Mestrado." itemValue="Mestrado"/>
+                                            <f:selectItem itemLabel="Doutorado ou posterior." itemValue="Doutorado"/>
+                                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                        </h:selectOneRadio>
+                                        </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>2 – Há quantos anos você concluiu a Graduação?
+                            <h:message for="q2" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q2"
+                                              value="#{CeRotina002Bean.rotina.q2}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Não concluí a Graduação." itemValue="NaoConcluí"/>
+                                <f:selectItem itemLabel="Menos que 5 anos." itemValue="menos5"/>
+                                <f:selectItem itemLabel="De 5 a 10 anos." itemValue="5a10"/>
+                                <f:selectItem itemLabel="De 11 a 20 anos." itemValue="11a20"/>
+                                <f:selectItem itemLabel="Mais de 20 anos." itemValue="mais20"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>3 – Das opções abaixo, assinale a que melhor descreve a sua área de Graduação:
+                            <h:message for="q3" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q3"
+                                              value="#{CeRotina002Bean.rotina.q3}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Não concluí o Ensino Superior." itemValue="NaoConcluí"/>
+                                <f:selectItem itemLabel="Tecnólogo." itemValue="Tecnologo"/>
+                                <f:selectItem itemLabel="Educação (Pedagogia, Normal Superior ou similar)." itemValue="Educacao"/>
+                                <f:selectItem itemLabel="Letras ou similar." itemValue="Letras"/>
+                                <f:selectItem itemLabel="Ciências Humanas (História, Geografia, Sociologia ou similar)." itemValue="Humanas"/>
+                                <f:selectItem itemLabel="Ciências Exatas (Matemática, Física, Química ou similar)." itemValue="Exatas"/>
+                                <f:selectItem itemLabel="Ciências Biológicas (Ciências, Biologia ou similar)." itemValue="Biologicas"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>4 – Há quantos anos você leciona?
+                            <h:message for="q4" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q4"
+                                              value="#{CeRotina002Bean.rotina.q4}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Nunca lecionei antes." itemValue="NuncaLecionei"/>
+                                <f:selectItem itemLabel="3 anos ou menos."      itemValue="3menos"/>
+                                <f:selectItem itemLabel="De 4 a 7 anos."        itemValue="4a7"/>
+                                <f:selectItem itemLabel="De 8 a 11 anos. "      itemValue="8a11"/>
+                                <f:selectItem itemLabel="De 12 a 15 anos. "     itemValue="12a15"/>
+                                <f:selectItem itemLabel="Há mais de 15 anos. "  itemValue="mais15"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>5 - Em quais níveis/modalidades de ensino você já lecionou por pelo menos um ano? (Marque TODAS as opções que julgar adequadas) :
+                            <h:message for="listQ5" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectManyCheckbox  id="listQ5"
+                                                   value="#{CeRotina002Bean.rotina.listQ5}"
+                                                   layout="pageDirection">
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                <f:selectItem itemLabel="Nunca lecionei antes."             itemValue="Q5NuncaLecionei"/>
+                                <f:selectItem itemLabel="Educação Infantil."                itemValue="Q5EducacaoInfantil"/>
+                                <f:selectItem itemLabel="Ensino Fundamental."               itemValue="Q5EnsinoFundamental"/>
+                                <f:selectItem itemLabel="Ensino Médio."                     itemValue="Q5EnsinoMedio"/>
+                                <f:selectItem itemLabel="Educação de Jovens e Adultos."     itemValue="Q5EducacaoJovensAdultos"/>
+                                <f:selectItem itemLabel="EnsinoTécnico/Profissionalizante." itemValue="Q5EnsinoTecnicoProfissionalizante"/>
+                                <f:selectItem itemLabel="Ensino Superior."                  itemValue="Q5EnsinoSuperior"/>
+                                <f:selectItem itemLabel="Outros."                           itemValue="Q5Outros"/>
+                            </h:selectManyCheckbox >
+                            <h:inputText id="q5OutrosComplemento" value="#{CeRotina002Bean.rotina.q5OutrosComplemento}"/>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>6 – Para qual regime de trabalho você foi/será selecionado para o ProJovem Urbano?
+                            <h:message for="q6" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectOneRadio id="q6"
+                                              value="#{CeRotina002Bean.rotina.q6}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="Autônomo"      itemValue="Autonomo"/>
+                                <f:selectItem itemLabel="CLT 20 Horas"  itemValue="CLT20Horas"/>
+                                <f:selectItem itemLabel="CLT 30 horas"  itemValue="CLT30Horas"/>
+                                <f:selectItem itemLabel="CLT 40 horas"  itemValue="CLT40Horas"/>
+                                <f:selectItem itemLabel="Complementação e/ou ampliação de carga horária"  itemValue="Complementacao"/>
+                                <f:selectItem itemLabel="Não sei"       itemValue="naoSei"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>7 - Como  foi seu processo seletivo para admissão no ProJovem Urbano? (Você pode marcar mais de uma alternativa)
+                            <h:message for="listQ7" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectManyCheckbox  id="listQ7"
+                                                   value="#{CeRotina002Bean.rotina.listQ7}"
+                                                   layout="pageDirection">
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                <f:selectItem itemLabel="Convite."                                    itemValue="Q7Convite"/>
+                                <f:selectItem itemLabel="Avaliação de currículo."                     itemValue="Q7AvaliacaoCurrículo"/>
+                                <f:selectItem itemLabel="Entrevista. "                                itemValue="Q7Entrevista"/>
+                                <f:selectItem itemLabel="Prova escrita."                              itemValue="Q7ProvaEscrita"/>
+                                <f:selectItem itemLabel="Desempenho na formação inicial do Programa " itemValue="Q7Desempenho"/>
+                            </h:selectManyCheckbox >
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>8 - A partir da formação inicial que você está recebendo, que material, específico do ProJovem Urbano, você já conhece?  (Você pode marcar mais de uma alternativa)
+                            <h:message for="listQ8" style="color:#c70000; font-size:18px;"/><br/>
+                            <h:selectManyCheckbox  id="listQ8"
+                                                   value="#{CeRotina002Bean.rotina.listQ8}"
+                                                   layout="pageDirection">
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                <f:selectItem itemLabel="Manual do Educador "                                   itemValue="a"/>
+                                <f:selectItem itemLabel="Agenda do Estudante "                                  itemValue="b"/>
+                                <f:selectItem itemLabel="Caderno do Projeto de Orientação Profissional (POP) "  itemValue="c"/>
+                                <f:selectItem itemLabel="Caderno do Plano de Ação Comunitária (PLA) "           itemValue="d"/>
+                                <f:selectItem itemLabel="Guia de Estudo da Unidade Formativa    "               itemValue="e"/>
+                                <f:selectItem itemLabel="Caderno de Registro e Avaliação  (CRA ) "            itemValue="g"/>
+                                <f:selectItem itemLabel="Plano Nacional de Formação de gestores, formadores e educadores" itemValue="h"/>
+                            </h:selectManyCheckbox >
+                            </p>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>9 - No quadro abaixo, marque as opções que melhor caracterizam o seu conhecimento em informática:
+                                    </p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p>Softwares de texto
+                                        <h:message for="q9SoftwaresTexto" style="color:#c70000; font-size:18px;"/></p>
+                                </td>
+                                <td>
+                            <h:selectOneRadio id="q9SoftwaresTexto"
+                                              value="#{CeRotina002Bean.rotina.q9SoftwaresTexto}"
+                                              layout="lineDirection">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Confecção planilhas
+                            <h:message for="q9ConfeccaoPlanilhas" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneRadio id="q9ConfeccaoPlanilhas"
+                                              value="#{CeRotina002Bean.rotina.q9ConfeccaoPlanilhas}"
+                                              layout="lineDirection">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Internet
+                            <h:message for="q9Internet" style="color:#c70000; font-size:18px;"/></p>
+                            </td>
+                            <td>
+                            <h:selectOneRadio id="q9Internet"
+                                              value="#{CeRotina002Bean.rotina.q9Internet}"
+                                              layout="lineDirection">
+                                <f:selectItem itemLabel="Não sei"   itemValue="naoSei"/>
+                                <f:selectItem itemLabel="Básico"    itemValue="basico"/>
+                                <f:selectItem itemLabel="Avançado"  itemValue="avancado"/>
+                                <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            </h:selectOneRadio>
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>10 – Você participou da Formação Inicial oferecida pelo ProJovem Urbano?
+                        <h:message for="q10" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q10"
+                                          value="#{CeRotina002Bean.rotina.q10}"
+                                          layout="pageDirection"
+                                          onclick="desabilitarCampoComplementar(this,'q10Condicional','nao')">
+                            <f:selectItem itemLabel="Sim"        itemValue="sim"/>
+                            <f:selectItem itemLabel="Parcialmente" itemValue="parcialmente"/>
+                            <f:selectItem itemLabel="Não (Vá para questão 16)" itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="q10Condicional" style="">
+                                    <tr>
+                                        <td>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>11 - Em que período a Formação Inicial foi ofertada? </p>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p>A - Data de inicio da formação inicial: </p>
+                                                    </td>
+                                                    <td>
+                                                <h:inputText  id="q11a"
+                                                              value="#{CeRotina002Bean.rotina.q11a}"
+                                                              size="10" maxlength="10"
+                                                              onkeyup="mascara_data(this,event)"
+                                                              onblur="CheckDate(this)"/>
+                                                <h:message for="q11a" style="color:#c70000; font-size:18px;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>B - Data de término da formação inicial: </p>
+                                        </td>
+                                        <td>
+                                    <h:inputText id="q11b"
+                                                 value="#{CeRotina002Bean.rotina.q11b}"
+                                                 size="10" maxlength="10"
+                                                 onkeyup="mascara_data(this,event)"
+                                                 onblur="CheckDate(this)"/>
+                                    <h:message for="q11b" style="color:#c70000; font-size:18px;"/>
+                            </td>
+                        </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <p>12 – Qual foi a carga horária total da Formação Inicial?
+                        <h:message for="q12" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q12"
+                                          value="#{CeRotina002Bean.rotina.q12}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Menor que 96 horas presenciais"        itemValue="menor96horas"/>
+                            <f:selectItem itemLabel="96 horas presenciais" itemValue="96horas"/>
+                            <f:selectItem itemLabel="Maior que 96 horas presenciais" itemValue="maior96horas"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>13 – O Guia do Educador foi utilizado?
+                        <h:message for="q13" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q13"
+                                          value="#{CeRotina002Bean.rotina.q13}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim"        itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>14 – O manual do aluno foi utilizado?
+                        <h:message for="q14" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q14"
+                                          value="#{CeRotina002Bean.rotina.q14}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim"        itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>15 – Ter participado da formação inicial contribuiu para o seu trabalho no ProJovem Urbano?
+                        <h:message for="q15" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q15"
+                                          value="#{CeRotina002Bean.rotina.q15}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim"        itemValue="sim"/>
+                            <f:selectItem itemLabel="Não" itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>16 – São realizadas atividades coletivas/grupo com os educadores do ProJovem Urbano?
+                        <h:message for="q16" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q16"
+                                          value="#{CeRotina002Bean.rotina.q16}"
+                                          layout="pageDirection"
+                                          onclick="desabilitarCampoComplementar(this,'q16Condicional','nao')">
+                            <f:selectItem itemLabel="Sim. Menos de 12h mensais de atividades"               itemValue="sim12menos"/>
+                            <f:selectItem itemLabel="Sim. 12h mensais ou mais de atividades"                itemValue="sim12horas"/>
+                            <f:selectItem itemLabel="Não (Se sua resposta for 'não', fim do questionário)"  itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="q16Condicional" style="">
+
+                                    <tr>
+                                        <td>
+                                            <p>17 – Como é distribuida, no tempo, a relação dessas atividades?
+                                    <h:message for="q17" style="color:#c70000; font-size:18px;"/><br/>
+                                    <h:selectOneRadio id="q17"
+                                                      value="#{CeRotina002Bean.rotina.q17}"
+                                                      layout="pageDirection">
+                                        <f:selectItem itemLabel="Semanalmente"                  itemValue="semanalmente"/>
+                                        <f:selectItem itemLabel="Quinzenalmente"                itemValue="quinzenalmente"/>
+                                        <f:selectItem itemLabel="Mensalmente"                   itemValue="mensalmente"/>
+                                        <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                    </h:selectOneRadio></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>18 – Com que frequência você participa dessas atividades?
+                        <h:message for="q18" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q18"
+                                          value="#{CeRotina002Bean.rotina.q18}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sempre"                  itemValue="sempre"/>
+                            <f:selectItem itemLabel="Às vezes"                itemValue="asVezes"/>
+                            <f:selectItem itemLabel="Raramente ou nunca"      itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>19 – Participar dessas atividades tem contribuido para o seu trabalho no ProJovem?
+                        <h:message for="q19" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q19"
+                                          value="#{CeRotina002Bean.rotina.q19}"
+                                          layout="pageDirection">
+                            <f:selectItem itemLabel="Sim"                   itemValue="sim"/>
+                            <f:selectItem itemLabel="Não"                   itemValue="nao"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio></p>
+                        </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>20 – Em que horário acontecem essas atividades?
+                        <h:message for="q20" style="color:#c70000; font-size:18px;"/><br/>
+                        <h:selectOneRadio id="q20"
+                                          value="#{CeRotina002Bean.rotina.q20}"
+                                          layout="pageDirection"
+                                          onclick="desabilitarCampoComplementar(this,'Q20Complemento','(antes,apos,sabados,naoRespondeu,turno)')">
+                            <f:selectItem itemLabel="Antes do início das aulas"        itemValue="antes"/>
+                            <f:selectItem itemLabel="Após o término das aulas"         itemValue="apos"/>
+                            <f:selectItem itemLabel="Aos sábados/domingos"             itemValue="sabados"/>
+                            <f:selectItem itemLabel="Em outro turno"                   itemValue="turno"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                            <f:selectItem itemLabel="Outro." itemValue="outro"/>
+                        </h:selectOneRadio></p>
+
+                        <table id="Q20Complemento" style="display:none">
+                            <tr>
+                                <td>
+                            <h:inputText value="#{CeRotina002Bean.rotina.q20Complemento}"/>
+                            </td>
+                            </tr>
+                        </table>
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Assinale a frequencia com que os temas relacionados abaixo são discutidos nas atividades coletivas/grupos.
+                                </p>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p>21 - Projeto de Orientação Profissional (POP)</p>
+                                        </td>
+                                        <td>
+                                    <h:selectOneRadio id="q21"
+                                                      value="#{CeRotina002Bean.rotina.q21}"
+                                                      layout="lineDirection">
+                                        <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                                        <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                                        <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                                        <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                                    </h:selectOneRadio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>22 - Plano de Ação Comunitária (PLA)</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q22"
+                                          value="#{CeRotina002Bean.rotina.q22}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>23 - Fichas de registro de avaliações (CRA)</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q23"
+                                          value="#{CeRotina002Bean.rotina.q23}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>24 - Integração entre as três dimensões (educação/trabalho/participação cidadã)</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q24"
+                                          value="#{CeRotina002Bean.rotina.q24}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>25 - Estudos complementares</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q25"
+                                          value="#{CeRotina002Bean.rotina.q25}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>26 - Plantões</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q26"
+                                          value="#{CeRotina002Bean.rotina.q26}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>27 - Evasão/desistência/frequência</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q27"
+                                          value="#{CeRotina002Bean.rotina.q27}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>28 - Relacionamento com os alunos</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q28"
+                                          value="#{CeRotina002Bean.rotina.q28}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>29 - Aprendizagem dos alunos</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q29"
+                                          value="#{CeRotina002Bean.rotina.q29}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>30 - Acesso ao meterial didático</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q30"
+                                          value="#{CeRotina002Bean.rotina.q30}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>31 - Condições de trabalho no núcleo</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q31"
+                                          value="#{CeRotina002Bean.rotina.q31}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>32 - Planejamento das Unidades Formativas</p>
+                            </td>
+                            <td>
+                        <h:selectOneRadio id="q32"
+                                          value="#{CeRotina002Bean.rotina.q32}"
+                                          layout="lineDirection">
+                            <f:selectItem itemLabel="Frequentemente"    itemValue="frequentemente"/>
+                            <f:selectItem itemLabel="Raramente"         itemValue="raramente"/>
+                            <f:selectItem itemLabel="Nunca"             itemValue="nunca"/>
+                            <f:selectItem itemLabel="O Educador não respondeu." itemValue="naoRespondeu"/>
+                        </h:selectOneRadio>
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+
+
+
+                        </table>
+
+                        </td>
+                        </tr>
+
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <a4j:commandButton value="Salvar Rotina" styleClass="buttons" action="#{CeRotina002Bean.salvarRotina}"  status="aguarde" reRender="form" onclick="javascript:scroll(0,0);">
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido}" target="#{CeRotina002Bean.rotina.nucleo}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.uf}" target="#{CeRotina002Bean.rotina.identificaEntradaUf}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.coordenacao}" target="#{CeRotina002Bean.rotina.identificaEntradaCoordenacao}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.municipio}" target="#{CeRotina002Bean.rotina.identificaEntradaMunicipio}" />
+                            <f:setPropertyActionListener value="#{nucleoBean.nucleoEscolhido.entrada}" target="#{CeRotina002Bean.rotina.identificaEntradaEntrada}" />
+                            <f:setPropertyActionListener value="#{CeRotina002Bean.rotina}" target="#{rotinasLancadasBean.cerotina002}" />
+
+                        </a4j:commandButton>
+
+                    </a4j:region>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="clr"></div>
+    </ui:define >
+
+</ui:composition>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Contact Us</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+<!--
+jQuery(document).ready(function(){
+	$('#contactform').submit(function(){				  
+		var action = $(this).attr('action');
+		//$('#contactform')
+		//	.before('<div class="loader"><img src="images/ajax-loader.gif" align="center" /></div>')
+		//	.attr('disabled','disabled');
+		$.post(action, { 
+			name: $('#name').val(),
+			email: $('#email').val(),
+			//phone: $('#phone').val(),
+			//concerning: $('#concerning').val(),
+			message: $('#message').val()
+		},
+			function(data){
+				$('#contactform #submit').attr('disabled','');
+				$('.response').remove();
+				$('#contactform').before('<div class="response">'+data+'</div>');
+				$('.response').slideDown();
+				//$('.loader').fadeOut(500,function(){$(this).remove()});
+				if(data=='Message sent!') $('#contactform').slideUp();
+			}
+		); 
+		return false;
+	});
+});
+-->
+</script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+      <h2>Company Name</h2>
+      <div class="text">premium business templates</div>
+    </div>
+    <div class="search">
+      <form action="register.php" method="post">
+        <input name="" type="text"  class="keywords" />
+        <input name="" type="image" src="images/search.gif" />
+      </form>
+    </div>
+    <div class="clr"></div>
+    <div class="menu">
+      <ul>
+        <li><a href="index.html">Home page<br />
+          <span>home page</span></a></li>
+        <li><a href="about_us.html" >About us<br />
+          <span>company info</span></a></li>
+        <li><a href="#">Services<br />
+          <span>information</span></a></li>
+        <li><a href="Portfilio.html">Portfilio<br />
+          <span>products</span></a></li>
+        <li><a href="Contacts_us.html"  class="active">Contacts us<br />
+          <span>call is now</span></a></li>
+      </ul>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="body">
+    <h4>Contact</h4>
+    <div class="Contact">
+      <h2>Contact us</h2>
+      <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <form action="contact.php" method="post" id="contactform">
+        <ol>
+          <li>
+            <label for="name">Your Name*<br />
+              <span>Add your name </span></label>
+            <input id="name" name="name" class="text" />
+          </li>
+          <li>
+            <label for="email">Your Email Address*<br />
+              <span> Add a valid address</span></label>
+            <input id="email" name="email" class="text" />
+          </li>
+          <li>
+            <label for="message">Your Message*<br />
+              <span> Communicate with us</span></label>
+            <textarea id="message" name="message" rows="6" cols="50"></textarea>
+          </li>
+          <li class="buttons">
+            <input type="submit" value="Send Message" id="submit" />
+          </li>
+        </ol>
+      </form>
+    </div>
+  </div>
+  <div class="contact_info">
+    <p><strong>Sales Inquiries</strong></p>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Contact our sales team today!<br />
+      <a href="#">sales@yourdomainname.com</a></p>
+    <p><strong>Technical Support</strong></p>
+    <p>Current customers contact our technical support team.<br />
+      <a href="#">support@yourdomainname.com</a></p>
+    <p><strong>Biz Development</strong></p>
+    <p>Contact our business development team today!<br />
+      <a href="#">business@yourdomainname.com</a></p>
+    <p>&nbsp;</p>
+  </div>
+  <div class="clr"></div>
+</div>
+<div class="clr"></div>
+<div class="footer"> © Copyright 2009. Your Site Name Dot Com. All Rights Reserved<br />
+  <a href="#">Home</a> | <a href="#">Contact</a> | <a href="#">RSS </a></div>
+</body>
+</html>
