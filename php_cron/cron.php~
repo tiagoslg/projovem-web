@@ -1,0 +1,41 @@
+<?php
+/*
+ * Inicio dos comandos para configuração da crontab*/
+ //*/5 * * * * /diretorio/script/script.[php,sh,cgi] - Executa o comando a cada 5min
+ //* * * * * php /path/to/your/cron.php - Caso o php esteja como um cgi
+ //* * * * * lynx -dump http://www.somedomain.com/cron.php - Caso o php esteja como um apache module
+ //Shell> crontab crontab - Finalizando
+
+$file_novo = "/home/tiagoslg/Dropbox/projovem/war/projovem.war";
+$file_antigo = "/opt/SUNWappserver/domains/domain1/autodeploy/projovem.war"; // Must exists and must be writable for PHP
+$md5_new_file = md5_file($file_novo);
+$md5_old_file = md5_file($file_antigo);
+print($md5_new_file ."<br />");
+print($md5_old_file ."<br />");
+if($md5_new_file <> $md5_old_file)
+    {
+    echo "file is out of date, updating now...<br />";
+    echo "Renomeando arquivo antigo: <br /> nome antigo: " . $file_antigo."<br />";
+    echo "nome novo: " . $file_antigo. ".bak";
+    rename($file_antigo, $file_antigo.".bak");
+    
+    if(!copy($file_novo, $file_antigo)){
+        $errors= error_get_last();
+        echo  "<br />\n"."COPY ERROR: ".$errors['type'];
+        echo "<br />\n".$errors['message'];
+    }
+    //    //stream_copy($file_xls, $file_md5);
+
+/*Here we do some job...
+In my case - dealing with "Spreadsheet Excel Reader"
+*/
+    //unlink($file_md5.".bak");
+    }
+// "Not for crontab" - Remove the following section if you are intending to run it in crontab
+//else
+    //{
+    //echo "file is up to date, nothing to do...";
+    //}
+// End "Not for crontab";
+
+?>
